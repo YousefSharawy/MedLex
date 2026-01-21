@@ -6,6 +6,5 @@ class RemoteDataSource {
 
   const RemoteDataSource({required SupabaseClient supabase})
       : _supabase = supabase;
-
  
 }

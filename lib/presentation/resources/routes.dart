@@ -1,22 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
 
 import '../splash/view/splash_view.dart';
 
 class Routes {
   static const String splash = '/';
-  static const String onboarding = '/onboarding';
-  static const String home = '/home';
-  static const String profile = '/profile';
-  static const String translation = '/translation';
-  static const String subscription = '/subscription';
-  static const String audioTranslation = '/audiotranslation';
-  static const String videoTranslation = '/videotranslation';
-  static const String textTranslation = '/texttranslation';
-  static const String translationHistory = '/translationhistory';
-  static const String translationResult = '/translationresult';
+  static const String onboarding1 = '/onboarding1';
+  static const String onboarding2 = '/onboarding2';
+  
 }
 
 class AppNavigation {
@@ -31,27 +25,27 @@ class AppNavigation {
       GoRoute(
         path: Routes.splash,
         pageBuilder:
-            (context, state) => CustomTransitionPage(
+            (context, state) => CustomTransitionPage2(
               key: state.pageKey,
               child: const SplashView(),
             ),
       ),
       GoRoute(
-        path: Routes.onboarding,
+        path: Routes.onboarding1,
         pageBuilder:
-            (context, state) => CustomTransitionPage(
+            (context, state) => CustomTransitionPage2(
               key: state.pageKey,
               child: const OnBoardingView(),
             ),
       ),
-      // GoRoute(
-      //   path: Routes.register,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const LoginInfoView(),
-      //       ),
-      // ),
+      GoRoute(
+        path: Routes.onboarding2,
+        pageBuilder:
+            (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const OnBoardingSecondView(),
+            ),
+      ),
       // GoRoute(
       //   path: Routes.home,
       //   pageBuilder:
@@ -197,6 +191,41 @@ class CustomTransitionPage extends Page {
         );
       },
       fullscreenDialog: false,
+    );
+  }
+}
+
+/// Custom transition with cross-fade masked by a diagonal light sweep.
+/// The light travels from primary button area (bottom-right) to back button (top-left)
+/// and back, creating continuity illusion rather than navigation feel.
+class CustomTransitionPage2 extends Page {
+  final Widget child;
+  final Duration duration;
+
+  const CustomTransitionPage2({
+    required LocalKey key,
+    required this.child,
+    this.duration = const Duration(milliseconds: 400),
+  }) : super(key: key);
+
+  @override
+  Route createRoute(BuildContext context) {
+    return PageRouteBuilder(
+      settings: this,
+      transitionDuration: duration,
+      reverseTransitionDuration: duration,
+      pageBuilder: (context, animation, secondaryAnimation) => child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final fadeAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeInOut,
+        );
+
+        return FadeTransition(
+          opacity: fadeAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

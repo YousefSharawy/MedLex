@@ -8,11 +8,13 @@ class PrimaryScaffold extends StatefulWidget {
     this.appBar,
     this.showBannerAd = false,
     this.drawer,
+    this.backgroundColor,
   });
   final Widget body;
   final AppBar? appBar;
   final bool showBannerAd;
   final Drawer? drawer;
+  final Color ? backgroundColor;
   @override
   State<PrimaryScaffold> createState() => _PrimaryScaffoldState();
 }
@@ -97,7 +99,7 @@ class _PrimaryScaffoldState extends State<PrimaryScaffold> {
     return Scaffold(
       appBar: widget.appBar,
       drawer: widget.drawer,
-      backgroundColor: Colors.white,
+      backgroundColor: widget.backgroundColor?? Colors.white,
       body: widget.body,
       bottomNavigationBar: _buildBottomAdContainer(),
     );

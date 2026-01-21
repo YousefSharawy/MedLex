@@ -27,12 +27,13 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        ConstantsManager.arLocale,
-        // ConstantsManager.enLocale,
+        // ConstantsManager.arLocale,
+        ConstantsManager.enLocale,
       ],
       path: 'assets/translation',
-      fallbackLocale: ConstantsManager.arLocale,
-      startLocale: ConstantsManager.arLocale,
+      fallbackLocale: ConstantsManager.enLocale,
+      startLocale: ConstantsManager.enLocale,
+
       assetLoader: const CodegenLoader(),
       child: const MyApp(),
     ),

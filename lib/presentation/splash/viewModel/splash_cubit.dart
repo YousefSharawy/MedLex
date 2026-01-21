@@ -13,7 +13,7 @@ class SplashCubit extends Cubit<SplashState> {
 
   void start() async {
     await Future.delayed(Duration(seconds: ConstantsManager.splashTimer));
-    emit(SplashState.success(route: Routes.onboarding));
+    emit(SplashState.success(route: Routes.onboarding1));
     // final authStream = FirebaseAuth.instance.authStateChanges();
     // authStream.listen((User? user) {
     //   if (user == null) {

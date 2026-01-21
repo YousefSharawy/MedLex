@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class ColorManager {
   static const primary = Color(0xff1AA6A6);
+  static const trasnparent = Colors.transparent;
   static const splashGradiant1 = Color(0xff1FB5AE);
   static const splashGradiant2 = Color(0xff138E88);
   static const Color darkPrimary = Color(0xff0C092A);
