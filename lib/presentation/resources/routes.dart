@@ -1,21 +1,30 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
 
+import '../home/home_view.dart';
+import '../dictionary/dictionary_view.dart';
+import '../study/study_view.dart';
+import '../profile/profile_view.dart';
 import '../splash/view/splash_view.dart';
 
 class Routes {
   static const String splash = '/';
   static const String onboarding1 = '/onboarding1';
   static const String onboarding2 = '/onboarding2';
-  
+  static const String home = '/home';
+  static const String dictionary = '/dictionary';
+  static const String study = '/study';
+  static const String profile = '/profile';
 }
 
 class AppNavigation {
   AppNavigation._();
+
   static final _rootNK = GlobalKey<NavigatorState>();
+  
 
   static final GoRouter router = GoRouter(
     initialLocation: Routes.splash,
@@ -41,113 +50,82 @@ class AppNavigation {
       GoRoute(
         path: Routes.onboarding2,
         pageBuilder:
-            (context, state) => CustomTransitionPage(
+            (context, state) => CustomTransitionPage2(
               key: state.pageKey,
               child: const OnBoardingSecondView(),
             ),
       ),
-      // GoRoute(
-      //   path: Routes.home,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const HomeView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.translation,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const TranslationView(),
-      //       ),
-      // ),
-      
-      // GoRoute(
-      //   path: Routes.translationHistory,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const TrasnslationHistoryView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.textTranslation,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const TextTranslationView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.videoTranslation,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const VideoTranslationView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.audioTranslation,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const AudioTranslationView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.translationResult,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const TranslationResultView(),
-      //       ),
-      // ),
-      
-      // GoRoute(
-      //   path: Routes.profile,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const ProfileView(),
-      //       ),
-      // ),
-      // GoRoute(
-      //   path: Routes.subscription,
-      //   pageBuilder:
-      //       (context, state) => CustomTransitionPage(
-      //         key: state.pageKey,
-      //         child: const SubscriptionPlanView(),
-      //       ),
-      // ),
-      
-      // ShellRoute(
-      //   parentNavigatorKey: _rootNK,
-      //   builder: (context, state, child) {
-      //     return BlocProvider(
-      //       create: (context) => AuthBloc(getIt<Repository>()),
-      //       child: child,
-      //     );
-      //   },
-      //   routes: [
-      //     GoRoute(
-      //       path: Routes.login,
-      //       pageBuilder:
-      //           (context, state) => CustomTransitionPage(
-      //             key: state.pageKey,
-      //             child: const LoginView(),
-      //           ),
-      //     ),
-      //     GoRoute(
-      //       path: Routes.loginInfo,
-      //       pageBuilder:
-      //           (context, state) => CustomTransitionPage(
-      //             key: state.pageKey,
-      //             child: const LoginInfoView(),
-      //           ),
-      //     ),
-      //   ],
-      // ),
+
+      // Main app with bottom navigation
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNavBar(navigationShell: navigationShell);
+        },
+        branches: <StatefulShellBranch>[
+          // Home Tab
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: Routes.home,
+                pageBuilder:
+                    (context, state) => CustomTransitionPage2(
+                      key: state.pageKey,
+                      child: const HomeView(),
+                    ),
+                // Add nested routes here if needed
+                // routes: <RouteBase>[
+                //   GoRoute(
+                //     path: 'details',
+                //     builder: (context, state) => const HomeDetailsView(),
+                //   ),
+                // ],
+              ),
+            ],
+          ),
+
+          // Dictionary Tab
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: Routes.dictionary,
+                pageBuilder:
+                    (context, state) => CustomTransitionPage2(
+                      key: state.pageKey,
+                      child: const DictionaryView(),
+                    ),
+              ),
+            ],
+          ),
+
+          // Study Tab
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: Routes.study,
+                pageBuilder:
+                    (context, state) => CustomTransitionPage2(
+                      key: state.pageKey,
+                      child: const StudyView(),
+                    ),
+              ),
+            ],
+          ),
+
+          // Profile Tab
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: Routes.profile,
+                pageBuilder:
+                    (context, state) => CustomTransitionPage2(
+                      key: state.pageKey,
+                      child: ProfileView(),
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   );
 }
@@ -221,10 +199,7 @@ class CustomTransitionPage2 extends Page {
           curve: Curves.easeInOut,
         );
 
-        return FadeTransition(
-          opacity: fadeAnimation,
-          child: child,
-        );
+        return FadeTransition(opacity: fadeAnimation, child: child);
       },
     );
   }

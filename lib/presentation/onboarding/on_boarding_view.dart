@@ -6,6 +6,7 @@ import 'package:transly/presentation/onboarding/points_column.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
+import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 
@@ -74,7 +75,9 @@ class OnBoardingView extends StatelessWidget {
                 fontFamily: FontConstants.interFamily,
                 color: ColorManager.primary,
               ),
-              onPress: () {},
+              onPress: () {
+                context.go(Routes.home);
+              }
             ),
           ],
         ),
