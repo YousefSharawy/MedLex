@@ -103,7 +103,7 @@ class _PrimaryScaffoldState extends State<PrimaryScaffold> {
     return Scaffold(
       appBar: widget.appBar,
       drawer: widget.drawer,
-      backgroundColor: widget.backgroundColor?? Colors.white,
+      backgroundColor: widget.backgroundColor?? ColorManager.background,
       body: widget.body,
       bottomNavigationBar: _buildBottomAdContainer(),
     );

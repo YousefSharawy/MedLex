@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
+import 'package:transly/presentation/search/search_view.dart';
 
 import '../home/home_view.dart';
 import '../dictionary/dictionary_view.dart';
@@ -18,6 +19,8 @@ class Routes {
   static const String dictionary = '/dictionary';
   static const String study = '/study';
   static const String profile = '/profile';
+  static const String search = '/search';
+
 }
 
 class AppNavigation {
@@ -55,6 +58,13 @@ class AppNavigation {
               child: const OnBoardingSecondView(),
             ),
       ),
+      GoRoute(
+  path: Routes.search,
+  pageBuilder: (context, state) => CustomTransitionPage2(
+    key: state.pageKey,
+    child: const SearchView(),
+  ),
+),
 
       // Main app with bottom navigation
       StatefulShellRoute.indexedStack(
