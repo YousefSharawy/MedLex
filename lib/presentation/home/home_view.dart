@@ -3,7 +3,7 @@ import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/home/widgets/daily_term_card.dart';
 import 'package:transly/presentation/home/widgets/recently_view_item.dart';
 import 'package:transly/presentation/home/widgets/section_header.dart';
-import 'package:transly/presentation/search/presistent_search_bar.dart';
+import 'package:transly/presentation/search/widgets/presistent_search_bar.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     SizedBox(height: AppHeight.s6),
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal:AppWidth.s2),
+                      padding: EdgeInsets.symmetric(horizontal: AppWidth.s2),
                       child: Text(
                         'Medical knowledge made visual',
                         style: getRegularStyle(
@@ -124,6 +124,8 @@ class _HomeViewState extends State<HomeView> {
                         title: 'Myocardium',
                         category: 'Cardiology',
                       ),
+
+                      SizedBox(height: AppHeight.s100),
                     ],
                   ),
                 ),

@@ -19,8 +19,8 @@ class ColorManager {
   static const Color darkPrimary = Color(0xff0C092A);
 
   static const tealSoft = Color(0XFFB8E3E3);
+  static const lightGrey = Color(0XFFF3F4F6);
 
-  static const lightGrey = Color(0XFFE5E7EB);
   static const grey = Color(0xff464655);
   static const divider = Color(0xffECEDF3);
 

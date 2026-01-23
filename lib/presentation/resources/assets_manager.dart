@@ -21,6 +21,7 @@ class IconAssets {
   static const String clockIcon = '$ICON_PATH/clock.png';
   static const String volumeUp = '$ICON_PATH/volumeup.png';
   static const String bookmark = '$ICON_PATH/bookmark.png';
+  static const String trending = '$ICON_PATH/trending.png';
 }
 
 class DemoAssets {}
