@@ -1,9 +1,10 @@
+// routes.dart
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
-import 'package:transly/presentation/search/search_view.dart';
 
 import '../home/home_view.dart';
 import '../dictionary/dictionary_view.dart';
@@ -19,15 +20,12 @@ class Routes {
   static const String dictionary = '/dictionary';
   static const String study = '/study';
   static const String profile = '/profile';
-  static const String search = '/search';
-
 }
 
 class AppNavigation {
   AppNavigation._();
 
   static final _rootNK = GlobalKey<NavigatorState>();
-  
 
   static final GoRouter router = GoRouter(
     initialLocation: Routes.splash,
@@ -58,21 +56,12 @@ class AppNavigation {
               child: const OnBoardingSecondView(),
             ),
       ),
-      GoRoute(
-  path: Routes.search,
-  pageBuilder: (context, state) => CustomTransitionPage2(
-    key: state.pageKey,
-    child: const SearchView(),
-  ),
-),
 
-      // Main app with bottom navigation
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell: navigationShell);
         },
         branches: <StatefulShellBranch>[
-          // Home Tab
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -82,18 +71,10 @@ class AppNavigation {
                       key: state.pageKey,
                       child: const HomeView(),
                     ),
-                // Add nested routes here if needed
-                // routes: <RouteBase>[
-                //   GoRoute(
-                //     path: 'details',
-                //     builder: (context, state) => const HomeDetailsView(),
-                //   ),
-                // ],
               ),
             ],
           ),
 
-          // Dictionary Tab
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -101,13 +82,13 @@ class AppNavigation {
                 pageBuilder:
                     (context, state) => CustomTransitionPage2(
                       key: state.pageKey,
-                      child: const DictionaryView(),
+                      child:
+                          const DictionaryView(), 
                     ),
               ),
             ],
           ),
 
-          // Study Tab
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -121,7 +102,6 @@ class AppNavigation {
             ],
           ),
 
-          // Profile Tab
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(

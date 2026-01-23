@@ -20,7 +20,7 @@ class DailyTermCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: ColorManager.black.withAlpha(63),
-            blurRadius: 10,
+            blurRadius: 5,
             offset: const Offset(0, 2),
           ),
         ],
