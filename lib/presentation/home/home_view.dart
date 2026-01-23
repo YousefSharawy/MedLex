@@ -119,13 +119,11 @@ class _HomeViewState extends State<HomeView> {
                         title: 'Myocardium',
                         category: 'Cardiology',
                       ),
-                      SizedBox(height: AppHeight.s8),
                       const RecentlyViewedItem(
                         title: 'Myocardium',
                         category: 'Cardiology',
                       ),
-
-                      SizedBox(height: AppHeight.s100),
+                      SizedBox(height: AppHeight.s80),
                     ],
                   ),
                 ),

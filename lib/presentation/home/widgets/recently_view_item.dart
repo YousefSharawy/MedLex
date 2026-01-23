@@ -9,17 +9,23 @@ class RecentlyViewedItem extends StatelessWidget {
   final String title;
   final String category;
 
-  const RecentlyViewedItem({super.key, required this.title, required this.category});
+  const RecentlyViewedItem({
+    super.key,
+    required this.title,
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.symmetric(horizontal: AppWidth.s10,vertical: AppHeight.s7),
+      margin: EdgeInsets.only(bottom: AppHeight.s12),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppWidth.s10,
+        vertical: AppHeight.s7,
+      ),
       decoration: BoxDecoration(
         color: ColorManager.white,
-        border: Border.all(
-          color: ColorManager.black.withAlpha(25),
-        ),
+        border: Border.all(color: ColorManager.black.withAlpha(25)),
         borderRadius: BorderRadius.circular(AppRadius.s16),
         boxShadow: [
           BoxShadow(
@@ -36,11 +42,11 @@ class RecentlyViewedItem extends StatelessWidget {
             height: AppHeight.s66,
             child: Image.asset(ImageAssets.heart, fit: BoxFit.cover),
           ),
-           SizedBox(width: AppWidth.s15),
+          SizedBox(width: AppWidth.s15),
 
           Expanded(
             child: Padding(
-              padding:  EdgeInsets.symmetric(vertical:AppHeight.s3),
+              padding: EdgeInsets.symmetric(vertical: AppHeight.s3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,7 +58,7 @@ class RecentlyViewedItem extends StatelessWidget {
                       color: ColorManager.primaryText,
                     ),
                   ),
-                   SizedBox(height:AppHeight.s8),
+                  SizedBox(height: AppHeight.s8),
                   Text(
                     category,
                     style: getRegularStyle(
@@ -65,8 +71,7 @@ class RecentlyViewedItem extends StatelessWidget {
               ),
             ),
           ),
-          Image.asset(IconAssets.bookmark)
-          
+          Image.asset(IconAssets.bookmark),
         ],
       ),
     );

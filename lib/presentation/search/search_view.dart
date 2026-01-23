@@ -62,17 +62,14 @@ class SearchView extends StatelessWidget {
             ),
           ),
           SizedBox(height: AppHeight.s10),
-          RecentlyViewedItem(title: "title", category: "category"),
-          SizedBox(height: AppHeight.s10),
 
           RecentlyViewedItem(title: "title", category: "category"),
-          SizedBox(height: AppHeight.s10),
+          RecentlyViewedItem(title: "title", category: "category"),
 
           RecentlyViewedItem(title: "title", category: "category"),
-          SizedBox(height: AppHeight.s10),
-            RecentlyViewedItem(title: "title", category: "category"),
+          RecentlyViewedItem(title: "title", category: "category"),
 
-          SizedBox(height: AppHeight.s100,)
+          SizedBox(height: AppHeight.s100),
         ],
       ),
     );
