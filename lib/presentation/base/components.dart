@@ -174,8 +174,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadius.s32),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 20,
+              color: Colors.black.withOpacity(0.25),
+              blurRadius: 4,
               offset: const Offset(0, 4),
               spreadRadius: 0,
             ),

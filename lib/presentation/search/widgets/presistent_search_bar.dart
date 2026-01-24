@@ -37,9 +37,10 @@ class _PersistentSearchBarState extends State<PersistentSearchBar>
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
 
     _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -88,7 +89,10 @@ class _PersistentSearchBarState extends State<PersistentSearchBar>
                 color: ColorManager.white,
                 borderRadius: BorderRadius.circular(AppRadius.s32),
                 border: Border.all(
-                  color: ColorManager.black.withAlpha(widget.isSearching ? 25 : 20),
+                  color:
+                      widget.isSearching
+                          ? ColorManager.primary.withAlpha(127)
+                          : ColorManager.black.withAlpha(20),
                   width: widget.isSearching ? 1.5 : 1,
                 ),
               ),
@@ -98,32 +102,33 @@ class _PersistentSearchBarState extends State<PersistentSearchBar>
                   Image.asset(IconAssets.searchicon),
                   SizedBox(width: AppWidth.s8),
                   Expanded(
-                    child: widget.isSearching
-                        ? TextField(
-                            controller: _searchController,
-                            focusNode: _focusNode,
-                            decoration: InputDecoration(
-                              filled: false,
-                              isDense: true,
-                              hintText: 'Search medical terms',
-                              hintStyle: getRegularStyle(
+                    child:
+                        widget.isSearching
+                            ? TextField(
+                              controller: _searchController,
+                              focusNode: _focusNode,
+                              decoration: InputDecoration(
+                                filled: false,
+                                isDense: true,
+                                hintText: 'Search medical terms',
+                                hintStyle: getRegularStyle(
+                                  fontSize: FontSize.s12,
+                                  fontFamily: FontConstants.interFamily,
+                                  color: ColorManager.secondaryText,
+                                ),
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                              ),
+                            )
+                            : Text(
+                              'Search medical terms',
+                              style: getRegularStyle(
                                 fontSize: FontSize.s12,
                                 fontFamily: FontConstants.interFamily,
                                 color: ColorManager.secondaryText,
                               ),
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
                             ),
-                          )
-                        : Text(
-                            'Search medical terms',
-                            style: getRegularStyle(
-                              fontSize: FontSize.s12,
-                              fontFamily: FontConstants.interFamily,
-                              color: ColorManager.secondaryText,
-                            ),
-                          ),
                   ),
                 ],
               ),
