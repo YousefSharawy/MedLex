@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/presentation/base/components.dart';
+import 'package:transly/presentation/termDetails/term_details_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
 import 'package:transly/presentation/profile/screens/savedItems/saved_terms_view.dart';
@@ -22,6 +23,7 @@ class Routes {
   static const String study = '/study';
   static const String profile = '/profile';
   static const String savedItems = '/savedItems';
+  static const String termDetails = '/termDetails';
 }
 
 class AppNavigation {
@@ -64,6 +66,14 @@ class AppNavigation {
             (context, state) => CustomTransitionPage2(
               key: state.pageKey,
               child: const SavedTermsView(),
+            ),
+      ),
+      GoRoute(
+        path: Routes.termDetails,
+        pageBuilder:
+            (context, state) => CustomTransitionPage2(
+              key: state.pageKey,
+              child: const TermDetailsView(),
             ),
       ),
 

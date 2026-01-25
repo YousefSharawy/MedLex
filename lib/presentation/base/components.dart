@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/presentation/base/navigation_notifier.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
@@ -164,7 +165,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       body: navigationShell,
       extendBody: true,
       bottomNavigationBar: Container(
-        margin:  EdgeInsets.only(
+        margin: EdgeInsets.only(
           left: AppWidth.s16,
           right: AppWidth.s16,
           bottom: AppHeight.s24,
@@ -182,7 +183,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding:  EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: AppWidth.s9,
             vertical: AppHeight.s10,
           ),
@@ -221,6 +222,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   void _onTap(int index) {
+    // Notify listeners about tab change
+    navigationStateNotifier.updateIndex(index);
+    
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,

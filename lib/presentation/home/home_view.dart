@@ -1,5 +1,7 @@
+// lib/presentation/home/home_view.dart
 import 'package:flutter/material.dart';
 import 'package:transly/presentation/base/components.dart';
+import 'package:transly/presentation/base/navigation_notifier.dart';
 import 'package:transly/presentation/home/widgets/daily_term_card.dart';
 import 'package:transly/presentation/home/widgets/recently_view_item.dart';
 import 'package:transly/presentation/home/widgets/section_header.dart';
@@ -18,8 +20,18 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with ResettableTabState {
   bool _isSearching = false;
+
+  @override
+  int get tabIndex => 0; // Home is tab index 0
+
+  @override
+  void resetState() {
+    if (_isSearching && mounted) {
+      setState(() => _isSearching = false);
+    }
+  }
 
   void _onSearchStart() {
     setState(() => _isSearching = true);
@@ -41,10 +53,9 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(height: AppHeight.s4),
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 300),
-                crossFadeState:
-                    _isSearching
-                        ? CrossFadeState.showSecond
-                        : CrossFadeState.showFirst,
+                crossFadeState: _isSearching
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
                 firstChild: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -91,13 +102,11 @@ class _HomeViewState extends State<HomeView> {
                 onSearchClose: _onSearchClose,
               ),
               SizedBox(height: AppHeight.s24),
-              // Content with fade animation
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 300),
-                crossFadeState:
-                    _isSearching
-                        ? CrossFadeState.showSecond
-                        : CrossFadeState.showFirst,
+                crossFadeState: _isSearching
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
                 firstChild: Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppWidth.s2),
                   child: Column(

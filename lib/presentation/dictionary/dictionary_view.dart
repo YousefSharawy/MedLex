@@ -1,5 +1,7 @@
+// lib/presentation/dictionary/dictionary_view.dart
 import 'package:flutter/material.dart';
 import 'package:transly/presentation/base/components.dart';
+import 'package:transly/presentation/base/navigation_notifier.dart';
 import 'package:transly/presentation/home/widgets/recently_view_item.dart';
 import 'package:transly/presentation/search/widgets/presistent_search_bar.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
@@ -15,7 +17,8 @@ class DictionaryView extends StatefulWidget {
   State<DictionaryView> createState() => _DictionaryViewState();
 }
 
-class _DictionaryViewState extends State<DictionaryView> {
+class _DictionaryViewState extends State<DictionaryView>
+    with ResettableTabState {
   bool _isSearching = false;
   String _selectedCategory = 'All';
   final ScrollController _scrollController = ScrollController();
@@ -60,6 +63,27 @@ class _DictionaryViewState extends State<DictionaryView> {
   final Map<String, GlobalKey> _letterKeys = {};
 
   @override
+  int get tabIndex => 1; // Dictionary is tab index 1
+
+  @override
+  void resetState() {
+    if (mounted) {
+      setState(() {
+        _isSearching = false;
+        _selectedCategory = 'All';
+      });
+      // Scroll to top
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
     for (var letter in _alphabet) {
@@ -100,7 +124,6 @@ class _DictionaryViewState extends State<DictionaryView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: AppHeight.s4),
-            // Title
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppWidth.s14),
               child: AnimatedCrossFade(
@@ -128,8 +151,6 @@ class _DictionaryViewState extends State<DictionaryView> {
               ),
             ),
             SizedBox(height: AppHeight.s12),
-
-            // Search Bar
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppWidth.s14),
               child: PersistentSearchBar(
@@ -142,12 +163,15 @@ class _DictionaryViewState extends State<DictionaryView> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                child: _isSearching
-                    ? Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: AppWidth.s16),
-                      child: const SearchView(key: ValueKey('search')),
-                    )
-                    : _buildDictionaryContent(),
+                child:
+                    _isSearching
+                        ? Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppWidth.s16,
+                          ),
+                          child: const SearchView(key: ValueKey('search')),
+                        )
+                        : _buildDictionaryContent(),
               ),
             ),
           ],
@@ -270,8 +294,7 @@ class _DictionaryViewState extends State<DictionaryView> {
             ],
           ),
         ),
-              SizedBox(height: AppHeight.s80,)
-
+        SizedBox(height: AppHeight.s80),
       ],
     );
   }

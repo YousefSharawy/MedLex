@@ -5,6 +5,7 @@ class FontConstants {
   static const String fontFamily = 'Cairo';
   static const String almaraiFontFamily = 'Almarai';
   static const String interFamily = 'Inter';
+  static const String arialFamily = 'Arial';
 }
 
 class FontWeightManager {
