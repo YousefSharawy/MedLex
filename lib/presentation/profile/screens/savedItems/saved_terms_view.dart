@@ -5,6 +5,7 @@ import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/profile/screens/savedItems/saved_term_item.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
+import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 
@@ -53,7 +54,9 @@ class SavedTermsView extends StatelessWidget {
                   return SavedTermItem(
                     title: 'Myocardium',
                     category: 'Cardiology',
-                    onTap: () {},
+                    onTap: () {
+                      context.push(Routes.termDetails);
+                    },
                     onBookmarkTap: () {},
                   );
                 },
