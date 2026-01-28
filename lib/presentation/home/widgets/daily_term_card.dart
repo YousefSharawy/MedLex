@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transly/app/di.dart';
+import 'package:transly/app/tts_service.dart';
+import 'package:transly/app/ui_utiles.dart';
+import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
@@ -11,46 +16,67 @@ class DailyTermCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          homeLoaded: (dailyTerm, isSearching, isLoading, errorMessage) {
+            if (isLoading) {
+              return UiUtils.loadingCard();
+            }
+            if (errorMessage != null) {
+              return UiUtils.errorCard(
+                message: errorMessage,
+                onRetry: () => context.read<AppCubit>().getDailyTerm(),
+              );
+            }
+            if (dailyTerm != null) {
+              return _buildTermCard(context, dailyTerm);
+            }
+            return UiUtils.loadingCard();
+          },
+          orElse: () => UiUtils.loadingCard(),
+        );
+      },
+    );
+  }
+
+  void _speakPronunciation(String pronunciation, String term) {
+    getIt<TtsService>().speakPronunciation(pronunciation, term);
+  }
+
+  Widget _buildTermCard(BuildContext context, TermModel term) {
     return Container(
       width: double.infinity,
-      padding:  EdgeInsets.only(top: AppHeight.s9,bottom: AppHeight.s15),
-      decoration: BoxDecoration(
-        color: ColorManager.white,
-        borderRadius: BorderRadius.circular(AppRadius.s16),
-        boxShadow: [
-          BoxShadow(
-            color: ColorManager.black.withAlpha(63),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.only(top: AppHeight.s9, bottom: AppHeight.s15),
+      decoration: UiUtils.cardDecoration(),
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: AppWidth.s16),
+        padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.asset(
-                ImageAssets.heart, // Replace with your asset
+              child: UiUtils.cachedNetworkImage(
+                imageUrl: term.imageUrl,
                 height: AppHeight.s144,
-                fit: BoxFit.contain,
+                borderRadius: BorderRadius.circular(AppRadius.s12),
               ),
             ),
-             SizedBox(height: AppHeight.s14),
+            SizedBox(height: AppHeight.s14),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Myocardium',
-                  style: getSemiBoldStyle(
-                    fontSize: FontSize.s16,
-                    fontFamily: FontConstants.interFamily,
-                    color: ColorManager.primaryText,
+                Expanded(
+                  child: Text(
+                    term.latinTerm,
+                    style: getSemiBoldStyle(
+                      fontSize: FontSize.s16,
+                      fontFamily: FontConstants.interFamily,
+                      color: ColorManager.primaryText,
+                    ),
                   ),
                 ),
                 Container(
-                  padding:  EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: AppHeight.s10,
                     vertical: AppWidth.s7,
                   ),
@@ -59,7 +85,7 @@ class DailyTermCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    'Cardiology',
+                    term.category,
                     style: getRegularStyle(
                       fontSize: FontSize.s12,
                       fontFamily: FontConstants.interFamily,
@@ -69,30 +95,32 @@ class DailyTermCard extends StatelessWidget {
                 ),
               ],
             ),
-             SizedBox(height: AppHeight.s8),   
-            Row(
-              children: [
-                Text(
-                  '/ˌmar.di.əm/',
-                  style: getRegularStyle(
-                    fontSize: FontSize.s12,
-                    fontFamily: FontConstants.interFamily,
-                    color: ColorManager.secondaryText,
+            SizedBox(height: AppHeight.s8),
+            if (term.pronunciation.isNotEmpty)
+              Row(
+                children: [
+                  Text(
+                    term.pronunciation,
+                    style: getRegularStyle(
+                      fontSize: FontSize.s12,
+                      fontFamily: FontConstants.interFamily,
+                      color: ColorManager.secondaryText,
+                    ),
                   ),
-                ),
-                 SizedBox(width:AppWidth.s9),
-                GestureDetector(
-                  onTap: () {
-                  },
-                  child: Image.asset(IconAssets.volumeUp)
-                ),
-              ],
-            ),
-             SizedBox(height:AppHeight.s8),
-        
-            // Description
+                  SizedBox(width: AppWidth.s9),
+                  GestureDetector(
+                    onTap:
+                        () => _speakPronunciation(
+                          term.pronunciation,
+                          term.latinTerm,
+                        ),
+                    child: Image.asset(IconAssets.volumeUp),
+                  ),
+                ],
+              ),
+            SizedBox(height: AppHeight.s8),
             Text(
-              'The muscular tissue of the heart.',
+              term.simpleDefinition,
               style: getRegularStyle(
                 fontSize: FontSize.s12,
                 fontFamily: FontConstants.interFamily,

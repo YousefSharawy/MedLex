@@ -1,27 +1,39 @@
-// // GENERATED CODE - DO NOT MODIFY BY HAND
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
-// part of 'models.dart';
+part of 'models.dart';
 
-// // **************************************************************************
-// // JsonSerializableGenerator
-// // **************************************************************************
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
 
-// _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
-//     _$UserModelImpl(
-//       id: json['id'] as String,
-//       email: json['email'] as String,
-//       name: json['name'] as String,
-//       token: json['token'] as String? ?? '',
-//       topScore: json['topScore'] as num,
-//       createdAt: json['createdAt'] as String,
-//     );
+_$TermModelImpl _$$TermModelImplFromJson(Map<String, dynamic> json) =>
+    _$TermModelImpl(
+      id: (json['id'] as num).toInt(),
+      latinTerm: json['latin_term'] as String,
+      pronunciation: json['pronunciation'] as String,
+      englishTerm: json['english_term'] as String,
+      englishDefinition: json['english_definition'] as String,
+      causes: json['causes'] as String?,
+      symptoms: json['symptoms'] as String?,
+      treatment: json['treatment'] as String?,
+      imageUrl: json['image_url'] as String?,
+      simpleDefinition: json['simple_definition'] as String,
+      academicDefinition: json['academic_definition'] as String,
+      category: json['category'] as String,
+    );
 
-// Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
-//     <String, dynamic>{
-//       'id': instance.id,
-//       'email': instance.email,
-//       'name': instance.name,
-//       'token': instance.token,
-//       'topScore': instance.topScore,
-//       'createdAt': instance.createdAt,
-//     };
+Map<String, dynamic> _$$TermModelImplToJson(_$TermModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'latin_term': instance.latinTerm,
+      'pronunciation': instance.pronunciation,
+      'english_term': instance.englishTerm,
+      'english_definition': instance.englishDefinition,
+      'causes': instance.causes,
+      'symptoms': instance.symptoms,
+      'treatment': instance.treatment,
+      'image_url': instance.imageUrl,
+      'simple_definition': instance.simpleDefinition,
+      'academic_definition': instance.academicDefinition,
+      'category': instance.category,
+    };

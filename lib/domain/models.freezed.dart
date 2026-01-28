@@ -1,294 +1,466 @@
-// // coverage:ignore-file
-// // GENERATED CODE - DO NOT MODIFY BY HAND
-// // ignore_for_file: type=lint
-// // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-// part of 'models.dart';
+part of 'models.dart';
 
-// // **************************************************************************
-// // FreezedGenerator
-// // **************************************************************************
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
 
-// T _$identity<T>(T value) => value;
+T _$identity<T>(T value) => value;
 
-// final _privateConstructorUsedError = UnsupportedError(
-//   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-// );
+final _privateConstructorUsedError = UnsupportedError(
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
-// UserModel _$UserModelFromJson(Map<String, dynamic> json) {
-//   return _UserModel.fromJson(json);
-// }
+TermModel _$TermModelFromJson(Map<String, dynamic> json) {
+  return _TermModel.fromJson(json);
+}
 
-// /// @nodoc
-// mixin _$UserModel {
-//   String get id => throw _privateConstructorUsedError;
-//   String get email => throw _privateConstructorUsedError;
-//   String get name => throw _privateConstructorUsedError;
-//   String get token => throw _privateConstructorUsedError;
-//   num get topScore => throw _privateConstructorUsedError;
-//   String get createdAt => throw _privateConstructorUsedError;
+/// @nodoc
+mixin _$TermModel {
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latin_term')
+  String get latinTerm => throw _privateConstructorUsedError;
+  String get pronunciation => throw _privateConstructorUsedError;
+  @JsonKey(name: 'english_term')
+  String get englishTerm => throw _privateConstructorUsedError;
+  @JsonKey(name: 'english_definition')
+  String get englishDefinition => throw _privateConstructorUsedError;
+  String? get causes => throw _privateConstructorUsedError;
+  String? get symptoms => throw _privateConstructorUsedError;
+  String? get treatment => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'simple_definition')
+  String get simpleDefinition => throw _privateConstructorUsedError;
+  @JsonKey(name: 'academic_definition')
+  String get academicDefinition => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
 
-//   /// Serializes this UserModel to a JSON map.
-//   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  /// Serializes this TermModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-//   /// Create a copy of UserModel
-//   /// with the given fields replaced by the non-null parameter values.
-//   @JsonKey(includeFromJson: false, includeToJson: false)
-//   $UserModelCopyWith<UserModel> get copyWith =>
-//       throw _privateConstructorUsedError;
-// }
+  /// Create a copy of TermModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TermModelCopyWith<TermModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
 
-// /// @nodoc
-// abstract class $UserModelCopyWith<$Res> {
-//   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
-//       _$UserModelCopyWithImpl<$Res, UserModel>;
-//   @useResult
-//   $Res call({
-//     String id,
-//     String email,
-//     String name,
-//     String token,
-//     num topScore,
-//     String createdAt,
-//   });
-// }
+/// @nodoc
+abstract class $TermModelCopyWith<$Res> {
+  factory $TermModelCopyWith(TermModel value, $Res Function(TermModel) then) =
+      _$TermModelCopyWithImpl<$Res, TermModel>;
+  @useResult
+  $Res call({
+    int id,
+    @JsonKey(name: 'latin_term') String latinTerm,
+    String pronunciation,
+    @JsonKey(name: 'english_term') String englishTerm,
+    @JsonKey(name: 'english_definition') String englishDefinition,
+    String? causes,
+    String? symptoms,
+    String? treatment,
+    @JsonKey(name: 'image_url') String? imageUrl,
+    @JsonKey(name: 'simple_definition') String simpleDefinition,
+    @JsonKey(name: 'academic_definition') String academicDefinition,
+    String category,
+  });
+}
 
-// /// @nodoc
-// class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
-//     implements $UserModelCopyWith<$Res> {
-//   _$UserModelCopyWithImpl(this._value, this._then);
+/// @nodoc
+class _$TermModelCopyWithImpl<$Res, $Val extends TermModel>
+    implements $TermModelCopyWith<$Res> {
+  _$TermModelCopyWithImpl(this._value, this._then);
 
-//   // ignore: unused_field
-//   final $Val _value;
-//   // ignore: unused_field
-//   final $Res Function($Val) _then;
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-//   /// Create a copy of UserModel
-//   /// with the given fields replaced by the non-null parameter values.
-//   @pragma('vm:prefer-inline')
-//   @override
-//   $Res call({
-//     Object? id = null,
-//     Object? email = null,
-//     Object? name = null,
-//     Object? token = null,
-//     Object? topScore = null,
-//     Object? createdAt = null,
-//   }) {
-//     return _then(
-//       _value.copyWith(
-//             id:
-//                 null == id
-//                     ? _value.id
-//                     : id // ignore: cast_nullable_to_non_nullable
-//                         as String,
-//             email:
-//                 null == email
-//                     ? _value.email
-//                     : email // ignore: cast_nullable_to_non_nullable
-//                         as String,
-//             name:
-//                 null == name
-//                     ? _value.name
-//                     : name // ignore: cast_nullable_to_non_nullable
-//                         as String,
-//             token:
-//                 null == token
-//                     ? _value.token
-//                     : token // ignore: cast_nullable_to_non_nullable
-//                         as String,
-//             topScore:
-//                 null == topScore
-//                     ? _value.topScore
-//                     : topScore // ignore: cast_nullable_to_non_nullable
-//                         as num,
-//             createdAt:
-//                 null == createdAt
-//                     ? _value.createdAt
-//                     : createdAt // ignore: cast_nullable_to_non_nullable
-//                         as String,
-//           )
-//           as $Val,
-//     );
-//   }
-// }
+  /// Create a copy of TermModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? latinTerm = null,
+    Object? pronunciation = null,
+    Object? englishTerm = null,
+    Object? englishDefinition = null,
+    Object? causes = freezed,
+    Object? symptoms = freezed,
+    Object? treatment = freezed,
+    Object? imageUrl = freezed,
+    Object? simpleDefinition = null,
+    Object? academicDefinition = null,
+    Object? category = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as int,
+            latinTerm:
+                null == latinTerm
+                    ? _value.latinTerm
+                    : latinTerm // ignore: cast_nullable_to_non_nullable
+                        as String,
+            pronunciation:
+                null == pronunciation
+                    ? _value.pronunciation
+                    : pronunciation // ignore: cast_nullable_to_non_nullable
+                        as String,
+            englishTerm:
+                null == englishTerm
+                    ? _value.englishTerm
+                    : englishTerm // ignore: cast_nullable_to_non_nullable
+                        as String,
+            englishDefinition:
+                null == englishDefinition
+                    ? _value.englishDefinition
+                    : englishDefinition // ignore: cast_nullable_to_non_nullable
+                        as String,
+            causes:
+                freezed == causes
+                    ? _value.causes
+                    : causes // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            symptoms:
+                freezed == symptoms
+                    ? _value.symptoms
+                    : symptoms // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            treatment:
+                freezed == treatment
+                    ? _value.treatment
+                    : treatment // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            imageUrl:
+                freezed == imageUrl
+                    ? _value.imageUrl
+                    : imageUrl // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            simpleDefinition:
+                null == simpleDefinition
+                    ? _value.simpleDefinition
+                    : simpleDefinition // ignore: cast_nullable_to_non_nullable
+                        as String,
+            academicDefinition:
+                null == academicDefinition
+                    ? _value.academicDefinition
+                    : academicDefinition // ignore: cast_nullable_to_non_nullable
+                        as String,
+            category:
+                null == category
+                    ? _value.category
+                    : category // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
+  }
+}
 
-// /// @nodoc
-// abstract class _$$UserModelImplCopyWith<$Res>
-//     implements $UserModelCopyWith<$Res> {
-//   factory _$$UserModelImplCopyWith(
-//     _$UserModelImpl value,
-//     $Res Function(_$UserModelImpl) then,
-//   ) = __$$UserModelImplCopyWithImpl<$Res>;
-//   @override
-//   @useResult
-//   $Res call({
-//     String id,
-//     String email,
-//     String name,
-//     String token,
-//     num topScore,
-//     String createdAt,
-//   });
-// }
+/// @nodoc
+abstract class _$$TermModelImplCopyWith<$Res>
+    implements $TermModelCopyWith<$Res> {
+  factory _$$TermModelImplCopyWith(
+    _$TermModelImpl value,
+    $Res Function(_$TermModelImpl) then,
+  ) = __$$TermModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    int id,
+    @JsonKey(name: 'latin_term') String latinTerm,
+    String pronunciation,
+    @JsonKey(name: 'english_term') String englishTerm,
+    @JsonKey(name: 'english_definition') String englishDefinition,
+    String? causes,
+    String? symptoms,
+    String? treatment,
+    @JsonKey(name: 'image_url') String? imageUrl,
+    @JsonKey(name: 'simple_definition') String simpleDefinition,
+    @JsonKey(name: 'academic_definition') String academicDefinition,
+    String category,
+  });
+}
 
-// /// @nodoc
-// class __$$UserModelImplCopyWithImpl<$Res>
-//     extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
-//     implements _$$UserModelImplCopyWith<$Res> {
-//   __$$UserModelImplCopyWithImpl(
-//     _$UserModelImpl _value,
-//     $Res Function(_$UserModelImpl) _then,
-//   ) : super(_value, _then);
+/// @nodoc
+class __$$TermModelImplCopyWithImpl<$Res>
+    extends _$TermModelCopyWithImpl<$Res, _$TermModelImpl>
+    implements _$$TermModelImplCopyWith<$Res> {
+  __$$TermModelImplCopyWithImpl(
+    _$TermModelImpl _value,
+    $Res Function(_$TermModelImpl) _then,
+  ) : super(_value, _then);
 
-//   /// Create a copy of UserModel
-//   /// with the given fields replaced by the non-null parameter values.
-//   @pragma('vm:prefer-inline')
-//   @override
-//   $Res call({
-//     Object? id = null,
-//     Object? email = null,
-//     Object? name = null,
-//     Object? token = null,
-//     Object? topScore = null,
-//     Object? createdAt = null,
-//   }) {
-//     return _then(
-//       _$UserModelImpl(
-//         id:
-//             null == id
-//                 ? _value.id
-//                 : id // ignore: cast_nullable_to_non_nullable
-//                     as String,
-//         email:
-//             null == email
-//                 ? _value.email
-//                 : email // ignore: cast_nullable_to_non_nullable
-//                     as String,
-//         name:
-//             null == name
-//                 ? _value.name
-//                 : name // ignore: cast_nullable_to_non_nullable
-//                     as String,
-//         token:
-//             null == token
-//                 ? _value.token
-//                 : token // ignore: cast_nullable_to_non_nullable
-//                     as String,
-//         topScore:
-//             null == topScore
-//                 ? _value.topScore
-//                 : topScore // ignore: cast_nullable_to_non_nullable
-//                     as num,
-//         createdAt:
-//             null == createdAt
-//                 ? _value.createdAt
-//                 : createdAt // ignore: cast_nullable_to_non_nullable
-//                     as String,
-//       ),
-//     );
-//   }
-// }
+  /// Create a copy of TermModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? latinTerm = null,
+    Object? pronunciation = null,
+    Object? englishTerm = null,
+    Object? englishDefinition = null,
+    Object? causes = freezed,
+    Object? symptoms = freezed,
+    Object? treatment = freezed,
+    Object? imageUrl = freezed,
+    Object? simpleDefinition = null,
+    Object? academicDefinition = null,
+    Object? category = null,
+  }) {
+    return _then(
+      _$TermModelImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as int,
+        latinTerm:
+            null == latinTerm
+                ? _value.latinTerm
+                : latinTerm // ignore: cast_nullable_to_non_nullable
+                    as String,
+        pronunciation:
+            null == pronunciation
+                ? _value.pronunciation
+                : pronunciation // ignore: cast_nullable_to_non_nullable
+                    as String,
+        englishTerm:
+            null == englishTerm
+                ? _value.englishTerm
+                : englishTerm // ignore: cast_nullable_to_non_nullable
+                    as String,
+        englishDefinition:
+            null == englishDefinition
+                ? _value.englishDefinition
+                : englishDefinition // ignore: cast_nullable_to_non_nullable
+                    as String,
+        causes:
+            freezed == causes
+                ? _value.causes
+                : causes // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        symptoms:
+            freezed == symptoms
+                ? _value.symptoms
+                : symptoms // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        treatment:
+            freezed == treatment
+                ? _value.treatment
+                : treatment // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        imageUrl:
+            freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        simpleDefinition:
+            null == simpleDefinition
+                ? _value.simpleDefinition
+                : simpleDefinition // ignore: cast_nullable_to_non_nullable
+                    as String,
+        academicDefinition:
+            null == academicDefinition
+                ? _value.academicDefinition
+                : academicDefinition // ignore: cast_nullable_to_non_nullable
+                    as String,
+        category:
+            null == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
+  }
+}
 
-// /// @nodoc
-// @JsonSerializable()
-// class _$UserModelImpl extends _UserModel {
-//   const _$UserModelImpl({
-//     required this.id,
-//     required this.email,
-//     required this.name,
-//     this.token = '',
-//     required this.topScore,
-//     required this.createdAt,
-//   }) : super._();
+/// @nodoc
+@JsonSerializable()
+class _$TermModelImpl extends _TermModel {
+  const _$TermModelImpl({
+    required this.id,
+    @JsonKey(name: 'latin_term') required this.latinTerm,
+    required this.pronunciation,
+    @JsonKey(name: 'english_term') required this.englishTerm,
+    @JsonKey(name: 'english_definition') required this.englishDefinition,
+    this.causes,
+    this.symptoms,
+    this.treatment,
+    @JsonKey(name: 'image_url') this.imageUrl,
+    @JsonKey(name: 'simple_definition') required this.simpleDefinition,
+    @JsonKey(name: 'academic_definition') required this.academicDefinition,
+    required this.category,
+  }) : super._();
 
-//   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
-//       _$$UserModelImplFromJson(json);
+  factory _$TermModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TermModelImplFromJson(json);
 
-//   @override
-//   final String id;
-//   @override
-//   final String email;
-//   @override
-//   final String name;
-//   @override
-//   @JsonKey()
-//   final String token;
-//   @override
-//   final num topScore;
-//   @override
-//   final String createdAt;
+  @override
+  final int id;
+  @override
+  @JsonKey(name: 'latin_term')
+  final String latinTerm;
+  @override
+  final String pronunciation;
+  @override
+  @JsonKey(name: 'english_term')
+  final String englishTerm;
+  @override
+  @JsonKey(name: 'english_definition')
+  final String englishDefinition;
+  @override
+  final String? causes;
+  @override
+  final String? symptoms;
+  @override
+  final String? treatment;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  @override
+  @JsonKey(name: 'simple_definition')
+  final String simpleDefinition;
+  @override
+  @JsonKey(name: 'academic_definition')
+  final String academicDefinition;
+  @override
+  final String category;
 
-//   @override
-//   String toString() {
-//     return 'UserModel(id: $id, email: $email, name: $name, token: $token, topScore: $topScore, createdAt: $createdAt)';
-//   }
+  @override
+  String toString() {
+    return 'TermModel(id: $id, latinTerm: $latinTerm, pronunciation: $pronunciation, englishTerm: $englishTerm, englishDefinition: $englishDefinition, causes: $causes, symptoms: $symptoms, treatment: $treatment, imageUrl: $imageUrl, simpleDefinition: $simpleDefinition, academicDefinition: $academicDefinition, category: $category)';
+  }
 
-//   @override
-//   bool operator ==(Object other) {
-//     return identical(this, other) ||
-//         (other.runtimeType == runtimeType &&
-//             other is _$UserModelImpl &&
-//             (identical(other.id, id) || other.id == id) &&
-//             (identical(other.email, email) || other.email == email) &&
-//             (identical(other.name, name) || other.name == name) &&
-//             (identical(other.token, token) || other.token == token) &&
-//             (identical(other.topScore, topScore) ||
-//                 other.topScore == topScore) &&
-//             (identical(other.createdAt, createdAt) ||
-//                 other.createdAt == createdAt));
-//   }
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TermModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.latinTerm, latinTerm) ||
+                other.latinTerm == latinTerm) &&
+            (identical(other.pronunciation, pronunciation) ||
+                other.pronunciation == pronunciation) &&
+            (identical(other.englishTerm, englishTerm) ||
+                other.englishTerm == englishTerm) &&
+            (identical(other.englishDefinition, englishDefinition) ||
+                other.englishDefinition == englishDefinition) &&
+            (identical(other.causes, causes) || other.causes == causes) &&
+            (identical(other.symptoms, symptoms) ||
+                other.symptoms == symptoms) &&
+            (identical(other.treatment, treatment) ||
+                other.treatment == treatment) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.simpleDefinition, simpleDefinition) ||
+                other.simpleDefinition == simpleDefinition) &&
+            (identical(other.academicDefinition, academicDefinition) ||
+                other.academicDefinition == academicDefinition) &&
+            (identical(other.category, category) ||
+                other.category == category));
+  }
 
-//   @JsonKey(includeFromJson: false, includeToJson: false)
-//   @override
-//   int get hashCode =>
-//       Object.hash(runtimeType, id, email, name, token, topScore, createdAt);
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    latinTerm,
+    pronunciation,
+    englishTerm,
+    englishDefinition,
+    causes,
+    symptoms,
+    treatment,
+    imageUrl,
+    simpleDefinition,
+    academicDefinition,
+    category,
+  );
 
-//   /// Create a copy of UserModel
-//   /// with the given fields replaced by the non-null parameter values.
-//   @JsonKey(includeFromJson: false, includeToJson: false)
-//   @override
-//   @pragma('vm:prefer-inline')
-//   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
-//       __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
+  /// Create a copy of TermModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TermModelImplCopyWith<_$TermModelImpl> get copyWith =>
+      __$$TermModelImplCopyWithImpl<_$TermModelImpl>(this, _$identity);
 
-//   @override
-//   Map<String, dynamic> toJson() {
-//     return _$$UserModelImplToJson(this);
-//   }
-// }
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TermModelImplToJson(this);
+  }
+}
 
-// abstract class _UserModel extends UserModel {
-//   const factory _UserModel({
-//     required final String id,
-//     required final String email,
-//     required final String name,
-//     final String token,
-//     required final num topScore,
-//     required final String createdAt,
-//   }) = _$UserModelImpl;
-//   const _UserModel._() : super._();
+abstract class _TermModel extends TermModel {
+  const factory _TermModel({
+    required final int id,
+    @JsonKey(name: 'latin_term') required final String latinTerm,
+    required final String pronunciation,
+    @JsonKey(name: 'english_term') required final String englishTerm,
+    @JsonKey(name: 'english_definition')
+    required final String englishDefinition,
+    final String? causes,
+    final String? symptoms,
+    final String? treatment,
+    @JsonKey(name: 'image_url') final String? imageUrl,
+    @JsonKey(name: 'simple_definition') required final String simpleDefinition,
+    @JsonKey(name: 'academic_definition')
+    required final String academicDefinition,
+    required final String category,
+  }) = _$TermModelImpl;
+  const _TermModel._() : super._();
 
-//   factory _UserModel.fromJson(Map<String, dynamic> json) =
-//       _$UserModelImpl.fromJson;
+  factory _TermModel.fromJson(Map<String, dynamic> json) =
+      _$TermModelImpl.fromJson;
 
-//   @override
-//   String get id;
-//   @override
-//   String get email;
-//   @override
-//   String get name;
-//   @override
-//   String get token;
-//   @override
-//   num get topScore;
-//   @override
-//   String get createdAt;
+  @override
+  int get id;
+  @override
+  @JsonKey(name: 'latin_term')
+  String get latinTerm;
+  @override
+  String get pronunciation;
+  @override
+  @JsonKey(name: 'english_term')
+  String get englishTerm;
+  @override
+  @JsonKey(name: 'english_definition')
+  String get englishDefinition;
+  @override
+  String? get causes;
+  @override
+  String? get symptoms;
+  @override
+  String? get treatment;
+  @override
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
+  @override
+  @JsonKey(name: 'simple_definition')
+  String get simpleDefinition;
+  @override
+  @JsonKey(name: 'academic_definition')
+  String get academicDefinition;
+  @override
+  String get category;
 
-//   /// Create a copy of UserModel
-//   /// with the given fields replaced by the non-null parameter values.
-//   @override
-//   @JsonKey(includeFromJson: false, includeToJson: false)
-//   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
-//       throw _privateConstructorUsedError;
-// }
+  /// Create a copy of TermModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TermModelImplCopyWith<_$TermModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

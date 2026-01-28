@@ -18,7 +18,7 @@ void main() async {
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqc2JlaXVnaHB2bHVhZXBwY2FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3NDU2MjgsImV4cCI6MjA4NDMyMTYyOH0.3F3lkYSxS0vB3asvk4jPtyf_hGBL5x5T4FE3cblklaQ',
   );
-  await getAppModules();
+  await initAppModule();
 
   Bloc.observer = MyBlocObserver();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

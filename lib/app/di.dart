@@ -1,25 +1,26 @@
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../data/remote_data_source.dart';
-import '../data/repository_impl.dart';
-import '../domain/repository.dart';
-import 'app_prefs.dart';
+import 'package:transly/app/tts_service.dart';
+import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/data/remote_data_source.dart';
+import 'package:transly/data/repository_impl.dart';
+import 'package:transly/domain/repository.dart';
 
 final getIt = GetIt.instance;
 
-Future<void> getAppModules() async {
-  final SharedPreferences preferences = await SharedPreferences.getInstance();
-  getIt.registerLazySingleton<AppPrefs>(() => AppPrefs(preferences));
-  
-  final supabase = Supabase.instance.client;
-  
+Future<void> initAppModule() async {
+  // Supabase client
+  getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+
+  // Remote data source
   getIt.registerLazySingleton<RemoteDataSource>(
-    () => RemoteDataSource(supabase: supabase),
+    () => RemoteDataSourceImpl(supabase: getIt()),
   );
 
-  getIt.registerLazySingleton<Repository>(
-    () => RepositoryImpl(getIt<RemoteDataSource>()),
-  );
+  // Repository
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
+
+  // Cubit
+  getIt.registerFactory<AppCubit>(() => AppCubit(getIt()));
+  getIt.registerLazySingleton<TtsService>(() => TtsService());
 }
