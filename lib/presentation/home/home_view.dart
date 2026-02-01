@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +28,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> with ResettableTabState {
   bool _isSearching = false;
+  // Tracks whether SearchView has EVER been built this session.
+  // Once true, we keep it in the tree (hidden) so it never cold-starts again.
+  bool _searchEverOpened = false;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -55,13 +60,25 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
   }
 
   void _onSearchStart() {
-    setState(() => _isSearching = true);
-    context.read<AppCubit>().setSearching(true);
+   
+    scheduleMicrotask(() {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = true;
+        _searchEverOpened = true;
+      });
+      context.read<AppCubit>().setSearching(true);
+    });
   }
 
   void _onSearchClose() {
-    setState(() => _isSearching = false);
-    context.read<AppCubit>().setSearching(false);
+    scheduleMicrotask(() {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = false;
+      });
+      context.read<AppCubit>().setSearching(false);
+    });
   }
 
   @override
@@ -72,70 +89,12 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: AppHeight.s4),
-            // Header
+            // ---------- Header ----------
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppWidth.s14),
-              child: AnimatedCrossFade(
-                duration: const Duration(milliseconds: 300),
-                crossFadeState:
-                    _isSearching
-                        ? CrossFadeState.showSecond
-                        : CrossFadeState.showFirst,
-                firstChild: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Medlex',
-                            style: getBoldStyle(
-                              fontSize: FontSize.s24,
-                              fontFamily: FontConstants.interFamily,
-                              color: ColorManager.primaryText,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            context.push(Routes.profile);
-                            context.pushReplacement(Routes.savedItems);
-                          },
-                          icon: Image.asset(IconAssets.bookmarkActive),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: AppHeight.s6),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppWidth.s2),
-                      child: Text(
-                        'Medical knowledge made visual',
-                        style: getRegularStyle(
-                          fontSize: FontSize.s15,
-                          fontFamily: FontConstants.interFamily,
-                          color: ColorManager.secondaryText,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: AppHeight.s8),
-                  ],
-                ),
-                secondChild: Column(
-                  children: [
-                    Text(
-                      'Search',
-                      style: getBoldStyle(
-                        fontSize: FontSize.s24,
-                        fontFamily: FontConstants.interFamily,
-                        color: ColorManager.primaryText,
-                      ),
-                    ),
-                    SizedBox(height: AppHeight.s12),
-                  ],
-                ),
-              ),
+              child: _buildAnimatedHeader(),
             ),
-            // Search Bar
+            // ---------- Search Bar ----------
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppWidth.s14),
               child: PersistentSearchBar(
@@ -145,23 +104,134 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
               ),
             ),
             SizedBox(height: AppHeight.s18),
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child:
-                    _isSearching
-                        ? Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppWidth.s16,
-                          ),
-                          child: const SearchView(key: ValueKey('search')),
-                        )
-                        : _buildHomeContent(),
-              ),
-            ),
+            // ---------- Body ----------
+            Expanded(child: _buildAnimatedBody()),
           ],
         ),
       ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Header: replaces AnimatedCrossFade (which builds both children always)
+  // with two AnimatedOpacity widgets. Only the visible one participates in
+  // layout via AnimatedSize on its container, keeping layout work minimal.
+  // ---------------------------------------------------------------------------
+  Widget _buildAnimatedHeader() {
+    const duration = Duration(milliseconds: 300);
+
+    // The "home" header (title + subtitle)
+    final homeHeader = AnimatedOpacity(
+      duration: duration,
+      opacity: _isSearching ? 0.0 : 1.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Medlex',
+                  style: getBoldStyle(
+                    fontSize: FontSize.s24,
+                    fontFamily: FontConstants.interFamily,
+                    color: ColorManager.primaryText,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  context.push(Routes.profile);
+                  context.pushReplacement(Routes.savedItems);
+                },
+                icon: Image.asset(IconAssets.bookmarkActive),
+              ),
+            ],
+          ),
+          SizedBox(height: AppHeight.s6),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppWidth.s2),
+            child: Text(
+              'Medical knowledge made visual',
+              style: getRegularStyle(
+                fontSize: FontSize.s15,
+                fontFamily: FontConstants.interFamily,
+                color: ColorManager.secondaryText,
+              ),
+            ),
+          ),
+          SizedBox(height: AppHeight.s8),
+        ],
+      ),
+    );
+
+    // The "search" header (just the word "Search")
+    final searchHeader = AnimatedOpacity(
+      duration: duration,
+      opacity: _isSearching ? 1.0 : 0.0,
+      child: Column(
+        children: [
+          Text(
+            'Search',
+            style: getBoldStyle(
+              fontSize: FontSize.s24,
+              fontFamily: FontConstants.interFamily,
+              color: ColorManager.primaryText,
+            ),
+          ),
+          SizedBox(height: AppHeight.s12),
+        ],
+      ),
+    );
+
+    // AnimatedSize smoothly collapses/expands height as we swap headers.
+    // Only one child is visible at a time, so layout cost is halved vs
+    // AnimatedCrossFade which keeps both in the layout tree simultaneously.
+    return AnimatedSize(
+      duration: duration,
+      curve: Curves.easeOut,
+      child: _isSearching ? searchHeader : homeHeader,
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Body: instead of AnimatedSwitcher (which disposes the old child and
+  // cold-starts the new one), we keep SearchView alive once it's been opened.
+  // We use AnimatedOpacity to fade and a IgnorePointer to block interaction
+  // on the hidden view. This way SearchView is never rebuilt from scratch after
+  // the first open — critical for eliminating the first-time jank.
+  // ---------------------------------------------------------------------------
+  Widget _buildAnimatedBody() {
+    const duration = Duration(milliseconds: 300);
+
+    return Stack(
+      children: [
+        // --- Home content (always alive) ---
+        AnimatedOpacity(
+          duration: duration,
+          opacity: _isSearching ? 0.0 : 1.0,
+          child: IgnorePointer(
+            ignoring: _isSearching,
+            child: _buildHomeContent(),
+          ),
+        ),
+        // --- Search content (kept alive after first open) ---
+        // RepaintBoundary isolates SearchView's repaints from the home tree.
+        if (_searchEverOpened)
+          AnimatedOpacity(
+            duration: duration,
+            opacity: _isSearching ? 1.0 : 0.0,
+            child: IgnorePointer(
+              ignoring: !_isSearching,
+              child: RepaintBoundary(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
+                  child: const SearchView(),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 
@@ -176,7 +246,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             controller: _scrollController,
-            key: const ValueKey('home'),
             padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

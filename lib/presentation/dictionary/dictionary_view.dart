@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
@@ -8,15 +10,18 @@ import 'package:transly/presentation/dictionary/widgets/terms_content_view.dart'
 import 'package:transly/presentation/resources/values_manager.dart';
 import 'package:transly/presentation/search/search_view.dart';
 import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
+
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
 
   @override
   State<DictionaryView> createState() => _DictionaryViewState();
 }
+
 class _DictionaryViewState extends State<DictionaryView>
     with AutomaticKeepAliveClientMixin {
   bool _isSearching = false;
+  bool _searchEverOpened = false;
   String _selectedCategory = 'All';
 
   @override
@@ -35,13 +40,24 @@ class _DictionaryViewState extends State<DictionaryView>
   }
 
   void _onSearchStart() {
-    setState(() => _isSearching = true);
-    context.read<AppCubit>().setSearching(true);
+    scheduleMicrotask(() {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = true;
+        _searchEverOpened = true;
+      });
+      context.read<AppCubit>().setSearching(true);
+    });
   }
 
   void _onSearchClose() {
-    setState(() => _isSearching = false);
-    context.read<AppCubit>().setSearching(false);
+    scheduleMicrotask(() {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = false;
+      });
+      context.read<AppCubit>().setSearching(false);
+    });
   }
 
   void _onCategorySelected(String category) {
@@ -86,26 +102,13 @@ class _DictionaryViewState extends State<DictionaryView>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: AppHeight.s4),
-              
               DictionaryHeader(
                 isSearching: _isSearching,
                 onSearchStart: _onSearchStart,
                 onSearchClose: _onSearchClose,
               ),
-              
               SizedBox(height: AppHeight.s12),
-              
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: _isSearching
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
-                          child: const SearchView(key: ValueKey('search')),
-                        )
-                      : _buildDictionaryContent(),
-                ),
-              ),
+              Expanded(child: _buildAnimatedBody()),
             ],
           ),
         ),
@@ -113,23 +116,54 @@ class _DictionaryViewState extends State<DictionaryView>
     );
   }
 
+  // ---------------------------------------------------------------------------
+  // Same Stack-based approach as HomeView: dictionary content and search
+  // content coexist. SearchView stays mounted after first open so it never
+  // pays the cold-start cost again. RepaintBoundary prevents SearchView's
+  // internal rebuilds from dirtying the dictionary subtree.
+  // ---------------------------------------------------------------------------
+  Widget _buildAnimatedBody() {
+    const duration = Duration(milliseconds: 300);
+
+    return Stack(
+      children: [
+        // --- Dictionary content (always alive) ---
+        AnimatedOpacity(
+          duration: duration,
+          opacity: _isSearching ? 0.0 : 1.0,
+          child: IgnorePointer(
+            ignoring: _isSearching,
+            child: _buildDictionaryContent(),
+          ),
+        ),
+        // --- Search content (kept alive after first open) ---
+        if (_searchEverOpened)
+          AnimatedOpacity(
+            duration: duration,
+            opacity: _isSearching ? 1.0 : 0.0,
+            child: IgnorePointer(
+              ignoring: !_isSearching,
+              child: RepaintBoundary(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
+                  child: const SearchView(),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
   Widget _buildDictionaryContent() {
     return Column(
-      key: const ValueKey('dictionary'),
       children: [
         CategoryChipsList(
           selectedCategory: _selectedCategory,
           onCategorySelected: _onCategorySelected,
         ),
-        
         SizedBox(height: AppHeight.s12),
-        
-        Expanded(
-          child: TermsContentView(
-            selectedCategory: _selectedCategory,
-          ),
-        ),
-        
+        Expanded(child: TermsContentView(selectedCategory: _selectedCategory)),
         SizedBox(height: AppHeight.s80),
       ],
     );
