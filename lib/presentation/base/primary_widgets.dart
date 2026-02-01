@@ -22,6 +22,7 @@ class PrimaryElevatedButton extends StatelessWidget {
     this.iconPath,
     this.buttonRadius,
     required this.textStyle,
+    this.borderColor,
   });
   final String title;
   final double? height;
@@ -33,6 +34,7 @@ class PrimaryElevatedButton extends StatelessWidget {
   final dynamic groub;
   final dynamic value;
   final String? iconPath;
+  final Color? borderColor;
 
   final TextStyle textStyle;
   final double? buttonRadius;
@@ -42,9 +44,12 @@ class PrimaryElevatedButton extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
+        
         style: ElevatedButton.styleFrom(
+          
           backgroundColor: backGroundColor ?? ColorManager.primary,
           shape: RoundedRectangleBorder(
+            side: BorderSide(color: borderColor ?? ColorManager.trasnparent),
             borderRadius: BorderRadius.circular(buttonRadius ?? AppRadius.s20),
           ),
           fixedSize: Size(width ?? 1.sw, height ?? AppHeight.s48),
@@ -70,7 +75,7 @@ class PrimaryElevatedButton extends StatelessWidget {
                     ),
                   ],
                   SizedBox(width: AppWidth.s8,),
-                  Text(title, style: textStyle),
+                  Center(child: Text(title, style: textStyle)),
                 ],
               ),
             ),

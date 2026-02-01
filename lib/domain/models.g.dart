@@ -10,16 +10,16 @@ _$TermModelImpl _$$TermModelImplFromJson(Map<String, dynamic> json) =>
     _$TermModelImpl(
       id: (json['id'] as num).toInt(),
       latinTerm: json['latin_term'] as String,
-      pronunciation: json['pronunciation'] as String,
-      englishTerm: json['english_term'] as String,
-      englishDefinition: json['english_definition'] as String,
-      causes: json['causes'] as String?,
-      symptoms: json['symptoms'] as String?,
-      treatment: json['treatment'] as String?,
+      pronunciation: json['pronunciation'] as String? ?? '',
+      englishTerm: json['english_term'] as String? ?? '',
+      englishDefinition: json['english_definition'] as String? ?? '',
+      causes: _parseStringOrList(json['causes']),
+      symptoms: _parseStringOrList(json['symptoms']),
+      treatment: _parseStringOrList(json['treatment']),
       imageUrl: json['image_url'] as String?,
-      simpleDefinition: json['simple_definition'] as String,
-      academicDefinition: json['academic_definition'] as String,
-      category: json['category'] as String,
+      simpleDefinition: json['simple_definition'] as String? ?? '',
+      academicDefinition: json['academic_definition'] as String? ?? '',
+      category: json['category'] as String? ?? 'General',
     );
 
 Map<String, dynamic> _$$TermModelImplToJson(_$TermModelImpl instance) =>

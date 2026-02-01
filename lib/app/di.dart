@@ -5,12 +5,20 @@ import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/data/remote_data_source.dart';
 import 'package:transly/data/repository_impl.dart';
 import 'package:transly/domain/repository.dart';
+import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> initAppModule() async {
+  // TTS Service
+  getIt.registerLazySingleton<TtsService>(
+    () => TtsService(),
+  );
+
   // Supabase client
-  getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+  getIt.registerLazySingleton<SupabaseClient>(
+    () => Supabase.instance.client,
+  );
 
   // Remote data source
   getIt.registerLazySingleton<RemoteDataSource>(
@@ -18,9 +26,14 @@ Future<void> initAppModule() async {
   );
 
   // Repository
-  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
+  getIt.registerLazySingleton<Repository>(
+    () => RepositoryImpl(getIt()),
+  );
 
-  // Cubit
-  getIt.registerFactory<AppCubit>(() => AppCubit(getIt()));
-  getIt.registerLazySingleton<TtsService>(() => TtsService());
+  getIt.registerLazySingleton<AppCubit>(
+    () => AppCubit(getIt()),
+  );
+  getIt.registerLazySingleton<NavigationCubit>(
+    () => NavigationCubit(),
+  );
 }

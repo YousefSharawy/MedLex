@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transly/app/ui_utiles.dart';
+import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
@@ -6,17 +9,13 @@ import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 
 class SavedTermItem extends StatelessWidget {
-  final String title;
-  final String category;
-  final String? imagePath;
+  final TermModel term;
   final VoidCallback onTap;
   final VoidCallback onBookmarkTap;
 
   const SavedTermItem({
     super.key,
-    required this.title,
-    required this.category,
-    this.imagePath,
+    required this.term,
     required this.onTap,
     required this.onBookmarkTap,
   });
@@ -50,10 +49,14 @@ class SavedTermItem extends StatelessWidget {
               height: AppHeight.s66,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppRadius.s8),
-                child:
-                    imagePath != null
-                        ? Image.asset(imagePath!, fit: BoxFit.cover)
-                        : Image.asset(ImageAssets.heart, fit: BoxFit.cover),
+                child: term.imageUrl != null && term.imageUrl!.isNotEmpty
+                    ? UiUtils.cachedNetworkImage(
+                        imageUrl: term.imageUrl,
+                        height: AppHeight.s66,
+                        width: AppWidth.s59,
+                        fit: BoxFit.cover,
+                      )
+                    : _buildPlaceholder(),
               ),
             ),
             SizedBox(width: AppWidth.s15),
@@ -67,7 +70,7 @@ class SavedTermItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      title,
+                      term.latinTerm,
                       style: getRegularStyle(
                         fontSize: FontSize.s15,
                         fontFamily: FontConstants.interFamily,
@@ -76,7 +79,7 @@ class SavedTermItem extends StatelessWidget {
                     ),
                     SizedBox(height: AppHeight.s8),
                     Text(
-                      category,
+                      term.category,
                       style: getRegularStyle(
                         fontSize: FontSize.s12,
                         fontFamily: FontConstants.interFamily,
@@ -88,13 +91,32 @@ class SavedTermItem extends StatelessWidget {
               ),
             ),
 
-            // Bookmark Icon (filled)
+            // Bookmark Icon (always active in saved view)
             GestureDetector(
               onTap: onBookmarkTap,
-              child: Image.asset(IconAssets.bookmarkActive),
+              child: Padding(
+                padding: EdgeInsets.all(8.sp),
+                child: Image.asset(IconAssets.bookmarkActive),
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Container(
+      width: AppWidth.s59,
+      height: AppHeight.s66,
+      decoration: BoxDecoration(
+        color: ColorManager.tealSoft.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(AppRadius.s8),
+      ),
+      child: Icon(
+        Icons.medical_information_outlined,
+        size: 28,
+        color: ColorManager.secondaryText.withOpacity(0.5),
       ),
     );
   }

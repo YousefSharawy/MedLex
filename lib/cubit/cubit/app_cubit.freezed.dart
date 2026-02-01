@@ -20,98 +20,116 @@ mixin _$AppState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -120,49 +138,40 @@ mixin _$AppState {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -231,29 +240,38 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return initial();
   }
@@ -262,29 +280,38 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return initial?.call();
   }
@@ -293,29 +320,38 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -328,16 +364,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -346,7 +373,10 @@ class _$InitialImpl implements _Initial {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return initial(this);
   }
@@ -355,23 +385,17 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return initial?.call(this);
   }
@@ -380,23 +404,17 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -411,260 +429,126 @@ abstract class _Initial implements AppState {
 }
 
 /// @nodoc
-abstract class _$$DailyTermLoadingImplCopyWith<$Res> {
-  factory _$$DailyTermLoadingImplCopyWith(
-    _$DailyTermLoadingImpl value,
-    $Res Function(_$DailyTermLoadingImpl) then,
-  ) = __$$DailyTermLoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DailyTermLoadingImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$DailyTermLoadingImpl>
-    implements _$$DailyTermLoadingImplCopyWith<$Res> {
-  __$$DailyTermLoadingImplCopyWithImpl(
-    _$DailyTermLoadingImpl _value,
-    $Res Function(_$DailyTermLoadingImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$DailyTermLoadingImpl implements DailyTermLoading {
-  const _$DailyTermLoadingImpl();
-
-  @override
-  String toString() {
-    return 'AppState.dailyTermLoading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DailyTermLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return dailyTermLoading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return dailyTermLoading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermLoading != null) {
-      return dailyTermLoading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return dailyTermLoading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return dailyTermLoading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermLoading != null) {
-      return dailyTermLoading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DailyTermLoading implements AppState {
-  const factory DailyTermLoading() = _$DailyTermLoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$DailyTermLoadedImplCopyWith<$Res> {
-  factory _$$DailyTermLoadedImplCopyWith(
-    _$DailyTermLoadedImpl value,
-    $Res Function(_$DailyTermLoadedImpl) then,
-  ) = __$$DailyTermLoadedImplCopyWithImpl<$Res>;
+abstract class _$$HomeLoadedImplCopyWith<$Res> {
+  factory _$$HomeLoadedImplCopyWith(
+    _$HomeLoadedImpl value,
+    $Res Function(_$HomeLoadedImpl) then,
+  ) = __$$HomeLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({TermModel term});
+  $Res call({
+    TermModel? dailyTerm,
+    bool isSearching,
+    bool isLoading,
+    String? errorMessage,
+    List<TermModel> recentlyViewed,
+    List<String> recentlySearched,
+    List<int> favoriteIds,
+    List<TermModel>? searchResults,
+    bool isSearchLoading,
+    String? searchError,
+    List<TermModel> popularTerms,
+    List<TermModel> trendingTerms,
+    String? pendingSearchText,
+  });
 
-  $TermModelCopyWith<$Res> get term;
+  $TermModelCopyWith<$Res>? get dailyTerm;
 }
 
 /// @nodoc
-class __$$DailyTermLoadedImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$DailyTermLoadedImpl>
-    implements _$$DailyTermLoadedImplCopyWith<$Res> {
-  __$$DailyTermLoadedImplCopyWithImpl(
-    _$DailyTermLoadedImpl _value,
-    $Res Function(_$DailyTermLoadedImpl) _then,
+class __$$HomeLoadedImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$HomeLoadedImpl>
+    implements _$$HomeLoadedImplCopyWith<$Res> {
+  __$$HomeLoadedImplCopyWithImpl(
+    _$HomeLoadedImpl _value,
+    $Res Function(_$HomeLoadedImpl) _then,
   ) : super(_value, _then);
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? term = null}) {
+  $Res call({
+    Object? dailyTerm = freezed,
+    Object? isSearching = null,
+    Object? isLoading = null,
+    Object? errorMessage = freezed,
+    Object? recentlyViewed = null,
+    Object? recentlySearched = null,
+    Object? favoriteIds = null,
+    Object? searchResults = freezed,
+    Object? isSearchLoading = null,
+    Object? searchError = freezed,
+    Object? popularTerms = null,
+    Object? trendingTerms = null,
+    Object? pendingSearchText = freezed,
+  }) {
     return _then(
-      _$DailyTermLoadedImpl(
-        null == term
-            ? _value.term
-            : term // ignore: cast_nullable_to_non_nullable
-                as TermModel,
+      _$HomeLoadedImpl(
+        dailyTerm:
+            freezed == dailyTerm
+                ? _value.dailyTerm
+                : dailyTerm // ignore: cast_nullable_to_non_nullable
+                    as TermModel?,
+        isSearching:
+            null == isSearching
+                ? _value.isSearching
+                : isSearching // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isLoading:
+            null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        errorMessage:
+            freezed == errorMessage
+                ? _value.errorMessage
+                : errorMessage // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        recentlyViewed:
+            null == recentlyViewed
+                ? _value._recentlyViewed
+                : recentlyViewed // ignore: cast_nullable_to_non_nullable
+                    as List<TermModel>,
+        recentlySearched:
+            null == recentlySearched
+                ? _value._recentlySearched
+                : recentlySearched // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        favoriteIds:
+            null == favoriteIds
+                ? _value._favoriteIds
+                : favoriteIds // ignore: cast_nullable_to_non_nullable
+                    as List<int>,
+        searchResults:
+            freezed == searchResults
+                ? _value._searchResults
+                : searchResults // ignore: cast_nullable_to_non_nullable
+                    as List<TermModel>?,
+        isSearchLoading:
+            null == isSearchLoading
+                ? _value.isSearchLoading
+                : isSearchLoading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        searchError:
+            freezed == searchError
+                ? _value.searchError
+                : searchError // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        popularTerms:
+            null == popularTerms
+                ? _value._popularTerms
+                : popularTerms // ignore: cast_nullable_to_non_nullable
+                    as List<TermModel>,
+        trendingTerms:
+            null == trendingTerms
+                ? _value._trendingTerms
+                : trendingTerms // ignore: cast_nullable_to_non_nullable
+                    as List<TermModel>,
+        pendingSearchText:
+            freezed == pendingSearchText
+                ? _value.pendingSearchText
+                : pendingSearchText // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -673,1760 +557,181 @@ class __$$DailyTermLoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TermModelCopyWith<$Res> get term {
-    return $TermModelCopyWith<$Res>(_value.term, (value) {
-      return _then(_value.copyWith(term: value));
+  $TermModelCopyWith<$Res>? get dailyTerm {
+    if (_value.dailyTerm == null) {
+      return null;
+    }
+
+    return $TermModelCopyWith<$Res>(_value.dailyTerm!, (value) {
+      return _then(_value.copyWith(dailyTerm: value));
     });
   }
 }
 
 /// @nodoc
 
-class _$DailyTermLoadedImpl implements DailyTermLoaded {
-  const _$DailyTermLoadedImpl(this.term);
+class _$HomeLoadedImpl implements HomeLoaded {
+  const _$HomeLoadedImpl({
+    this.dailyTerm,
+    this.isSearching = false,
+    this.isLoading = false,
+    this.errorMessage,
+    final List<TermModel> recentlyViewed = const [],
+    final List<String> recentlySearched = const [],
+    final List<int> favoriteIds = const [],
+    final List<TermModel>? searchResults,
+    this.isSearchLoading = false,
+    this.searchError,
+    final List<TermModel> popularTerms = const [],
+    final List<TermModel> trendingTerms = const [],
+    this.pendingSearchText,
+  }) : _recentlyViewed = recentlyViewed,
+       _recentlySearched = recentlySearched,
+       _favoriteIds = favoriteIds,
+       _searchResults = searchResults,
+       _popularTerms = popularTerms,
+       _trendingTerms = trendingTerms;
 
   @override
-  final TermModel term;
-
+  final TermModel? dailyTerm;
   @override
-  String toString() {
-    return 'AppState.dailyTermLoaded(term: $term)';
-  }
-
+  @JsonKey()
+  final bool isSearching;
   @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DailyTermLoadedImpl &&
-            (identical(other.term, term) || other.term == term));
-  }
-
+  @JsonKey()
+  final bool isLoading;
   @override
-  int get hashCode => Object.hash(runtimeType, term);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  final String? errorMessage;
+  final List<TermModel> _recentlyViewed;
   @override
-  @pragma('vm:prefer-inline')
-  _$$DailyTermLoadedImplCopyWith<_$DailyTermLoadedImpl> get copyWith =>
-      __$$DailyTermLoadedImplCopyWithImpl<_$DailyTermLoadedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return dailyTermLoaded(term);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return dailyTermLoaded?.call(term);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermLoaded != null) {
-      return dailyTermLoaded(term);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return dailyTermLoaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return dailyTermLoaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermLoaded != null) {
-      return dailyTermLoaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DailyTermLoaded implements AppState {
-  const factory DailyTermLoaded(final TermModel term) = _$DailyTermLoadedImpl;
-
-  TermModel get term;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DailyTermLoadedImplCopyWith<_$DailyTermLoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DailyTermErrorImplCopyWith<$Res> {
-  factory _$$DailyTermErrorImplCopyWith(
-    _$DailyTermErrorImpl value,
-    $Res Function(_$DailyTermErrorImpl) then,
-  ) = __$$DailyTermErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
-
-/// @nodoc
-class __$$DailyTermErrorImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$DailyTermErrorImpl>
-    implements _$$DailyTermErrorImplCopyWith<$Res> {
-  __$$DailyTermErrorImplCopyWithImpl(
-    _$DailyTermErrorImpl _value,
-    $Res Function(_$DailyTermErrorImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$DailyTermErrorImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                as String,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$DailyTermErrorImpl implements DailyTermError {
-  const _$DailyTermErrorImpl(this.message);
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'AppState.dailyTermError(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DailyTermErrorImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DailyTermErrorImplCopyWith<_$DailyTermErrorImpl> get copyWith =>
-      __$$DailyTermErrorImplCopyWithImpl<_$DailyTermErrorImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return dailyTermError(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return dailyTermError?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermError != null) {
-      return dailyTermError(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return dailyTermError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return dailyTermError?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (dailyTermError != null) {
-      return dailyTermError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DailyTermError implements AppState {
-  const factory DailyTermError(final String message) = _$DailyTermErrorImpl;
-
-  String get message;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DailyTermErrorImplCopyWith<_$DailyTermErrorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SearchLoadingImplCopyWith<$Res> {
-  factory _$$SearchLoadingImplCopyWith(
-    _$SearchLoadingImpl value,
-    $Res Function(_$SearchLoadingImpl) then,
-  ) = __$$SearchLoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SearchLoadingImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$SearchLoadingImpl>
-    implements _$$SearchLoadingImplCopyWith<$Res> {
-  __$$SearchLoadingImplCopyWithImpl(
-    _$SearchLoadingImpl _value,
-    $Res Function(_$SearchLoadingImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$SearchLoadingImpl implements SearchLoading {
-  const _$SearchLoadingImpl();
-
-  @override
-  String toString() {
-    return 'AppState.searchLoading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SearchLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return searchLoading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return searchLoading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchLoading != null) {
-      return searchLoading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return searchLoading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return searchLoading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchLoading != null) {
-      return searchLoading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SearchLoading implements AppState {
-  const factory SearchLoading() = _$SearchLoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$SearchLoadedImplCopyWith<$Res> {
-  factory _$$SearchLoadedImplCopyWith(
-    _$SearchLoadedImpl value,
-    $Res Function(_$SearchLoadedImpl) then,
-  ) = __$$SearchLoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<TermModel> terms});
-}
-
-/// @nodoc
-class __$$SearchLoadedImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$SearchLoadedImpl>
-    implements _$$SearchLoadedImplCopyWith<$Res> {
-  __$$SearchLoadedImplCopyWithImpl(
-    _$SearchLoadedImpl _value,
-    $Res Function(_$SearchLoadedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? terms = null}) {
-    return _then(
-      _$SearchLoadedImpl(
-        null == terms
-            ? _value._terms
-            : terms // ignore: cast_nullable_to_non_nullable
-                as List<TermModel>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$SearchLoadedImpl implements SearchLoaded {
-  const _$SearchLoadedImpl(final List<TermModel> terms) : _terms = terms;
-
-  final List<TermModel> _terms;
-  @override
-  List<TermModel> get terms {
-    if (_terms is EqualUnmodifiableListView) return _terms;
+  @JsonKey()
+  List<TermModel> get recentlyViewed {
+    if (_recentlyViewed is EqualUnmodifiableListView) return _recentlyViewed;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_terms);
+    return EqualUnmodifiableListView(_recentlyViewed);
   }
 
+  final List<String> _recentlySearched;
   @override
-  String toString() {
-    return 'AppState.searchLoaded(terms: $terms)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SearchLoadedImpl &&
-            const DeepCollectionEquality().equals(other._terms, _terms));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_terms));
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SearchLoadedImplCopyWith<_$SearchLoadedImpl> get copyWith =>
-      __$$SearchLoadedImplCopyWithImpl<_$SearchLoadedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return searchLoaded(terms);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return searchLoaded?.call(terms);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchLoaded != null) {
-      return searchLoaded(terms);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return searchLoaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return searchLoaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchLoaded != null) {
-      return searchLoaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SearchLoaded implements AppState {
-  const factory SearchLoaded(final List<TermModel> terms) = _$SearchLoadedImpl;
-
-  List<TermModel> get terms;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SearchLoadedImplCopyWith<_$SearchLoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SearchEmptyImplCopyWith<$Res> {
-  factory _$$SearchEmptyImplCopyWith(
-    _$SearchEmptyImpl value,
-    $Res Function(_$SearchEmptyImpl) then,
-  ) = __$$SearchEmptyImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SearchEmptyImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$SearchEmptyImpl>
-    implements _$$SearchEmptyImplCopyWith<$Res> {
-  __$$SearchEmptyImplCopyWithImpl(
-    _$SearchEmptyImpl _value,
-    $Res Function(_$SearchEmptyImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$SearchEmptyImpl implements SearchEmpty {
-  const _$SearchEmptyImpl();
-
-  @override
-  String toString() {
-    return 'AppState.searchEmpty()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SearchEmptyImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return searchEmpty();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return searchEmpty?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchEmpty != null) {
-      return searchEmpty();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return searchEmpty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return searchEmpty?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchEmpty != null) {
-      return searchEmpty(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SearchEmpty implements AppState {
-  const factory SearchEmpty() = _$SearchEmptyImpl;
-}
-
-/// @nodoc
-abstract class _$$SearchErrorImplCopyWith<$Res> {
-  factory _$$SearchErrorImplCopyWith(
-    _$SearchErrorImpl value,
-    $Res Function(_$SearchErrorImpl) then,
-  ) = __$$SearchErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
-
-/// @nodoc
-class __$$SearchErrorImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$SearchErrorImpl>
-    implements _$$SearchErrorImplCopyWith<$Res> {
-  __$$SearchErrorImplCopyWithImpl(
-    _$SearchErrorImpl _value,
-    $Res Function(_$SearchErrorImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$SearchErrorImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                as String,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$SearchErrorImpl implements SearchError {
-  const _$SearchErrorImpl(this.message);
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'AppState.searchError(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SearchErrorImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SearchErrorImplCopyWith<_$SearchErrorImpl> get copyWith =>
-      __$$SearchErrorImplCopyWithImpl<_$SearchErrorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return searchError(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return searchError?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchError != null) {
-      return searchError(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return searchError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return searchError?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (searchError != null) {
-      return searchError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SearchError implements AppState {
-  const factory SearchError(final String message) = _$SearchErrorImpl;
-
-  String get message;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SearchErrorImplCopyWith<_$SearchErrorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$CategoriesLoadingImplCopyWith<$Res> {
-  factory _$$CategoriesLoadingImplCopyWith(
-    _$CategoriesLoadingImpl value,
-    $Res Function(_$CategoriesLoadingImpl) then,
-  ) = __$$CategoriesLoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$CategoriesLoadingImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$CategoriesLoadingImpl>
-    implements _$$CategoriesLoadingImplCopyWith<$Res> {
-  __$$CategoriesLoadingImplCopyWithImpl(
-    _$CategoriesLoadingImpl _value,
-    $Res Function(_$CategoriesLoadingImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$CategoriesLoadingImpl implements CategoriesLoading {
-  const _$CategoriesLoadingImpl();
-
-  @override
-  String toString() {
-    return 'AppState.categoriesLoading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CategoriesLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return categoriesLoading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return categoriesLoading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (categoriesLoading != null) {
-      return categoriesLoading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return categoriesLoading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return categoriesLoading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (categoriesLoading != null) {
-      return categoriesLoading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CategoriesLoading implements AppState {
-  const factory CategoriesLoading() = _$CategoriesLoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$CategoriesLoadedImplCopyWith<$Res> {
-  factory _$$CategoriesLoadedImplCopyWith(
-    _$CategoriesLoadedImpl value,
-    $Res Function(_$CategoriesLoadedImpl) then,
-  ) = __$$CategoriesLoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<String> categories});
-}
-
-/// @nodoc
-class __$$CategoriesLoadedImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$CategoriesLoadedImpl>
-    implements _$$CategoriesLoadedImplCopyWith<$Res> {
-  __$$CategoriesLoadedImplCopyWithImpl(
-    _$CategoriesLoadedImpl _value,
-    $Res Function(_$CategoriesLoadedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? categories = null}) {
-    return _then(
-      _$CategoriesLoadedImpl(
-        null == categories
-            ? _value._categories
-            : categories // ignore: cast_nullable_to_non_nullable
-                as List<String>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$CategoriesLoadedImpl implements CategoriesLoaded {
-  const _$CategoriesLoadedImpl(final List<String> categories)
-    : _categories = categories;
-
-  final List<String> _categories;
-  @override
-  List<String> get categories {
-    if (_categories is EqualUnmodifiableListView) return _categories;
+  @JsonKey()
+  List<String> get recentlySearched {
+    if (_recentlySearched is EqualUnmodifiableListView)
+      return _recentlySearched;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categories);
+    return EqualUnmodifiableListView(_recentlySearched);
+  }
+
+  final List<int> _favoriteIds;
+  @override
+  @JsonKey()
+  List<int> get favoriteIds {
+    if (_favoriteIds is EqualUnmodifiableListView) return _favoriteIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_favoriteIds);
+  }
+
+  final List<TermModel>? _searchResults;
+  @override
+  List<TermModel>? get searchResults {
+    final value = _searchResults;
+    if (value == null) return null;
+    if (_searchResults is EqualUnmodifiableListView) return _searchResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
+  @JsonKey()
+  final bool isSearchLoading;
+  @override
+  final String? searchError;
+  final List<TermModel> _popularTerms;
+  @override
+  @JsonKey()
+  List<TermModel> get popularTerms {
+    if (_popularTerms is EqualUnmodifiableListView) return _popularTerms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_popularTerms);
+  }
+
+  final List<TermModel> _trendingTerms;
+  @override
+  @JsonKey()
+  List<TermModel> get trendingTerms {
+    if (_trendingTerms is EqualUnmodifiableListView) return _trendingTerms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_trendingTerms);
+  }
+
+  @override
+  final String? pendingSearchText;
+
+  @override
   String toString() {
-    return 'AppState.categoriesLoaded(categories: $categories)';
+    return 'AppState.homeLoaded(dailyTerm: $dailyTerm, isSearching: $isSearching, isLoading: $isLoading, errorMessage: $errorMessage, recentlyViewed: $recentlyViewed, recentlySearched: $recentlySearched, favoriteIds: $favoriteIds, searchResults: $searchResults, isSearchLoading: $isSearchLoading, searchError: $searchError, popularTerms: $popularTerms, trendingTerms: $trendingTerms, pendingSearchText: $pendingSearchText)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CategoriesLoadedImpl &&
+            other is _$HomeLoadedImpl &&
+            (identical(other.dailyTerm, dailyTerm) ||
+                other.dailyTerm == dailyTerm) &&
+            (identical(other.isSearching, isSearching) ||
+                other.isSearching == isSearching) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(
-              other._categories,
-              _categories,
-            ));
+              other._recentlyViewed,
+              _recentlyViewed,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._recentlySearched,
+              _recentlySearched,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._favoriteIds,
+              _favoriteIds,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._searchResults,
+              _searchResults,
+            ) &&
+            (identical(other.isSearchLoading, isSearchLoading) ||
+                other.isSearchLoading == isSearchLoading) &&
+            (identical(other.searchError, searchError) ||
+                other.searchError == searchError) &&
+            const DeepCollectionEquality().equals(
+              other._popularTerms,
+              _popularTerms,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._trendingTerms,
+              _trendingTerms,
+            ) &&
+            (identical(other.pendingSearchText, pendingSearchText) ||
+                other.pendingSearchText == pendingSearchText));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    const DeepCollectionEquality().hash(_categories),
+    dailyTerm,
+    isSearching,
+    isLoading,
+    errorMessage,
+    const DeepCollectionEquality().hash(_recentlyViewed),
+    const DeepCollectionEquality().hash(_recentlySearched),
+    const DeepCollectionEquality().hash(_favoriteIds),
+    const DeepCollectionEquality().hash(_searchResults),
+    isSearchLoading,
+    searchError,
+    const DeepCollectionEquality().hash(_popularTerms),
+    const DeepCollectionEquality().hash(_trendingTerms),
+    pendingSearchText,
   );
 
   /// Create a copy of AppState
@@ -2434,367 +739,171 @@ class _$CategoriesLoadedImpl implements CategoriesLoaded {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CategoriesLoadedImplCopyWith<_$CategoriesLoadedImpl> get copyWith =>
-      __$$CategoriesLoadedImplCopyWithImpl<_$CategoriesLoadedImpl>(
-        this,
-        _$identity,
-      );
+  _$$HomeLoadedImplCopyWith<_$HomeLoadedImpl> get copyWith =>
+      __$$HomeLoadedImplCopyWithImpl<_$HomeLoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
-    return categoriesLoaded(categories);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-    TResult? Function()? termDetailsLoading,
-    TResult? Function(TermModel term)? termDetailsLoaded,
-    TResult? Function(String message)? termDetailsError,
-    TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-  }) {
-    return categoriesLoaded?.call(categories);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    TResult Function()? termDetailsLoading,
-    TResult Function(TermModel term)? termDetailsLoaded,
-    TResult Function(String message)? termDetailsError,
-    TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )?
-    homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (categoriesLoaded != null) {
-      return categoriesLoaded(categories);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-    required TResult Function(TermDetailsLoading value) termDetailsLoading,
-    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
-    required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
-  }) {
-    return categoriesLoaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
-  }) {
-    return categoriesLoaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    TResult Function(TermDetailsLoading value)? termDetailsLoading,
-    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
-    TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
-    required TResult orElse(),
-  }) {
-    if (categoriesLoaded != null) {
-      return categoriesLoaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CategoriesLoaded implements AppState {
-  const factory CategoriesLoaded(final List<String> categories) =
-      _$CategoriesLoadedImpl;
-
-  List<String> get categories;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CategoriesLoadedImplCopyWith<_$CategoriesLoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$CategoriesErrorImplCopyWith<$Res> {
-  factory _$$CategoriesErrorImplCopyWith(
-    _$CategoriesErrorImpl value,
-    $Res Function(_$CategoriesErrorImpl) then,
-  ) = __$$CategoriesErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
-
-/// @nodoc
-class __$$CategoriesErrorImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$CategoriesErrorImpl>
-    implements _$$CategoriesErrorImplCopyWith<$Res> {
-  __$$CategoriesErrorImplCopyWithImpl(
-    _$CategoriesErrorImpl _value,
-    $Res Function(_$CategoriesErrorImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$CategoriesErrorImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                as String,
-      ),
+    return homeLoaded(
+      dailyTerm,
+      isSearching,
+      isLoading,
+      errorMessage,
+      recentlyViewed,
+      recentlySearched,
+      favoriteIds,
+      searchResults,
+      isSearchLoading,
+      searchError,
+      popularTerms,
+      trendingTerms,
+      pendingSearchText,
     );
   }
-}
-
-/// @nodoc
-
-class _$CategoriesErrorImpl implements CategoriesError {
-  const _$CategoriesErrorImpl(this.message);
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'AppState.categoriesError(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CategoriesErrorImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CategoriesErrorImplCopyWith<_$CategoriesErrorImpl> get copyWith =>
-      __$$CategoriesErrorImplCopyWithImpl<_$CategoriesErrorImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-    required TResult Function() termDetailsLoading,
-    required TResult Function(TermModel term) termDetailsLoaded,
-    required TResult Function(String message) termDetailsError,
-    required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
-    )
-    homeLoaded,
-  }) {
-    return categoriesError(message);
-  }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
-    return categoriesError?.call(message);
+    return homeLoaded?.call(
+      dailyTerm,
+      isSearching,
+      isLoading,
+      errorMessage,
+      recentlyViewed,
+      recentlySearched,
+      favoriteIds,
+      searchResults,
+      isSearchLoading,
+      searchError,
+      popularTerms,
+      trendingTerms,
+      pendingSearchText,
+    );
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
-    if (categoriesError != null) {
-      return categoriesError(message);
+    if (homeLoaded != null) {
+      return homeLoaded(
+        dailyTerm,
+        isSearching,
+        isLoading,
+        errorMessage,
+        recentlyViewed,
+        recentlySearched,
+        favoriteIds,
+        searchResults,
+        isSearchLoading,
+        searchError,
+        popularTerms,
+        trendingTerms,
+        pendingSearchText,
+      );
     }
     return orElse();
   }
@@ -2803,16 +912,7 @@ class _$CategoriesErrorImpl implements CategoriesError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -2821,75 +921,92 @@ class _$CategoriesErrorImpl implements CategoriesError {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
-    return categoriesError(this);
+    return homeLoaded(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
-    return categoriesError?.call(this);
+    return homeLoaded?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
-    if (categoriesError != null) {
-      return categoriesError(this);
+    if (homeLoaded != null) {
+      return homeLoaded(this);
     }
     return orElse();
   }
 }
 
-abstract class CategoriesError implements AppState {
-  const factory CategoriesError(final String message) = _$CategoriesErrorImpl;
+abstract class HomeLoaded implements AppState {
+  const factory HomeLoaded({
+    final TermModel? dailyTerm,
+    final bool isSearching,
+    final bool isLoading,
+    final String? errorMessage,
+    final List<TermModel> recentlyViewed,
+    final List<String> recentlySearched,
+    final List<int> favoriteIds,
+    final List<TermModel>? searchResults,
+    final bool isSearchLoading,
+    final String? searchError,
+    final List<TermModel> popularTerms,
+    final List<TermModel> trendingTerms,
+    final String? pendingSearchText,
+  }) = _$HomeLoadedImpl;
 
-  String get message;
+  TermModel? get dailyTerm;
+  bool get isSearching;
+  bool get isLoading;
+  String? get errorMessage;
+  List<TermModel> get recentlyViewed;
+  List<String> get recentlySearched;
+  List<int> get favoriteIds;
+  List<TermModel>? get searchResults;
+  bool get isSearchLoading;
+  String? get searchError;
+  List<TermModel> get popularTerms;
+  List<TermModel> get trendingTerms;
+  String? get pendingSearchText;
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CategoriesErrorImplCopyWith<_$CategoriesErrorImpl> get copyWith =>
+  _$$HomeLoadedImplCopyWith<_$HomeLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2938,29 +1055,38 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termsByCategoryLoading();
   }
@@ -2969,29 +1095,38 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termsByCategoryLoading?.call();
   }
@@ -3000,29 +1135,38 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryLoading != null) {
@@ -3035,16 +1179,7 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -3053,7 +1188,10 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termsByCategoryLoading(this);
   }
@@ -3062,23 +1200,17 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termsByCategoryLoading?.call(this);
   }
@@ -3087,23 +1219,17 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryLoading != null) {
@@ -3199,29 +1325,38 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termsByCategoryLoaded(terms);
   }
@@ -3230,29 +1365,38 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termsByCategoryLoaded?.call(terms);
   }
@@ -3261,29 +1405,38 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryLoaded != null) {
@@ -3296,16 +1449,7 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -3314,7 +1458,10 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termsByCategoryLoaded(this);
   }
@@ -3323,23 +1470,17 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termsByCategoryLoaded?.call(this);
   }
@@ -3348,23 +1489,17 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryLoaded != null) {
@@ -3462,29 +1597,38 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termsByCategoryError(message);
   }
@@ -3493,29 +1637,38 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termsByCategoryError?.call(message);
   }
@@ -3524,29 +1677,38 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryError != null) {
@@ -3559,16 +1721,7 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -3577,7 +1730,10 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termsByCategoryError(this);
   }
@@ -3586,23 +1742,17 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termsByCategoryError?.call(this);
   }
@@ -3611,23 +1761,17 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termsByCategoryError != null) {
@@ -3694,29 +1838,38 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termDetailsLoading();
   }
@@ -3725,29 +1878,38 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termDetailsLoading?.call();
   }
@@ -3756,29 +1918,38 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsLoading != null) {
@@ -3791,16 +1962,7 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -3809,7 +1971,10 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termDetailsLoading(this);
   }
@@ -3818,23 +1983,17 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termDetailsLoading?.call(this);
   }
@@ -3843,23 +2002,17 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsLoading != null) {
@@ -3959,29 +2112,38 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termDetailsLoaded(term);
   }
@@ -3990,29 +2152,38 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termDetailsLoaded?.call(term);
   }
@@ -4021,29 +2192,38 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsLoaded != null) {
@@ -4056,16 +2236,7 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -4074,7 +2245,10 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termDetailsLoaded(this);
   }
@@ -4083,23 +2257,17 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termDetailsLoaded?.call(this);
   }
@@ -4108,23 +2276,17 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsLoaded != null) {
@@ -4221,29 +2383,38 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
     return termDetailsError(message);
   }
@@ -4252,29 +2423,38 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
     return termDetailsError?.call(message);
   }
@@ -4283,29 +2463,38 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsError != null) {
@@ -4318,16 +2507,7 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -4336,7 +2516,10 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
     return termDetailsError(this);
   }
@@ -4345,23 +2528,17 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
     return termDetailsError?.call(this);
   }
@@ -4370,23 +2547,17 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
     if (termDetailsError != null) {
@@ -4409,227 +2580,205 @@ abstract class TermDetailsError implements AppState {
 }
 
 /// @nodoc
-abstract class _$$HomeLoadedImplCopyWith<$Res> {
-  factory _$$HomeLoadedImplCopyWith(
-    _$HomeLoadedImpl value,
-    $Res Function(_$HomeLoadedImpl) then,
-  ) = __$$HomeLoadedImplCopyWithImpl<$Res>;
+abstract class _$$FavoritesLoadedImplCopyWith<$Res> {
+  factory _$$FavoritesLoadedImplCopyWith(
+    _$FavoritesLoadedImpl value,
+    $Res Function(_$FavoritesLoadedImpl) then,
+  ) = __$$FavoritesLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({
-    TermModel? dailyTerm,
-    bool isSearching,
-    bool isLoading,
-    String? errorMessage,
-  });
-
-  $TermModelCopyWith<$Res>? get dailyTerm;
+  $Res call({List<TermModel> favorites});
 }
 
 /// @nodoc
-class __$$HomeLoadedImplCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$HomeLoadedImpl>
-    implements _$$HomeLoadedImplCopyWith<$Res> {
-  __$$HomeLoadedImplCopyWithImpl(
-    _$HomeLoadedImpl _value,
-    $Res Function(_$HomeLoadedImpl) _then,
+class __$$FavoritesLoadedImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$FavoritesLoadedImpl>
+    implements _$$FavoritesLoadedImplCopyWith<$Res> {
+  __$$FavoritesLoadedImplCopyWithImpl(
+    _$FavoritesLoadedImpl _value,
+    $Res Function(_$FavoritesLoadedImpl) _then,
   ) : super(_value, _then);
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? dailyTerm = freezed,
-    Object? isSearching = null,
-    Object? isLoading = null,
-    Object? errorMessage = freezed,
-  }) {
+  $Res call({Object? favorites = null}) {
     return _then(
-      _$HomeLoadedImpl(
-        dailyTerm:
-            freezed == dailyTerm
-                ? _value.dailyTerm
-                : dailyTerm // ignore: cast_nullable_to_non_nullable
-                    as TermModel?,
-        isSearching:
-            null == isSearching
-                ? _value.isSearching
-                : isSearching // ignore: cast_nullable_to_non_nullable
-                    as bool,
-        isLoading:
-            null == isLoading
-                ? _value.isLoading
-                : isLoading // ignore: cast_nullable_to_non_nullable
-                    as bool,
-        errorMessage:
-            freezed == errorMessage
-                ? _value.errorMessage
-                : errorMessage // ignore: cast_nullable_to_non_nullable
-                    as String?,
+      _$FavoritesLoadedImpl(
+        null == favorites
+            ? _value._favorites
+            : favorites // ignore: cast_nullable_to_non_nullable
+                as List<TermModel>,
       ),
     );
-  }
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TermModelCopyWith<$Res>? get dailyTerm {
-    if (_value.dailyTerm == null) {
-      return null;
-    }
-
-    return $TermModelCopyWith<$Res>(_value.dailyTerm!, (value) {
-      return _then(_value.copyWith(dailyTerm: value));
-    });
   }
 }
 
 /// @nodoc
 
-class _$HomeLoadedImpl implements HomeLoaded {
-  const _$HomeLoadedImpl({
-    required this.dailyTerm,
-    required this.isSearching,
-    this.isLoading = false,
-    this.errorMessage,
-  });
+class _$FavoritesLoadedImpl implements FavoritesLoaded {
+  const _$FavoritesLoadedImpl(final List<TermModel> favorites)
+    : _favorites = favorites;
 
+  final List<TermModel> _favorites;
   @override
-  final TermModel? dailyTerm;
-  @override
-  final bool isSearching;
-  @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  final String? errorMessage;
+  List<TermModel> get favorites {
+    if (_favorites is EqualUnmodifiableListView) return _favorites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_favorites);
+  }
 
   @override
   String toString() {
-    return 'AppState.homeLoaded(dailyTerm: $dailyTerm, isSearching: $isSearching, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'AppState.favoritesLoaded(favorites: $favorites)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$HomeLoadedImpl &&
-            (identical(other.dailyTerm, dailyTerm) ||
-                other.dailyTerm == dailyTerm) &&
-            (identical(other.isSearching, isSearching) ||
-                other.isSearching == isSearching) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+            other is _$FavoritesLoadedImpl &&
+            const DeepCollectionEquality().equals(
+              other._favorites,
+              _favorites,
+            ));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, dailyTerm, isSearching, isLoading, errorMessage);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_favorites));
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$HomeLoadedImplCopyWith<_$HomeLoadedImpl> get copyWith =>
-      __$$HomeLoadedImplCopyWithImpl<_$HomeLoadedImpl>(this, _$identity);
+  _$$FavoritesLoadedImplCopyWith<_$FavoritesLoadedImpl> get copyWith =>
+      __$$FavoritesLoadedImplCopyWithImpl<_$FavoritesLoadedImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() dailyTermLoading,
-    required TResult Function(TermModel term) dailyTermLoaded,
-    required TResult Function(String message) dailyTermError,
-    required TResult Function() searchLoading,
-    required TResult Function(List<TermModel> terms) searchLoaded,
-    required TResult Function() searchEmpty,
-    required TResult Function(String message) searchError,
-    required TResult Function() categoriesLoading,
-    required TResult Function(List<String> categories) categoriesLoaded,
-    required TResult Function(String message) categoriesError,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
     required TResult Function() termsByCategoryLoading,
     required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
     required TResult Function(String message) termsByCategoryError,
     required TResult Function() termDetailsLoading,
     required TResult Function(TermModel term) termDetailsLoaded,
     required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
     required TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )
-    homeLoaded,
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
   }) {
-    return homeLoaded(dailyTerm, isSearching, isLoading, errorMessage);
+    return favoritesLoaded(favorites);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? dailyTermLoading,
-    TResult? Function(TermModel term)? dailyTermLoaded,
-    TResult? Function(String message)? dailyTermError,
-    TResult? Function()? searchLoading,
-    TResult? Function(List<TermModel> terms)? searchLoaded,
-    TResult? Function()? searchEmpty,
-    TResult? Function(String message)? searchError,
-    TResult? Function()? categoriesLoading,
-    TResult? Function(List<String> categories)? categoriesLoaded,
-    TResult? Function(String message)? categoriesError,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult? Function()? termsByCategoryLoading,
     TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult? Function(String message)? termsByCategoryError,
     TResult? Function()? termDetailsLoading,
     TResult? Function(TermModel term)? termDetailsLoaded,
     TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
     TResult? Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
   }) {
-    return homeLoaded?.call(dailyTerm, isSearching, isLoading, errorMessage);
+    return favoritesLoaded?.call(favorites);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? dailyTermLoading,
-    TResult Function(TermModel term)? dailyTermLoaded,
-    TResult Function(String message)? dailyTermError,
-    TResult Function()? searchLoading,
-    TResult Function(List<TermModel> terms)? searchLoaded,
-    TResult Function()? searchEmpty,
-    TResult Function(String message)? searchError,
-    TResult Function()? categoriesLoading,
-    TResult Function(List<String> categories)? categoriesLoaded,
-    TResult Function(String message)? categoriesError,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
     TResult Function()? termsByCategoryLoading,
     TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
     TResult Function(String message)? termsByCategoryError,
     TResult Function()? termDetailsLoading,
     TResult Function(TermModel term)? termDetailsLoaded,
     TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
     TResult Function(
-      TermModel? dailyTerm,
-      bool isSearching,
-      bool isLoading,
-      String? errorMessage,
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
     )?
-    homeLoaded,
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
-    if (homeLoaded != null) {
-      return homeLoaded(dailyTerm, isSearching, isLoading, errorMessage);
+    if (favoritesLoaded != null) {
+      return favoritesLoaded(favorites);
     }
     return orElse();
   }
@@ -4638,16 +2787,7 @@ class _$HomeLoadedImpl implements HomeLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(DailyTermLoading value) dailyTermLoading,
-    required TResult Function(DailyTermLoaded value) dailyTermLoaded,
-    required TResult Function(DailyTermError value) dailyTermError,
-    required TResult Function(SearchLoading value) searchLoading,
-    required TResult Function(SearchLoaded value) searchLoaded,
-    required TResult Function(SearchEmpty value) searchEmpty,
-    required TResult Function(SearchError value) searchError,
-    required TResult Function(CategoriesLoading value) categoriesLoading,
-    required TResult Function(CategoriesLoaded value) categoriesLoaded,
-    required TResult Function(CategoriesError value) categoriesError,
+    required TResult Function(HomeLoaded value) homeLoaded,
     required TResult Function(TermsByCategoryLoading value)
     termsByCategoryLoading,
     required TResult Function(TermsByCategoryLoaded value)
@@ -4656,82 +2796,898 @@ class _$HomeLoadedImpl implements HomeLoaded {
     required TResult Function(TermDetailsLoading value) termDetailsLoading,
     required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
     required TResult Function(TermDetailsError value) termDetailsError,
-    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
   }) {
-    return homeLoaded(this);
+    return favoritesLoaded(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(DailyTermLoading value)? dailyTermLoading,
-    TResult? Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult? Function(DailyTermError value)? dailyTermError,
-    TResult? Function(SearchLoading value)? searchLoading,
-    TResult? Function(SearchLoaded value)? searchLoaded,
-    TResult? Function(SearchEmpty value)? searchEmpty,
-    TResult? Function(SearchError value)? searchError,
-    TResult? Function(CategoriesLoading value)? categoriesLoading,
-    TResult? Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult? Function(CategoriesError value)? categoriesError,
+    TResult? Function(HomeLoaded value)? homeLoaded,
     TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult? Function(TermsByCategoryError value)? termsByCategoryError,
     TResult? Function(TermDetailsLoading value)? termDetailsLoading,
     TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult? Function(TermDetailsError value)? termDetailsError,
-    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
   }) {
-    return homeLoaded?.call(this);
+    return favoritesLoaded?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(DailyTermLoading value)? dailyTermLoading,
-    TResult Function(DailyTermLoaded value)? dailyTermLoaded,
-    TResult Function(DailyTermError value)? dailyTermError,
-    TResult Function(SearchLoading value)? searchLoading,
-    TResult Function(SearchLoaded value)? searchLoaded,
-    TResult Function(SearchEmpty value)? searchEmpty,
-    TResult Function(SearchError value)? searchError,
-    TResult Function(CategoriesLoading value)? categoriesLoading,
-    TResult Function(CategoriesLoaded value)? categoriesLoaded,
-    TResult Function(CategoriesError value)? categoriesError,
+    TResult Function(HomeLoaded value)? homeLoaded,
     TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
     TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
     TResult Function(TermsByCategoryError value)? termsByCategoryError,
     TResult Function(TermDetailsLoading value)? termDetailsLoading,
     TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
     TResult Function(TermDetailsError value)? termDetailsError,
-    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
     required TResult orElse(),
   }) {
-    if (homeLoaded != null) {
-      return homeLoaded(this);
+    if (favoritesLoaded != null) {
+      return favoritesLoaded(this);
     }
     return orElse();
   }
 }
 
-abstract class HomeLoaded implements AppState {
-  const factory HomeLoaded({
-    required final TermModel? dailyTerm,
-    required final bool isSearching,
-    final bool isLoading,
-    final String? errorMessage,
-  }) = _$HomeLoadedImpl;
+abstract class FavoritesLoaded implements AppState {
+  const factory FavoritesLoaded(final List<TermModel> favorites) =
+      _$FavoritesLoadedImpl;
 
-  TermModel? get dailyTerm;
-  bool get isSearching;
-  bool get isLoading;
-  String? get errorMessage;
+  List<TermModel> get favorites;
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$HomeLoadedImplCopyWith<_$HomeLoadedImpl> get copyWith =>
+  _$$FavoritesLoadedImplCopyWith<_$FavoritesLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AllTermsLoadingImplCopyWith<$Res> {
+  factory _$$AllTermsLoadingImplCopyWith(
+    _$AllTermsLoadingImpl value,
+    $Res Function(_$AllTermsLoadingImpl) then,
+  ) = __$$AllTermsLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AllTermsLoadingImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$AllTermsLoadingImpl>
+    implements _$$AllTermsLoadingImplCopyWith<$Res> {
+  __$$AllTermsLoadingImplCopyWithImpl(
+    _$AllTermsLoadingImpl _value,
+    $Res Function(_$AllTermsLoadingImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$AllTermsLoadingImpl implements AllTermsLoading {
+  const _$AllTermsLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AppState.allTermsLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AllTermsLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
+    required TResult Function() termsByCategoryLoading,
+    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
+    required TResult Function(String message) termsByCategoryError,
+    required TResult Function() termDetailsLoading,
+    required TResult Function(TermModel term) termDetailsLoaded,
+    required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
+    required TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
+  }) {
+    return allTermsLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult? Function()? termsByCategoryLoading,
+    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult? Function(String message)? termsByCategoryError,
+    TResult? Function()? termDetailsLoading,
+    TResult? Function(TermModel term)? termDetailsLoaded,
+    TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
+    TResult? Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
+  }) {
+    return allTermsLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult Function()? termsByCategoryLoading,
+    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult Function(String message)? termsByCategoryError,
+    TResult Function()? termDetailsLoading,
+    TResult Function(TermModel term)? termDetailsLoaded,
+    TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
+    TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsLoading != null) {
+      return allTermsLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(TermsByCategoryLoading value)
+    termsByCategoryLoading,
+    required TResult Function(TermsByCategoryLoaded value)
+    termsByCategoryLoaded,
+    required TResult Function(TermsByCategoryError value) termsByCategoryError,
+    required TResult Function(TermDetailsLoading value) termDetailsLoading,
+    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
+    required TResult Function(TermDetailsError value) termDetailsError,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
+  }) {
+    return allTermsLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult? Function(TermDetailsError value)? termDetailsError,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
+  }) {
+    return allTermsLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult Function(TermDetailsError value)? termDetailsError,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsLoading != null) {
+      return allTermsLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllTermsLoading implements AppState {
+  const factory AllTermsLoading() = _$AllTermsLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$AllTermsLoadedImplCopyWith<$Res> {
+  factory _$$AllTermsLoadedImplCopyWith(
+    _$AllTermsLoadedImpl value,
+    $Res Function(_$AllTermsLoadedImpl) then,
+  ) = __$$AllTermsLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({
+    List<TermModel> terms,
+    bool hasMore,
+    int currentPage,
+    bool isLoadingMore,
+  });
+}
+
+/// @nodoc
+class __$$AllTermsLoadedImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$AllTermsLoadedImpl>
+    implements _$$AllTermsLoadedImplCopyWith<$Res> {
+  __$$AllTermsLoadedImplCopyWithImpl(
+    _$AllTermsLoadedImpl _value,
+    $Res Function(_$AllTermsLoadedImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? terms = null,
+    Object? hasMore = null,
+    Object? currentPage = null,
+    Object? isLoadingMore = null,
+  }) {
+    return _then(
+      _$AllTermsLoadedImpl(
+        terms:
+            null == terms
+                ? _value._terms
+                : terms // ignore: cast_nullable_to_non_nullable
+                    as List<TermModel>,
+        hasMore:
+            null == hasMore
+                ? _value.hasMore
+                : hasMore // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        currentPage:
+            null == currentPage
+                ? _value.currentPage
+                : currentPage // ignore: cast_nullable_to_non_nullable
+                    as int,
+        isLoadingMore:
+            null == isLoadingMore
+                ? _value.isLoadingMore
+                : isLoadingMore // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$AllTermsLoadedImpl implements AllTermsLoaded {
+  const _$AllTermsLoadedImpl({
+    required final List<TermModel> terms,
+    required this.hasMore,
+    required this.currentPage,
+    this.isLoadingMore = false,
+  }) : _terms = terms;
+
+  final List<TermModel> _terms;
+  @override
+  List<TermModel> get terms {
+    if (_terms is EqualUnmodifiableListView) return _terms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_terms);
+  }
+
+  @override
+  final bool hasMore;
+  @override
+  final int currentPage;
+  @override
+  @JsonKey()
+  final bool isLoadingMore;
+
+  @override
+  String toString() {
+    return 'AppState.allTermsLoaded(terms: $terms, hasMore: $hasMore, currentPage: $currentPage, isLoadingMore: $isLoadingMore)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AllTermsLoadedImpl &&
+            const DeepCollectionEquality().equals(other._terms, _terms) &&
+            (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_terms),
+    hasMore,
+    currentPage,
+    isLoadingMore,
+  );
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AllTermsLoadedImplCopyWith<_$AllTermsLoadedImpl> get copyWith =>
+      __$$AllTermsLoadedImplCopyWithImpl<_$AllTermsLoadedImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
+    required TResult Function() termsByCategoryLoading,
+    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
+    required TResult Function(String message) termsByCategoryError,
+    required TResult Function() termDetailsLoading,
+    required TResult Function(TermModel term) termDetailsLoaded,
+    required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
+    required TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
+  }) {
+    return allTermsLoaded(terms, hasMore, currentPage, isLoadingMore);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult? Function()? termsByCategoryLoading,
+    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult? Function(String message)? termsByCategoryError,
+    TResult? Function()? termDetailsLoading,
+    TResult? Function(TermModel term)? termDetailsLoaded,
+    TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
+    TResult? Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
+  }) {
+    return allTermsLoaded?.call(terms, hasMore, currentPage, isLoadingMore);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult Function()? termsByCategoryLoading,
+    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult Function(String message)? termsByCategoryError,
+    TResult Function()? termDetailsLoading,
+    TResult Function(TermModel term)? termDetailsLoaded,
+    TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
+    TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsLoaded != null) {
+      return allTermsLoaded(terms, hasMore, currentPage, isLoadingMore);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(TermsByCategoryLoading value)
+    termsByCategoryLoading,
+    required TResult Function(TermsByCategoryLoaded value)
+    termsByCategoryLoaded,
+    required TResult Function(TermsByCategoryError value) termsByCategoryError,
+    required TResult Function(TermDetailsLoading value) termDetailsLoading,
+    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
+    required TResult Function(TermDetailsError value) termDetailsError,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
+  }) {
+    return allTermsLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult? Function(TermDetailsError value)? termDetailsError,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
+  }) {
+    return allTermsLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult Function(TermDetailsError value)? termDetailsError,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsLoaded != null) {
+      return allTermsLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllTermsLoaded implements AppState {
+  const factory AllTermsLoaded({
+    required final List<TermModel> terms,
+    required final bool hasMore,
+    required final int currentPage,
+    final bool isLoadingMore,
+  }) = _$AllTermsLoadedImpl;
+
+  List<TermModel> get terms;
+  bool get hasMore;
+  int get currentPage;
+  bool get isLoadingMore;
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AllTermsLoadedImplCopyWith<_$AllTermsLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AllTermsErrorImplCopyWith<$Res> {
+  factory _$$AllTermsErrorImplCopyWith(
+    _$AllTermsErrorImpl value,
+    $Res Function(_$AllTermsErrorImpl) then,
+  ) = __$$AllTermsErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$AllTermsErrorImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$AllTermsErrorImpl>
+    implements _$$AllTermsErrorImplCopyWith<$Res> {
+  __$$AllTermsErrorImplCopyWithImpl(
+    _$AllTermsErrorImpl _value,
+    $Res Function(_$AllTermsErrorImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = null}) {
+    return _then(
+      _$AllTermsErrorImpl(
+        null == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$AllTermsErrorImpl implements AllTermsError {
+  const _$AllTermsErrorImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AppState.allTermsError(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AllTermsErrorImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AllTermsErrorImplCopyWith<_$AllTermsErrorImpl> get copyWith =>
+      __$$AllTermsErrorImplCopyWithImpl<_$AllTermsErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )
+    homeLoaded,
+    required TResult Function() termsByCategoryLoading,
+    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
+    required TResult Function(String message) termsByCategoryError,
+    required TResult Function() termDetailsLoading,
+    required TResult Function(TermModel term) termDetailsLoaded,
+    required TResult Function(String message) termDetailsError,
+    required TResult Function(List<TermModel> favorites) favoritesLoaded,
+    required TResult Function() allTermsLoading,
+    required TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )
+    allTermsLoaded,
+    required TResult Function(String message) allTermsError,
+  }) {
+    return allTermsError(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult? Function()? termsByCategoryLoading,
+    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult? Function(String message)? termsByCategoryError,
+    TResult? Function()? termDetailsLoading,
+    TResult? Function(TermModel term)? termDetailsLoaded,
+    TResult? Function(String message)? termDetailsError,
+    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult? Function()? allTermsLoading,
+    TResult? Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult? Function(String message)? allTermsError,
+  }) {
+    return allTermsError?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(
+      TermModel? dailyTerm,
+      bool isSearching,
+      bool isLoading,
+      String? errorMessage,
+      List<TermModel> recentlyViewed,
+      List<String> recentlySearched,
+      List<int> favoriteIds,
+      List<TermModel>? searchResults,
+      bool isSearchLoading,
+      String? searchError,
+      List<TermModel> popularTerms,
+      List<TermModel> trendingTerms,
+      String? pendingSearchText,
+    )?
+    homeLoaded,
+    TResult Function()? termsByCategoryLoading,
+    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
+    TResult Function(String message)? termsByCategoryError,
+    TResult Function()? termDetailsLoading,
+    TResult Function(TermModel term)? termDetailsLoaded,
+    TResult Function(String message)? termDetailsError,
+    TResult Function(List<TermModel> favorites)? favoritesLoaded,
+    TResult Function()? allTermsLoading,
+    TResult Function(
+      List<TermModel> terms,
+      bool hasMore,
+      int currentPage,
+      bool isLoadingMore,
+    )?
+    allTermsLoaded,
+    TResult Function(String message)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsError != null) {
+      return allTermsError(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(HomeLoaded value) homeLoaded,
+    required TResult Function(TermsByCategoryLoading value)
+    termsByCategoryLoading,
+    required TResult Function(TermsByCategoryLoaded value)
+    termsByCategoryLoaded,
+    required TResult Function(TermsByCategoryError value) termsByCategoryError,
+    required TResult Function(TermDetailsLoading value) termDetailsLoading,
+    required TResult Function(TermDetailsLoaded value) termDetailsLoaded,
+    required TResult Function(TermDetailsError value) termDetailsError,
+    required TResult Function(FavoritesLoaded value) favoritesLoaded,
+    required TResult Function(AllTermsLoading value) allTermsLoading,
+    required TResult Function(AllTermsLoaded value) allTermsLoaded,
+    required TResult Function(AllTermsError value) allTermsError,
+  }) {
+    return allTermsError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(HomeLoaded value)? homeLoaded,
+    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult? Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult? Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult? Function(TermDetailsError value)? termDetailsError,
+    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult? Function(AllTermsLoading value)? allTermsLoading,
+    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult? Function(AllTermsError value)? allTermsError,
+  }) {
+    return allTermsError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(HomeLoaded value)? homeLoaded,
+    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
+    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
+    TResult Function(TermsByCategoryError value)? termsByCategoryError,
+    TResult Function(TermDetailsLoading value)? termDetailsLoading,
+    TResult Function(TermDetailsLoaded value)? termDetailsLoaded,
+    TResult Function(TermDetailsError value)? termDetailsError,
+    TResult Function(FavoritesLoaded value)? favoritesLoaded,
+    TResult Function(AllTermsLoading value)? allTermsLoading,
+    TResult Function(AllTermsLoaded value)? allTermsLoaded,
+    TResult Function(AllTermsError value)? allTermsError,
+    required TResult orElse(),
+  }) {
+    if (allTermsError != null) {
+      return allTermsError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllTermsError implements AppState {
+  const factory AllTermsError(final String message) = _$AllTermsErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AllTermsErrorImplCopyWith<_$AllTermsErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

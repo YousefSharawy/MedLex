@@ -6,8 +6,9 @@ abstract class RemoteDataSource {
   Future<TermModel> getDailyTerm();
   Future<List<TermModel>> searchTerms(String query);
   Future<List<TermModel>> getTermsByCategory(String category);
-  Future<List<String>> getCategories();
   Future<TermModel> getTermById(int id);
+  Future<List<TermModel>> getAllTerms({int page = 0, int pageSize = 20});
+  Future<int> getTotalTermsCount();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -15,7 +16,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   static const String _tableName = 'definitions';
 
   const RemoteDataSourceImpl({required SupabaseClient supabase})
-    : _supabase = supabase;
+      : _supabase = supabase;
 
   @override
   Future<TermModel> getDailyTerm() async {
@@ -56,9 +57,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       final response = await _supabase
           .from(_tableName)
           .select()
-          .or(
-            'latin_term.ilike.%$query%,english_term.ilike.%$query%,simple_definiti.ilike.%$query%',
-          );
+          .or('latin_term.ilike.%$query%,english_term.ilike.%$query%,simple_definition.ilike.%$query%')
+          .order('latin_term', ascending: true)
+          .limit(50);
 
       return response
           .map<TermModel>((json) => TermModel.fromJson(json))
@@ -86,32 +87,49 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<String>> getCategories() async {
+  Future<TermModel> getTermById(int id) async {
     try {
       final response = await _supabase
           .from(_tableName)
-          .select('category')
-          .order('category', ascending: true);
+          .select()
+          .eq('id', id)
+          .single();
 
-      final categories =
-          response
-              .map<String>((json) => json['category'] as String)
-              .toSet()
-              .toList();
-
-      return categories;
+      return TermModel.fromJson(response);
     } catch (error) {
       throw ErrorHandler.handle(error).failture;
     }
   }
 
   @override
-  Future<TermModel> getTermById(int id) async {
+  Future<List<TermModel>> getAllTerms({int page = 0, int pageSize = 20}) async {
     try {
-      final response =
-          await _supabase.from(_tableName).select().eq('id', id).single();
+      final start = page * pageSize;
+      final end = start + pageSize - 1;
 
-      return TermModel.fromJson(response);
+      final response = await _supabase
+          .from(_tableName)
+          .select()
+          .order('latin_term', ascending: true)
+          .range(start, end);
+
+      return response
+          .map<TermModel>((json) => TermModel.fromJson(json))
+          .toList();
+    } catch (error) {
+      throw ErrorHandler.handle(error).failture;
+    }
+  }
+
+  @override
+  Future<int> getTotalTermsCount() async {
+    try {
+      final response = await _supabase
+          .from(_tableName)
+          .select('id')
+          .count(CountOption.exact);
+
+      return response.count;
     } catch (error) {
       throw ErrorHandler.handle(error).failture;
     }

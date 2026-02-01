@@ -154,7 +154,7 @@ AppBarTheme _appBarTheme() {
       statusBarIconBrightness: Brightness.dark,
     ),
     iconTheme: const IconThemeData(color: ColorManager.black),
-    color: Colors.transparent,
+    backgroundColor: Colors.transparent,
 
     centerTitle: true,
     titleTextStyle: getBoldStyle(

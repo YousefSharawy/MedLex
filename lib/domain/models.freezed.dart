@@ -24,13 +24,17 @@ mixin _$TermModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'latin_term')
   String get latinTerm => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pronunciation')
   String get pronunciation => throw _privateConstructorUsedError;
   @JsonKey(name: 'english_term')
   String get englishTerm => throw _privateConstructorUsedError;
   @JsonKey(name: 'english_definition')
   String get englishDefinition => throw _privateConstructorUsedError;
+  @JsonKey(name: 'causes', fromJson: _parseStringOrList)
   String? get causes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'symptoms', fromJson: _parseStringOrList)
   String? get symptoms => throw _privateConstructorUsedError;
+  @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   String? get treatment => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
   String? get imageUrl => throw _privateConstructorUsedError;
@@ -38,6 +42,7 @@ mixin _$TermModel {
   String get simpleDefinition => throw _privateConstructorUsedError;
   @JsonKey(name: 'academic_definition')
   String get academicDefinition => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category')
   String get category => throw _privateConstructorUsedError;
 
   /// Serializes this TermModel to a JSON map.
@@ -58,16 +63,16 @@ abstract class $TermModelCopyWith<$Res> {
   $Res call({
     int id,
     @JsonKey(name: 'latin_term') String latinTerm,
-    String pronunciation,
+    @JsonKey(name: 'pronunciation') String pronunciation,
     @JsonKey(name: 'english_term') String englishTerm,
     @JsonKey(name: 'english_definition') String englishDefinition,
-    String? causes,
-    String? symptoms,
-    String? treatment,
+    @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
+    @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
+    @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'simple_definition') String simpleDefinition,
     @JsonKey(name: 'academic_definition') String academicDefinition,
-    String category,
+    @JsonKey(name: 'category') String category,
   });
 }
 
@@ -179,16 +184,16 @@ abstract class _$$TermModelImplCopyWith<$Res>
   $Res call({
     int id,
     @JsonKey(name: 'latin_term') String latinTerm,
-    String pronunciation,
+    @JsonKey(name: 'pronunciation') String pronunciation,
     @JsonKey(name: 'english_term') String englishTerm,
     @JsonKey(name: 'english_definition') String englishDefinition,
-    String? causes,
-    String? symptoms,
-    String? treatment,
+    @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
+    @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
+    @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'simple_definition') String simpleDefinition,
     @JsonKey(name: 'academic_definition') String academicDefinition,
-    String category,
+    @JsonKey(name: 'category') String category,
   });
 }
 
@@ -288,21 +293,21 @@ class __$$TermModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TermModelImpl extends _TermModel {
+class _$TermModelImpl implements _TermModel {
   const _$TermModelImpl({
     required this.id,
     @JsonKey(name: 'latin_term') required this.latinTerm,
-    required this.pronunciation,
-    @JsonKey(name: 'english_term') required this.englishTerm,
-    @JsonKey(name: 'english_definition') required this.englishDefinition,
-    this.causes,
-    this.symptoms,
-    this.treatment,
+    @JsonKey(name: 'pronunciation') this.pronunciation = '',
+    @JsonKey(name: 'english_term') this.englishTerm = '',
+    @JsonKey(name: 'english_definition') this.englishDefinition = '',
+    @JsonKey(name: 'causes', fromJson: _parseStringOrList) this.causes,
+    @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) this.symptoms,
+    @JsonKey(name: 'treatment', fromJson: _parseStringOrList) this.treatment,
     @JsonKey(name: 'image_url') this.imageUrl,
-    @JsonKey(name: 'simple_definition') required this.simpleDefinition,
-    @JsonKey(name: 'academic_definition') required this.academicDefinition,
-    required this.category,
-  }) : super._();
+    @JsonKey(name: 'simple_definition') this.simpleDefinition = '',
+    @JsonKey(name: 'academic_definition') this.academicDefinition = '',
+    @JsonKey(name: 'category') this.category = 'General',
+  });
 
   factory _$TermModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TermModelImplFromJson(json);
@@ -313,6 +318,7 @@ class _$TermModelImpl extends _TermModel {
   @JsonKey(name: 'latin_term')
   final String latinTerm;
   @override
+  @JsonKey(name: 'pronunciation')
   final String pronunciation;
   @override
   @JsonKey(name: 'english_term')
@@ -321,10 +327,13 @@ class _$TermModelImpl extends _TermModel {
   @JsonKey(name: 'english_definition')
   final String englishDefinition;
   @override
+  @JsonKey(name: 'causes', fromJson: _parseStringOrList)
   final String? causes;
   @override
+  @JsonKey(name: 'symptoms', fromJson: _parseStringOrList)
   final String? symptoms;
   @override
+  @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   final String? treatment;
   @override
   @JsonKey(name: 'image_url')
@@ -336,6 +345,7 @@ class _$TermModelImpl extends _TermModel {
   @JsonKey(name: 'academic_definition')
   final String academicDefinition;
   @override
+  @JsonKey(name: 'category')
   final String category;
 
   @override
@@ -404,24 +414,23 @@ class _$TermModelImpl extends _TermModel {
   }
 }
 
-abstract class _TermModel extends TermModel {
+abstract class _TermModel implements TermModel {
   const factory _TermModel({
     required final int id,
     @JsonKey(name: 'latin_term') required final String latinTerm,
-    required final String pronunciation,
-    @JsonKey(name: 'english_term') required final String englishTerm,
-    @JsonKey(name: 'english_definition')
-    required final String englishDefinition,
-    final String? causes,
+    @JsonKey(name: 'pronunciation') final String pronunciation,
+    @JsonKey(name: 'english_term') final String englishTerm,
+    @JsonKey(name: 'english_definition') final String englishDefinition,
+    @JsonKey(name: 'causes', fromJson: _parseStringOrList) final String? causes,
+    @JsonKey(name: 'symptoms', fromJson: _parseStringOrList)
     final String? symptoms,
+    @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
     final String? treatment,
     @JsonKey(name: 'image_url') final String? imageUrl,
-    @JsonKey(name: 'simple_definition') required final String simpleDefinition,
-    @JsonKey(name: 'academic_definition')
-    required final String academicDefinition,
-    required final String category,
+    @JsonKey(name: 'simple_definition') final String simpleDefinition,
+    @JsonKey(name: 'academic_definition') final String academicDefinition,
+    @JsonKey(name: 'category') final String category,
   }) = _$TermModelImpl;
-  const _TermModel._() : super._();
 
   factory _TermModel.fromJson(Map<String, dynamic> json) =
       _$TermModelImpl.fromJson;
@@ -432,6 +441,7 @@ abstract class _TermModel extends TermModel {
   @JsonKey(name: 'latin_term')
   String get latinTerm;
   @override
+  @JsonKey(name: 'pronunciation')
   String get pronunciation;
   @override
   @JsonKey(name: 'english_term')
@@ -440,10 +450,13 @@ abstract class _TermModel extends TermModel {
   @JsonKey(name: 'english_definition')
   String get englishDefinition;
   @override
+  @JsonKey(name: 'causes', fromJson: _parseStringOrList)
   String? get causes;
   @override
+  @JsonKey(name: 'symptoms', fromJson: _parseStringOrList)
   String? get symptoms;
   @override
+  @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   String? get treatment;
   @override
   @JsonKey(name: 'image_url')
@@ -455,6 +468,7 @@ abstract class _TermModel extends TermModel {
   @JsonKey(name: 'academic_definition')
   String get academicDefinition;
   @override
+  @JsonKey(name: 'category')
   String get category;
 
   /// Create a copy of TermModel

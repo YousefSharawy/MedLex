@@ -5,23 +5,30 @@ part 'models.g.dart';
 
 @freezed
 class TermModel with _$TermModel {
-  const TermModel._();
-
   const factory TermModel({
     required int id,
     @JsonKey(name: 'latin_term') required String latinTerm,
-    required String pronunciation,
-    @JsonKey(name: 'english_term') required String englishTerm,
-    @JsonKey(name: 'english_definition') required String englishDefinition,
-    String? causes,
-    String? symptoms,
-    String? treatment,
+    @JsonKey(name: 'pronunciation') @Default('') String pronunciation,
+    @JsonKey(name: 'english_term') @Default('') String englishTerm,
+    @JsonKey(name: 'english_definition') @Default('') String englishDefinition,
+    @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
+    @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
+    @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
     @JsonKey(name: 'image_url') String? imageUrl,
-    @JsonKey(name: 'simple_definition') required String simpleDefinition,
-    @JsonKey(name: 'academic_definition') required String academicDefinition,
-    required String category,
+    @JsonKey(name: 'simple_definition') @Default('') String simpleDefinition,
+    @JsonKey(name: 'academic_definition') @Default('') String academicDefinition,
+    @JsonKey(name: 'category') @Default('General') String category,
   }) = _TermModel;
 
-  factory TermModel.fromJson(Map<String, dynamic> json) =>
-      _$TermModelFromJson(json);
+  factory TermModel.fromJson(Map<String, dynamic> json) => _$TermModelFromJson(json);
+}
+
+String? _parseStringOrList(dynamic value) {
+  if (value == null) return null;
+  if (value is String) return value;
+  if (value is List) {
+    // Join list items with comma or newline
+    return value.map((e) => e.toString()).join(', ');
+  }
+  return value.toString();
 }

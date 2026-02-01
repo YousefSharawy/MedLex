@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.medlex"
-        minSdk = 21  // Changed from flutter.minSdkVersion to 21 for TTS support
+        minSdk = flutter.minSdkVersion  // Changed from flutter.minSdkVersion to 21 for TTS support
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

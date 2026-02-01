@@ -40,9 +40,9 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failture, List<String>>> getCategories() async {
+  Future<Either<Failture, TermModel>> getTermById(int id) async {
     try {
-      final result = await _remoteDataSource.getCategories();
+      final result = await _remoteDataSource.getTermById(id);
       return Right(result);
     } on Failture catch (failture) {
       return Left(failture);
@@ -50,9 +50,19 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failture, TermModel>> getTermById(int id) async {
+  Future<Either<Failture, List<TermModel>>> getAllTerms({int page = 0, int pageSize = 20}) async {
     try {
-      final result = await _remoteDataSource.getTermById(id);
+      final result = await _remoteDataSource.getAllTerms(page: page, pageSize: pageSize);
+      return Right(result);
+    } on Failture catch (failture) {
+      return Left(failture);
+    }
+  }
+
+  @override
+  Future<Either<Failture, int>> getTotalTermsCount() async {
+    try {
+      final result = await _remoteDataSource.getTotalTermsCount();
       return Right(result);
     } on Failture catch (failture) {
       return Left(failture);

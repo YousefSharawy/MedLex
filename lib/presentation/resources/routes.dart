@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/termDetails/term_details_view.dart';
-import 'package:transly/presentation/onboarding/on_boarding_second_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
 import 'package:transly/presentation/profile/screens/savedItems/saved_terms_view.dart';
 
@@ -52,14 +52,14 @@ class AppNavigation {
               child: const OnBoardingView(),
             ),
       ),
-      GoRoute(
-        path: Routes.onboarding2,
-        pageBuilder:
-            (context, state) => CustomTransitionPage2(
-              key: state.pageKey,
-              child: const OnBoardingSecondView(),
-            ),
-      ),
+      // GoRoute(
+      //   path: Routes.onboarding2,
+      //   pageBuilder:
+      //       (context, state) => CustomTransitionPage2(
+      //         key: state.pageKey,
+      //         child: const OnBoardingSecondView(),
+      //       ),
+      // ),
       GoRoute(
         path: Routes.savedItems,
         pageBuilder:
@@ -70,11 +70,10 @@ class AppNavigation {
       ),
       GoRoute(
         path: Routes.termDetails,
-        pageBuilder:
-            (context, state) => CustomTransitionPage2(
-              key: state.pageKey,
-              child: const TermDetailsView(),
-            ),
+        builder: (context, state) {
+          final term = state.extra as TermModel;
+          return TermDetailsView(term: term);
+        },
       ),
 
       StatefulShellRoute.indexedStack(
@@ -102,8 +101,7 @@ class AppNavigation {
                 pageBuilder:
                     (context, state) => CustomTransitionPage2(
                       key: state.pageKey,
-                      child:
-                          const DictionaryView(), 
+                      child: const DictionaryView(),
                     ),
               ),
             ],

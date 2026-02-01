@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transly/app/ui_utiles.dart';
+import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 
 class RecentlyViewedItem extends StatelessWidget {
-  final String title;
-  final String category;
+  final TermModel term;
+  final VoidCallback? onTap;
 
-  const RecentlyViewedItem({
-    super.key,
-    required this.title,
-    required this.category,
-  });
+  const RecentlyViewedItem({super.key, required this.term, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        context.push(Routes.termDetails);
-      },
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.only(bottom: AppHeight.s12),
         padding: EdgeInsets.symmetric(
@@ -46,10 +43,19 @@ class RecentlyViewedItem extends StatelessWidget {
             SizedBox(
               width: AppWidth.s59,
               height: AppHeight.s66,
-              child: Image.asset(ImageAssets.heart, fit: BoxFit.cover),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppRadius.s8),
+                child: term.imageUrl != null && term.imageUrl!.isNotEmpty
+                    ? UiUtils.cachedNetworkImage(
+                        imageUrl: term.imageUrl,
+                        height: AppHeight.s66,
+                        width: AppWidth.s59,
+                        fit: BoxFit.cover,
+                      )
+                    : _buildPlaceholder(),
+              ),
             ),
             SizedBox(width: AppWidth.s15),
-      
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: AppHeight.s3),
@@ -57,7 +63,7 @@ class RecentlyViewedItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      term.latinTerm,
                       style: getRegularStyle(
                         fontSize: FontSize.s15,
                         fontFamily: FontConstants.interFamily,
@@ -66,7 +72,7 @@ class RecentlyViewedItem extends StatelessWidget {
                     ),
                     SizedBox(height: AppHeight.s8),
                     Text(
-                      category,
+                      term.category,
                       style: getRegularStyle(
                         fontSize: FontSize.s12,
                         fontFamily: FontConstants.interFamily,
@@ -77,9 +83,49 @@ class RecentlyViewedItem extends StatelessWidget {
                 ),
               ),
             ),
-            Image.asset(IconAssets.bookmark),
+            _buildBookmarkButton(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBookmarkButton(BuildContext context) {
+    return BlocSelector<AppCubit, AppState, bool>(
+      selector: (state) {
+        if (state is HomeLoaded) {
+          return state.favoriteIds.contains(term.id);
+        }
+        return context.read<AppCubit>().isFavorite(term.id);
+      },
+      builder: (context, isFavorite) {
+        return GestureDetector(
+          onTap: () {
+            context.read<AppCubit>().toggleFavorite(term);
+          },
+          child: Padding(
+            padding: EdgeInsets.all(8.sp),
+            child: isFavorite
+                ? Image.asset(IconAssets.bookmarkActive)
+                : Image.asset(IconAssets.bookmark),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Container(
+      width: AppWidth.s59,
+      height: AppHeight.s66,
+      decoration: BoxDecoration(
+        color: ColorManager.tealSoft.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(AppRadius.s8),
+      ),
+      child: Icon(
+        Icons.medical_information_outlined,
+        size: 28.sp,
+        color: ColorManager.secondaryText.withOpacity(0.5),
       ),
     );
   }

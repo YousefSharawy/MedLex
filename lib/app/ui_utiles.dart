@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
@@ -9,7 +10,7 @@ import 'package:transly/presentation/resources/values_manager.dart';
 
 class UiUtils {
   // ==================== TOAST MESSAGES ====================
-  
+
   static void showMessage(String message) {
     Fluttertoast.showToast(
       msg: message,
@@ -37,41 +38,52 @@ class UiUtils {
     );
   }
 
+  static void showInfoMessage(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      backgroundColor: ColorManager.tealSoft,
+      textColor: ColorManager.primaryText,
+      fontSize: FontSize.s14,
+    );
+  }
+
   // ==================== LOADING DIALOG ====================
 
   static void showLoading(BuildContext context, {String? message}) {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => PopScope(
-        canPop: false,
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(24.sp),
-            decoration: BoxDecoration(
-              color: ColorManager.white,
-              borderRadius: BorderRadius.circular(AppRadius.s16),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircularProgressIndicator(),
-                if (message != null) ...[
-                  SizedBox(height: AppHeight.s16),
-                  Text(
-                    message,
-                    style: getRegularStyle(
-                      fontSize: FontSize.s14,
-                      fontFamily: FontConstants.interFamily,
-                      color: ColorManager.primaryText,
-                    ),
-                  ),
-                ],
-              ],
+      builder:
+          (_) => PopScope(
+            canPop: false,
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(24.sp),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(AppRadius.s16),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(),
+                    if (message != null) ...[
+                      SizedBox(height: AppHeight.s16),
+                      Text(
+                        message,
+                        style: getRegularStyle(
+                          fontSize: FontSize.s14,
+                          fontFamily: FontConstants.interFamily,
+                          color: ColorManager.primaryText,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
     );
   }
 
@@ -81,13 +93,12 @@ class UiUtils {
     }
   }
 
-  // ==================== LOADING WIDGETS ====================
 
   static Widget loadingWidget({double? size}) {
     return Center(
       child: SizedBox(
-        width: size ?? 40,
-        height: size ?? 40,
+        width: size ?? AppWidth.s40,
+        height: size ?? AppHeight.s40,
         child: const CircularProgressIndicator(),
       ),
     );
@@ -98,9 +109,7 @@ class UiUtils {
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: AppHeight.s50),
       decoration: cardDecoration(),
-      child: const Center(
-        child: CircularProgressIndicator(),
-      ),
+      child: const Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -179,7 +188,7 @@ class UiUtils {
       decoration: cardDecoration(),
       child: Column(
         children: [
-          Icon(Icons.error_outline, color: ColorManager.error, size: 40),
+          Icon(Icons.error_outline, color: ColorManager.error, size: 40.sp),
           SizedBox(height: AppHeight.s10),
           Text(
             message,
@@ -191,10 +200,7 @@ class UiUtils {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: AppHeight.s10),
-          TextButton(
-            onPressed: onRetry,
-            child: const Text('Retry'),
-          ),
+          TextButton(onPressed: onRetry, child: const Text('Retry')),
         ],
       ),
     );
@@ -204,7 +210,6 @@ class UiUtils {
 
   static Widget emptyWidget({
     required String message,
-    IconData? icon,
     String? actionText,
     VoidCallback? onAction,
   }) {
@@ -212,29 +217,34 @@ class UiUtils {
       child: Padding(
         padding: EdgeInsets.all(16.sp),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon ?? Icons.inbox_outlined,
-              color: ColorManager.secondaryText.withOpacity(0.5),
-              size: 80,
-            ),
+            SizedBox(height: AppHeight.s150),
+
+            Image.asset(IconAssets.noResult),
             SizedBox(height: AppHeight.s16),
             Text(
               message,
               style: getRegularStyle(
-                fontSize: FontSize.s16,
+                fontSize: FontSize.s24,
+                fontFamily: FontConstants.interFamily,
+                color: ColorManager.primaryText,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: AppHeight.s10),
+
+            Text(
+              "Try searching with a different keyword or check spelling",
+              style: getRegularStyle(
+                fontSize: FontSize.s15,
                 fontFamily: FontConstants.interFamily,
                 color: ColorManager.secondaryText,
               ),
               textAlign: TextAlign.center,
             ),
             if (actionText != null && onAction != null) ...[
-              SizedBox(height: AppHeight.s16),
-              TextButton(
-                onPressed: onAction,
-                child: Text(actionText),
-              ),
+              SizedBox(height: AppHeight.s10),
+              TextButton(onPressed: onAction, child: Text(actionText)),
             ],
           ],
         ),
@@ -254,9 +264,9 @@ class UiUtils {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.medical_information_outlined,
-            size: 50,
-            color: ColorManager.secondaryText.withOpacity(0.5),
+            Icons.now_wallpaper_outlined,
+            size: 50.sp,
+            color: ColorManager.graySecondaryText.withOpacity(0.5),
           ),
           SizedBox(height: AppHeight.s8),
           Text(
@@ -366,7 +376,7 @@ class UiUtils {
                 Icon(
                   Icons.check_circle_outline,
                   color: ColorManager.success,
-                  size: 80,
+                  size: 80.sp,
                 ),
                 SizedBox(height: AppHeight.s16),
                 Text(
@@ -463,22 +473,19 @@ class UiUtils {
       height: height,
       width: width,
       fit: fit,
-      placeholder: (context, url) => SizedBox(
-        height: height,
-        width: width,
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-      errorWidget: (context, url, error) =>
-          errorWidget ?? noImagePlaceholder(height: height),
+      placeholder:
+          (context, url) => SizedBox(
+            height: height,
+            width: width,
+            child: const Center(child: CircularProgressIndicator()),
+          ),
+      errorWidget:
+          (context, url, error) =>
+              errorWidget ?? noImagePlaceholder(height: height),
     );
 
     if (borderRadius != null) {
-      return ClipRRect(
-        borderRadius: borderRadius,
-        child: imageWidget,
-      );
+      return ClipRRect(borderRadius: borderRadius, child: imageWidget);
     }
 
     return imageWidget;
@@ -493,7 +500,7 @@ class UiUtils {
       boxShadow: [
         BoxShadow(
           color: ColorManager.black.withAlpha(63),
-          blurRadius: 5,
+          blurRadius: 4,
           offset: const Offset(0, 2),
         ),
       ],

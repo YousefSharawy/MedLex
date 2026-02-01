@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/app/local_storage.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/base/primary_widgets.dart';
 import 'package:transly/presentation/onboarding/points_column.dart';
@@ -12,6 +14,16 @@ import 'package:transly/presentation/resources/values_manager.dart';
 
 class OnBoardingView extends StatelessWidget {
   const OnBoardingView({super.key});
+
+  Future<void> _onNextPressed(BuildContext context) async {
+    // Mark onboarding as completed
+    await LocalAppStorage.setOnboardingCompleted();
+
+    // Navigate to home
+    if (context.mounted) {
+      context.go(Routes.home);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +43,8 @@ class OnBoardingView extends StatelessWidget {
           leading: Padding(
             padding: EdgeInsets.only(left: AppWidth.s24),
             child: IconButton(
-              icon: const Icon(
-                size: 30,
+              icon: Icon(
+                size: 30.sp,
                 Icons.chevron_left,
                 color: ColorManager.white,
               ),
@@ -75,9 +87,7 @@ class OnBoardingView extends StatelessWidget {
                 fontFamily: FontConstants.interFamily,
                 color: ColorManager.primary,
               ),
-              onPress: () {
-                context.go(Routes.home);
-              }
+              onPress: () => _onNextPressed(context),
             ),
           ],
         ),

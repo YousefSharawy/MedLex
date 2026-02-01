@@ -1,76 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/home/widgets/recently_view_item.dart';
-import 'package:transly/presentation/home/widgets/section_header.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/search/widgets/recently_searched_item.dart';
-import 'package:transly/presentation/search/widgets/trending_search_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transly/app/ui_utiles.dart';
+import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/presentation/search/widgets/default_view.dart';
+import 'package:transly/presentation/search/widgets/search_results.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({super.key});
+  final GlobalKey<dynamic>? searchBarKey;
+
+  const SearchView({super.key, this.searchBarKey});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: AppWidth.s2),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionHeader(
-            iconPath: IconAssets.clockIcon,
-            title: 'Recently Searched',
-          ),
-          SizedBox(height: AppHeight.s12),
-          SizedBox(
-            height: AppHeight.s32,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              itemBuilder: (_, int index) {
-                return RecentlySearchedItem(label: 'Anatomy');
-              },
-            ),
-          ),
+    return BlocBuilder<AppCubit, AppState>(
+      buildWhen: (previous, current) {
+        if (current is! HomeLoaded) return false;
+        if (previous is! HomeLoaded) return true;
 
-          SizedBox(height: AppHeight.s16),
-          SectionHeader(
-            iconPath: IconAssets.trending,
-            title: 'Trending Searches',
-          ),
-          SizedBox(height: AppHeight.s12),
-          SizedBox(
-            height: AppHeight.s32,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              itemBuilder: (_, int index) {
-                return TrendingSearchItem(label: 'Anatomy');
-              },
-            ),
-          ),
+        return current.recentlySearched != previous.recentlySearched ||
+            current.searchResults != previous.searchResults ||
+            current.isSearchLoading != previous.isSearchLoading ||
+            current.searchError != previous.searchError ||
+            current.trendingTerms != previous.trendingTerms ||
+            current.popularTerms != previous.popularTerms ||
+            current.recentlyViewed != previous.recentlyViewed;
+      },
+      builder: (context, state) {
+        if (state is! HomeLoaded) {
+          return const SizedBox.shrink();
+        }
 
-          SizedBox(height: AppHeight.s30),
-          Text(
-            "Popular Terms",
-            style: getRegularStyle(
-              fontFamily: FontConstants.interFamily,
-              fontSize: FontSize.s15,
-              color: ColorManager.primaryText,
-            ),
-          ),
-          SizedBox(height: AppHeight.s10),
+        if (state.isSearchLoading) {
+          return Center(child: UiUtils.loadingWidget());
+        }
 
-          RecentlyViewedItem(title: "Myocardium", category: "Cardiology"),
-          RecentlyViewedItem(title: "Myocardium", category: "Cardiology"),
+        if (state.searchError != null) {
+          return UiUtils.errorWidget(
+            message: state.searchError!,
+            onRetry: () {},
+          );
+        }
 
-          RecentlyViewedItem(title: "Myocardium", category: "Cardiology"),
-          RecentlyViewedItem(title: "Myocardium", category: "Cardiology"),
-          SizedBox(height: AppHeight.s100),
-        ],
-      ),
+        if (state.searchResults != null) {
+          if (state.searchResults!.isEmpty) {
+            return UiUtils.emptyWidget(message: 'No results found');
+          }
+          return SearchResults(terms: state.searchResults!);
+        }
+
+        return DefaultView(
+          recentlyViewed: state.recentlyViewed,
+          recentlySearched: state.recentlySearched,
+          popularTerms: state.popularTerms,
+          trendingTerms: state.trendingTerms,
+        );
+      },
     );
   }
 }

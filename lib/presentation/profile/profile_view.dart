@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/profile/screens/widgets/section_card.dart';
 import 'package:transly/presentation/profile/screens/widgets/section_header.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 

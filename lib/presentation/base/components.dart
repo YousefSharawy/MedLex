@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:transly/presentation/base/navigation_notifier.dart';
+import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
@@ -194,25 +195,25 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 iconPath: IconAssets.homeIcon,
                 label: 'Home',
                 isSelected: navigationShell.currentIndex == 0,
-                onTap: () => _onTap(0),
+                onTap: () => _onTap(context, 0),
               ),
               _NavBarItem(
                 iconPath: IconAssets.dictionaryIcon,
                 label: 'Dictionary',
                 isSelected: navigationShell.currentIndex == 1,
-                onTap: () => _onTap(1),
+                onTap: () => _onTap(context, 1),
               ),
               _NavBarItem(
                 iconPath: IconAssets.studyIcon,
                 label: 'Study',
                 isSelected: navigationShell.currentIndex == 2,
-                onTap: () => _onTap(2),
+                onTap: () => _onTap(context, 2),
               ),
               _NavBarItem(
                 iconPath: IconAssets.profileIcon,
                 label: 'Profile',
                 isSelected: navigationShell.currentIndex == 3,
-                onTap: () => _onTap(3),
+                onTap: () => _onTap(context, 3),
               ),
             ],
           ),
@@ -221,9 +222,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
     );
   }
 
-  void _onTap(int index) {
-    // Notify listeners about tab change
-    navigationStateNotifier.updateIndex(index);
+  void _onTap(BuildContext context, int index) {
+    context.read<NavigationCubit>().updateIndex(index);
     
     navigationShell.goBranch(
       index,
