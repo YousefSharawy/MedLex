@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.medlex">
+    package="app.sharawy.medlex">
 
     <!-- Internet access -->
     <uses-permission android:name="android.permission.INTERNET"/>
