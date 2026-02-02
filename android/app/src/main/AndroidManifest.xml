@@ -1,10 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.sharawy.medlex">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Internet access -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!-- TTS / Audio -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
@@ -47,7 +44,6 @@
             <data android:mimeType="text/plain"/>
         </intent>
 
-        <!-- TTS Query -->
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE"/>
         </intent>

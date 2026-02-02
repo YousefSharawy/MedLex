@@ -3,10 +3,11 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    // Flutter plugin MUST be last
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Load keystore properties
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
@@ -14,7 +15,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "app.sharawy.medlex"
+    namespace = "com.example.medlex"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -28,8 +29,8 @@ android {
     }
 
     defaultConfig {
-        applicationId = "app.sharawy.medlex"
-        minSdk = 23
+        applicationId = "com.example.medlex"
+        minSdk = flutter.minSdkVersion
         targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -37,22 +38,18 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
 
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
-            
         }
-
-        debug {
-            signingConfig = signingConfigs.getByName("debug")
-        }
+        // ❌ Do NOT define debug signing
     }
 }
 
