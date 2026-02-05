@@ -573,96 +573,97 @@ class AppCubit extends Cubit<AppState> {
   }
 
   Future<void> _loadUntilLetterFound(String letter) async {
-    while (!_cancelLetterLoading) {
-      final currentState = _allTermsState;
-      if (currentState == null) break;
+  while (!_cancelLetterLoading) {
+    final currentState = _allTermsState;
+    if (currentState == null) break;
 
-      if (_termsContainLetter(currentState.terms, letter)) {
-        emit(
-          currentState.copyWith(pendingLetter: null, letterJustLoaded: letter),
-        );
-        return;
-      }
-      if (!currentState.hasMore) {
-        emit(currentState.copyWith(pendingLetter: null));
-        return;
-      }
+    if (_termsContainLetter(currentState.terms, letter)) {
+      emit(
+        currentState.copyWith(pendingLetter: null, letterJustLoaded: letter),
+      );
+      return;
+    }
+    if (!currentState.hasMore) {
+      emit(currentState.copyWith(pendingLetter: null));
+      return;
+    }
 
-      if (_isLoadingTerms) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        continue;
-      }
+    if (_isLoadingTerms) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      continue;
+    }
 
-      _isLoadingTerms = true;
+    _isLoadingTerms = true;
 
-      try {
-        final nextPage = currentState.currentPage + 1;
+    try {
+      List<TermModel> accumulatedTerms = List.from(currentState.terms);
+      int page = currentState.currentPage;
+      bool hasMore = currentState.hasMore;
+      bool letterFound = false;
 
-        // Try cache first
+      while (!_cancelLetterLoading && hasMore && !letterFound) {
+        page++;
+
         List<TermModel>? newTerms;
-        final cachedTerms = LocalAppStorage.getCachedAllTerms(nextPage);
+        final cachedTerms = LocalAppStorage.getCachedAllTerms(page);
 
         if (cachedTerms != null && cachedTerms.isNotEmpty) {
           newTerms = cachedTerms;
         } else {
-          // Fetch from API
           final result = await _repository.getAllTerms(
-            page: nextPage,
+            page: page,
             pageSize: _pageSize,
           );
 
           result.fold(
             (failure) {
-              // On error, stop loading
               _cancelLetterLoading = true;
             },
             (terms) async {
-              await LocalAppStorage.cacheAllTerms(nextPage, terms);
+              await LocalAppStorage.cacheAllTerms(page, terms);
               newTerms = terms;
             },
           );
         }
-        if (_cancelLetterLoading || newTerms == null) {
-          final state = _allTermsState;
-          if (state != null) {
-            emit(state.copyWith(pendingLetter: null));
-          }
-          return;
-        }
 
-        final allTerms = [...currentState.terms, ...newTerms!];
-        final hasMore =
-            newTerms!.length >= _pageSize &&
-            allTerms.length < currentState.totalCount;
+        if (_cancelLetterLoading || newTerms == null) break;
 
-        final letterFound = _termsContainLetter(allTerms, letter);
-
-        _emitAllTermsLoaded(
-          terms: allTerms,
-          currentPage: nextPage,
-          totalCount: currentState.totalCount,
-          pendingLetter: letterFound ? null : letter,
-          letterJustLoaded: letterFound ? letter : null,
-        );
-
-        if (letterFound || !hasMore) {
-          return;
-        }
-
-        // Small delay to prevent UI freeze
-        await Future.delayed(const Duration(milliseconds: 50));
-      } finally {
-        _isLoadingTerms = false;
+        accumulatedTerms.addAll(newTerms!);
+        hasMore = newTerms!.length >= _pageSize &&
+            accumulatedTerms.length < currentState.totalCount;
+        letterFound = _termsContainLetter(newTerms!, letter);
       }
-    }
 
-    // Cancelled - clear pending letter
-    final state = _allTermsState;
-    if (state != null && state.pendingLetter != null) {
-      emit(state.copyWith(pendingLetter: null));
+      // === SINGLE EMIT at the end ===
+      if (_cancelLetterLoading) {
+        final state = _allTermsState;
+        if (state != null && state.pendingLetter != null) {
+          emit(state.copyWith(pendingLetter: null));
+        }
+        return;
+      }
+
+      _emitAllTermsLoaded(
+        terms: accumulatedTerms,
+        currentPage: page,
+        totalCount: currentState.totalCount,
+        pendingLetter: letterFound ? null : (hasMore ? letter : null),
+        letterJustLoaded: letterFound ? letter : null,
+      );
+
+      if (letterFound || !hasMore) return;
+
+    } finally {
+      _isLoadingTerms = false;
     }
   }
 
+  // Cancelled - clear pending letter
+  final state = _allTermsState;
+  if (state != null && state.pendingLetter != null) {
+    emit(state.copyWith(pendingLetter: null));
+  }
+}
   /// Cancel pending letter loading
   void cancelLetterLoading() {
     _cancelLetterLoading = true;

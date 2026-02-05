@@ -9,9 +9,11 @@ part 'az_list_state.dart';
 part 'az_list_cubit.freezed.dart';
 
 class AzListCubit extends Cubit<AzListState> {
-  List<TermModel>? _cachedAllTerms;
+  AzBuildResult? _cachedResult;
+  int _cachedTermsLength = 0;
   String? _lastCategory;
-  
+  bool _lastHasMore = false;
+
   AzListCubit() : super(const AzListState.initial());
 
   AzBuildResult buildAzItems({
@@ -20,10 +22,16 @@ class AzListCubit extends Cubit<AzListState> {
     required bool hasMore,
     required bool isAllCategory,
   }) {
-    final termsToUse = isAllCategory ? (_cachedAllTerms ?? terms) : terms;
-    
+    // Return cached result if nothing changed
+    if (_cachedResult != null &&
+        _lastCategory == selectedCategory &&
+        _cachedTermsLength == terms.length &&
+        _lastHasMore == hasMore) {
+      return _cachedResult!;
+    }
+
     final result = AzBuildResult.build(
-      termsToUse,
+      terms,
       addLoadingIndicator: isAllCategory && hasMore,
     );
 
@@ -31,34 +39,21 @@ class AzListCubit extends Cubit<AzListState> {
       SuspensionUtil.setShowSuspensionStatus(result.items);
     }
 
+    _cachedResult = result;
+    _cachedTermsLength = terms.length;
+    _lastCategory = selectedCategory;
+    _lastHasMore = hasMore;
+
     return result;
   }
 
-  void initializeCache({
-    required List<TermModel> terms,
-    required String selectedCategory,
-    required bool isAllCategory,
-  }) {
-    if (isAllCategory && _cachedAllTerms == null) {
-      _cachedAllTerms = List.from(terms);
-    }
-    _lastCategory = selectedCategory;
-  }
-
-  void updateCache({
-    required List<TermModel> terms,
-    required String selectedCategory,
-    required bool isAllCategory,
-  }) {
-    if (isAllCategory) {
-      _cachedAllTerms = List.from(terms);
-    }
-    _lastCategory = selectedCategory;
+  void invalidateCache() {
+    _cachedResult = null;
+    _cachedTermsLength = 0;
+    _lastHasMore = false;
   }
 
   bool shouldRebuildData(String newCategory) {
     return _lastCategory != newCategory;
   }
-
-  List<TermModel>? get cachedTerms => _cachedAllTerms;
 }

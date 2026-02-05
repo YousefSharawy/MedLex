@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/termDetails/widgets/mdoe_toggle.dart';
+import 'package:transly/presentation/termDetails/widgets/mode_toggle.dart';
 import 'package:transly/presentation/termDetails/widgets/term_content_sections.dart';
 import 'package:transly/presentation/termDetails/widgets/term_details_app_bar.dart';
 import 'package:transly/presentation/termDetails/widgets/term_title_row.dart';

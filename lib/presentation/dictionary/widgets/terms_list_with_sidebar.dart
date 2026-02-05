@@ -38,12 +38,15 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   final _scrollController = ItemScrollController();
   final _positionsListener = ItemPositionsListener.create();
 
-  // Data - LOCAL STATE (exactly like original)
+  // Data - LOCAL STATE
   List<AzItem> _azItems = [];
   Set<String> _availableLettersSet = {};
 
   // Debounce
   DateTime? _lastLoadTime;
+
+  // Track if loading dialog is showing to avoid duplicate calls
+  bool _isLoadingDialogShowing = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -53,7 +56,6 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   @override
   void initState() {
     super.initState();
-    _initializeCache();
     _prepareAzData();
   }
 
@@ -61,42 +63,28 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   void didUpdateWidget(TermsListWithSidebar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final categoryChanged = oldWidget.selectedCategory != widget.selectedCategory;
+    final categoryChanged =
+        oldWidget.selectedCategory != widget.selectedCategory;
     final termsChanged = oldWidget.terms.length != widget.terms.length;
-    final loadingStateChanged = oldWidget.hasMore != widget.hasMore ||
-        oldWidget.isLoadingMore != widget.isLoadingMore;
+    final loadingStateChanged = oldWidget.hasMore != widget.hasMore;
 
     if (categoryChanged) {
+      context.read<AzListCubit>().invalidateCache();
       _prepareAzData();
     } else if (termsChanged || loadingStateChanged) {
-      if (widget.isAllCategory) {
-        context.read<AzListCubit>().updateCache(
-          terms: widget.terms,
-          selectedCategory: widget.selectedCategory,
-          isAllCategory: widget.isAllCategory,
-        );
-      }
       _prepareAzData(skipSetState: true);
     }
   }
 
   // ==================== DATA PREPARATION ====================
 
-  void _initializeCache() {
-    context.read<AzListCubit>().initializeCache(
-      terms: widget.terms,
-      selectedCategory: widget.selectedCategory,
-      isAllCategory: widget.isAllCategory,
-    );
-  }
-
   void _prepareAzData({bool skipSetState = false}) {
     final result = context.read<AzListCubit>().buildAzItems(
-      terms: widget.terms,
-      selectedCategory: widget.selectedCategory,
-      hasMore: widget.hasMore,
-      isAllCategory: widget.isAllCategory,
-    );
+          terms: widget.terms,
+          selectedCategory: widget.selectedCategory,
+          hasMore: widget.hasMore,
+          isAllCategory: widget.isAllCategory,
+        );
 
     if (skipSetState) {
       _azItems = result.items;
@@ -137,7 +125,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     final index = _azItems.indexWhere(
       (item) => item.getSuspensionTag() == letter && !item.isLoadingIndicator,
     );
-    
+
     if (index != -1) {
       _scrollController.scrollTo(
         index: index,
@@ -149,8 +137,8 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
 
   void _showLetterNotFoundMessage(String letter) {
     final location = widget.isAllCategory ? 'found' : 'in this category';
-    final target = letter == '#' 
-        ? 'prefixes or suffixes' 
+    final target = letter == '#'
+        ? 'prefixes or suffixes'
         : 'terms starting with "$letter"';
     UiUtils.showInfoMessage('No $target $location.');
   }
@@ -160,19 +148,18 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   void _handleScrollNotification(ScrollNotification notification) {
     if (!widget.isAllCategory || !widget.hasMore || widget.isLoadingMore) return;
 
-    final isScrollEvent = notification is ScrollEndNotification || 
-                          notification is ScrollUpdateNotification;
-    if (!isScrollEvent) return;
+    // Only check on scroll end, not every frame
+    if (notification is! ScrollEndNotification) return;
 
     final metrics = notification.metrics;
-    final reachedThreshold = metrics.pixels >= 
-        metrics.maxScrollExtent * AzListConstants.loadThreshold;
-    
+    final reachedThreshold =
+        metrics.pixels >= metrics.maxScrollExtent * AzListConstants.loadThreshold;
+
     if (!reachedThreshold) return;
 
     // Debounce
     final now = DateTime.now();
-    if (_lastLoadTime != null && 
+    if (_lastLoadTime != null &&
         now.difference(_lastLoadTime!) < AzListConstants.loadDebounce) {
       return;
     }
@@ -181,35 +168,52 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     widget.onLoadMore();
   }
 
+  // ==================== LOADING DIALOG ====================
+
+  void _showLoadingDialog() {
+    if (!_isLoadingDialogShowing) {
+      _isLoadingDialogShowing = true;
+      UiUtils.showLoading(context);
+    }
+  }
+
+  void _hideLoadingDialog() {
+    if (_isLoadingDialogShowing) {
+      _isLoadingDialogShowing = false;
+      UiUtils.hideLoading(context);
+    }
+  }
+
   // ==================== BLOC LISTENER ====================
 
   bool _shouldListen(AppState previous, AppState current) {
     if (current is! AllTermsLoaded) return false;
-    if (previous is! AllTermsLoaded) return current.letterJustLoaded != null;
+    if (previous is! AllTermsLoaded) return true;
 
-    // Handle loading dialog
-    if (previous.pendingLetter != current.pendingLetter) {
-      if (current.pendingLetter != null) {
-        UiUtils.showLoading(context);
-      } else {
-        UiUtils.hideLoading(context);
-      }
-    }
+    final pendingChanged = previous.pendingLetter != current.pendingLetter;
+    final letterLoaded =
+        previous.letterJustLoaded != current.letterJustLoaded &&
+            current.letterJustLoaded != null;
 
-    return previous.letterJustLoaded != current.letterJustLoaded &&
-        current.letterJustLoaded != null;
+    return pendingChanged || letterLoaded;
   }
 
   void _onStateChanged(BuildContext context, AppState state) {
-    if (state is! AllTermsLoaded || state.letterJustLoaded == null) return;
+    if (state is! AllTermsLoaded) return;
 
-    if (widget.isAllCategory) {
-      context.read<AzListCubit>().updateCache(
-        terms: widget.terms,
-        selectedCategory: widget.selectedCategory,
-        isAllCategory: widget.isAllCategory,
-      );
+    // Handle loading dialog
+    if (state.pendingLetter != null) {
+      _showLoadingDialog();
+    } else {
+      _hideLoadingDialog();
     }
+
+    // Handle letter just loaded
+    if (state.letterJustLoaded == null) return;
+
+    // Invalidate cache since new terms were loaded
+    context.read<AzListCubit>().invalidateCache();
+    _prepareAzData();
 
     final letter = state.letterJustLoaded!;
 
