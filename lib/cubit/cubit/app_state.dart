@@ -30,13 +30,19 @@ class AppState with _$AppState {
 
   const factory AppState.favoritesLoaded(List<TermModel> favorites) = FavoritesLoaded;
 
-  // Paginated all terms states
   const factory AppState.allTermsLoading() = AllTermsLoading;
   const factory AppState.allTermsLoaded({
     required List<TermModel> terms,
     required bool hasMore,
     required int currentPage,
+    required int totalCount,
     @Default(false) bool isLoadingMore,
+    String? pendingLetter,
+    String? letterJustLoaded,
+     @Default(false) bool isLetterLoading,
+
+    @Default({}) Map<String, List<TermModel>> groupedTerms,
   }) = AllTermsLoaded;
+
   const factory AppState.allTermsError(String message) = AllTermsError;
 }

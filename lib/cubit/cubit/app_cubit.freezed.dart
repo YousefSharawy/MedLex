@@ -48,7 +48,12 @@ mixin _$AppState {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -84,7 +89,12 @@ mixin _$AppState {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -120,7 +130,12 @@ mixin _$AppState {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -268,7 +283,12 @@ class _$InitialImpl implements _Initial {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -308,7 +328,12 @@ class _$InitialImpl implements _Initial {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -348,7 +373,12 @@ class _$InitialImpl implements _Initial {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -774,7 +804,12 @@ class _$HomeLoadedImpl implements HomeLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -828,7 +863,12 @@ class _$HomeLoadedImpl implements HomeLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -882,7 +922,12 @@ class _$HomeLoadedImpl implements HomeLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -1083,7 +1128,12 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -1123,7 +1173,12 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -1163,7 +1218,12 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -1353,7 +1413,12 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -1393,7 +1458,12 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -1433,7 +1503,12 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -1625,7 +1700,12 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -1665,7 +1745,12 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -1705,7 +1790,12 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -1866,7 +1956,12 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -1906,7 +2001,12 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -1946,7 +2046,12 @@ class _$TermDetailsLoadingImpl implements TermDetailsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -2140,7 +2245,12 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -2180,7 +2290,12 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -2220,7 +2335,12 @@ class _$TermDetailsLoadedImpl implements TermDetailsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -2411,7 +2531,12 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -2451,7 +2576,12 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -2491,7 +2621,12 @@ class _$TermDetailsErrorImpl implements TermDetailsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -2691,7 +2826,12 @@ class _$FavoritesLoadedImpl implements FavoritesLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -2731,7 +2871,12 @@ class _$FavoritesLoadedImpl implements FavoritesLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -2771,7 +2916,12 @@ class _$FavoritesLoadedImpl implements FavoritesLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -2932,7 +3082,12 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -2972,7 +3127,12 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -3012,7 +3172,12 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
@@ -3103,7 +3268,12 @@ abstract class _$$AllTermsLoadedImplCopyWith<$Res> {
     List<TermModel> terms,
     bool hasMore,
     int currentPage,
+    int totalCount,
     bool isLoadingMore,
+    String? pendingLetter,
+    String? letterJustLoaded,
+    bool isLetterLoading,
+    Map<String, List<TermModel>> groupedTerms,
   });
 }
 
@@ -3124,7 +3294,12 @@ class __$$AllTermsLoadedImplCopyWithImpl<$Res>
     Object? terms = null,
     Object? hasMore = null,
     Object? currentPage = null,
+    Object? totalCount = null,
     Object? isLoadingMore = null,
+    Object? pendingLetter = freezed,
+    Object? letterJustLoaded = freezed,
+    Object? isLetterLoading = null,
+    Object? groupedTerms = null,
   }) {
     return _then(
       _$AllTermsLoadedImpl(
@@ -3143,11 +3318,36 @@ class __$$AllTermsLoadedImplCopyWithImpl<$Res>
                 ? _value.currentPage
                 : currentPage // ignore: cast_nullable_to_non_nullable
                     as int,
+        totalCount:
+            null == totalCount
+                ? _value.totalCount
+                : totalCount // ignore: cast_nullable_to_non_nullable
+                    as int,
         isLoadingMore:
             null == isLoadingMore
                 ? _value.isLoadingMore
                 : isLoadingMore // ignore: cast_nullable_to_non_nullable
                     as bool,
+        pendingLetter:
+            freezed == pendingLetter
+                ? _value.pendingLetter
+                : pendingLetter // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        letterJustLoaded:
+            freezed == letterJustLoaded
+                ? _value.letterJustLoaded
+                : letterJustLoaded // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        isLetterLoading:
+            null == isLetterLoading
+                ? _value.isLetterLoading
+                : isLetterLoading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        groupedTerms:
+            null == groupedTerms
+                ? _value._groupedTerms
+                : groupedTerms // ignore: cast_nullable_to_non_nullable
+                    as Map<String, List<TermModel>>,
       ),
     );
   }
@@ -3160,8 +3360,14 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
     required final List<TermModel> terms,
     required this.hasMore,
     required this.currentPage,
+    required this.totalCount,
     this.isLoadingMore = false,
-  }) : _terms = terms;
+    this.pendingLetter,
+    this.letterJustLoaded,
+    this.isLetterLoading = false,
+    final Map<String, List<TermModel>> groupedTerms = const {},
+  }) : _terms = terms,
+       _groupedTerms = groupedTerms;
 
   final List<TermModel> _terms;
   @override
@@ -3176,12 +3382,29 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @override
   final int currentPage;
   @override
+  final int totalCount;
+  @override
   @JsonKey()
   final bool isLoadingMore;
+  @override
+  final String? pendingLetter;
+  @override
+  final String? letterJustLoaded;
+  @override
+  @JsonKey()
+  final bool isLetterLoading;
+  final Map<String, List<TermModel>> _groupedTerms;
+  @override
+  @JsonKey()
+  Map<String, List<TermModel>> get groupedTerms {
+    if (_groupedTerms is EqualUnmodifiableMapView) return _groupedTerms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_groupedTerms);
+  }
 
   @override
   String toString() {
-    return 'AppState.allTermsLoaded(terms: $terms, hasMore: $hasMore, currentPage: $currentPage, isLoadingMore: $isLoadingMore)';
+    return 'AppState.allTermsLoaded(terms: $terms, hasMore: $hasMore, currentPage: $currentPage, totalCount: $totalCount, isLoadingMore: $isLoadingMore, pendingLetter: $pendingLetter, letterJustLoaded: $letterJustLoaded, isLetterLoading: $isLetterLoading, groupedTerms: $groupedTerms)';
   }
 
   @override
@@ -3193,8 +3416,20 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
-                other.isLoadingMore == isLoadingMore));
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.pendingLetter, pendingLetter) ||
+                other.pendingLetter == pendingLetter) &&
+            (identical(other.letterJustLoaded, letterJustLoaded) ||
+                other.letterJustLoaded == letterJustLoaded) &&
+            (identical(other.isLetterLoading, isLetterLoading) ||
+                other.isLetterLoading == isLetterLoading) &&
+            const DeepCollectionEquality().equals(
+              other._groupedTerms,
+              _groupedTerms,
+            ));
   }
 
   @override
@@ -3203,7 +3438,12 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
     const DeepCollectionEquality().hash(_terms),
     hasMore,
     currentPage,
+    totalCount,
     isLoadingMore,
+    pendingLetter,
+    letterJustLoaded,
+    isLetterLoading,
+    const DeepCollectionEquality().hash(_groupedTerms),
   );
 
   /// Create a copy of AppState
@@ -3249,12 +3489,27 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
   }) {
-    return allTermsLoaded(terms, hasMore, currentPage, isLoadingMore);
+    return allTermsLoaded(
+      terms,
+      hasMore,
+      currentPage,
+      totalCount,
+      isLoadingMore,
+      pendingLetter,
+      letterJustLoaded,
+      isLetterLoading,
+      groupedTerms,
+    );
   }
 
   @override
@@ -3289,12 +3544,27 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
   }) {
-    return allTermsLoaded?.call(terms, hasMore, currentPage, isLoadingMore);
+    return allTermsLoaded?.call(
+      terms,
+      hasMore,
+      currentPage,
+      totalCount,
+      isLoadingMore,
+      pendingLetter,
+      letterJustLoaded,
+      isLetterLoading,
+      groupedTerms,
+    );
   }
 
   @override
@@ -3329,14 +3599,29 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,
     required TResult orElse(),
   }) {
     if (allTermsLoaded != null) {
-      return allTermsLoaded(terms, hasMore, currentPage, isLoadingMore);
+      return allTermsLoaded(
+        terms,
+        hasMore,
+        currentPage,
+        totalCount,
+        isLoadingMore,
+        pendingLetter,
+        letterJustLoaded,
+        isLetterLoading,
+        groupedTerms,
+      );
     }
     return orElse();
   }
@@ -3410,13 +3695,23 @@ abstract class AllTermsLoaded implements AppState {
     required final List<TermModel> terms,
     required final bool hasMore,
     required final int currentPage,
+    required final int totalCount,
     final bool isLoadingMore,
+    final String? pendingLetter,
+    final String? letterJustLoaded,
+    final bool isLetterLoading,
+    final Map<String, List<TermModel>> groupedTerms,
   }) = _$AllTermsLoadedImpl;
 
   List<TermModel> get terms;
   bool get hasMore;
   int get currentPage;
+  int get totalCount;
   bool get isLoadingMore;
+  String? get pendingLetter;
+  String? get letterJustLoaded;
+  bool get isLetterLoading;
+  Map<String, List<TermModel>> get groupedTerms;
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
@@ -3524,7 +3819,12 @@ class _$AllTermsErrorImpl implements AllTermsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )
     allTermsLoaded,
     required TResult Function(String message) allTermsError,
@@ -3564,7 +3864,12 @@ class _$AllTermsErrorImpl implements AllTermsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult? Function(String message)? allTermsError,
@@ -3604,7 +3909,12 @@ class _$AllTermsErrorImpl implements AllTermsError {
       List<TermModel> terms,
       bool hasMore,
       int currentPage,
+      int totalCount,
       bool isLoadingMore,
+      String? pendingLetter,
+      String? letterJustLoaded,
+      bool isLetterLoading,
+      Map<String, List<TermModel>> groupedTerms,
     )?
     allTermsLoaded,
     TResult Function(String message)? allTermsError,

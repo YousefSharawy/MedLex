@@ -51,47 +51,50 @@ class UiUtils {
   // ==================== LOADING DIALOG ====================
 
   static void showLoading(BuildContext context, {String? message}) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder:
-          (_) => PopScope(
-            canPop: false,
-            child: Center(
-              child: Container(
-                padding: EdgeInsets.all(24.sp),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(AppRadius.s16),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const CircularProgressIndicator(),
-                    if (message != null) ...[
-                      SizedBox(height: AppHeight.s16),
-                      Text(
-                        message,
-                        style: getRegularStyle(
-                          fontSize: FontSize.s14,
-                          fontFamily: FontConstants.interFamily,
-                          color: ColorManager.primaryText,
-                        ),
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    useRootNavigator: true,  // Add this line
+    builder:
+        (_) => PopScope(
+          canPop: false,
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.all(24.sp),
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(AppRadius.s16),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircularProgressIndicator(),
+                  if (message != null) ...[
+                    SizedBox(height: AppHeight.s16),
+                    Text(
+                      message,
+                      style: getRegularStyle(
+                        fontSize: FontSize.s14,
+                        fontFamily: FontConstants.interFamily,
+                        color: ColorManager.primaryText,
                       ),
-                    ],
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
           ),
-    );
-  }
+        ),
+  );
+}
 
-  static void hideLoading(BuildContext context) {
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).pop();
-    }
+static void hideLoading(BuildContext context) {
+  final navigator = Navigator.of(context, rootNavigator: true);
+  if (navigator.canPop()) {
+    navigator.pop();
   }
+}
+
 
 
   static Widget loadingWidget({double? size}) {

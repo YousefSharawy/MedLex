@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
@@ -85,7 +84,8 @@ class _DictionaryViewState extends State<DictionaryView>
           loaded: (prevCurrent, prevPrevious) {
             return current.maybeWhen(
               loaded: (currCurrent, currPrevious) {
-                return prevCurrent == 1 && currCurrent != 1;
+                // User navigated away from dictionary (index 1) and came back
+                return prevCurrent != 1 && currCurrent == 1;
               },
               orElse: () => false,
             );
@@ -94,6 +94,7 @@ class _DictionaryViewState extends State<DictionaryView>
         );
       },
       listener: (context, state) {
+        // Refresh data when user returns to dictionary tab
         _resetState();
       },
       child: PrimaryScaffold(
@@ -116,18 +117,11 @@ class _DictionaryViewState extends State<DictionaryView>
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // Same Stack-based approach as HomeView: dictionary content and search
-  // content coexist. SearchView stays mounted after first open so it never
-  // pays the cold-start cost again. RepaintBoundary prevents SearchView's
-  // internal rebuilds from dirtying the dictionary subtree.
-  // ---------------------------------------------------------------------------
   Widget _buildAnimatedBody() {
     const duration = Duration(milliseconds: 300);
-
     return Stack(
       children: [
-        // --- Dictionary content (always alive) ---
+        // Dictionary content (with categories and terms list)
         AnimatedOpacity(
           duration: duration,
           opacity: _isSearching ? 0.0 : 1.0,
@@ -136,7 +130,7 @@ class _DictionaryViewState extends State<DictionaryView>
             child: _buildDictionaryContent(),
           ),
         ),
-        // --- Search content (kept alive after first open) ---
+        // Search overlay
         if (_searchEverOpened)
           AnimatedOpacity(
             duration: duration,
@@ -158,12 +152,17 @@ class _DictionaryViewState extends State<DictionaryView>
   Widget _buildDictionaryContent() {
     return Column(
       children: [
+        // Category filter chips
         CategoryChipsList(
           selectedCategory: _selectedCategory,
           onCategorySelected: _onCategorySelected,
         ),
         SizedBox(height: AppHeight.s12),
-        Expanded(child: TermsContentView(selectedCategory: _selectedCategory)),
+        Expanded(
+          child: TermsContentView(
+            selectedCategory: _selectedCategory,
+          ),
+        ),
         SizedBox(height: AppHeight.s80),
       ],
     );

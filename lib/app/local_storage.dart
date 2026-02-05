@@ -152,7 +152,7 @@ class LocalAppStorage {
       if (box.isEmpty) return;
 
       final hasOldFormat =
-          box.values.any((entry) => entry is Map && !entry.containsKey('addedAt'));
+          box.values.any((entry) => !entry.containsKey('addedAt'));
 
       if (hasOldFormat) {
         await box.clear();

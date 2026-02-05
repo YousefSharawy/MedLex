@@ -23,12 +23,17 @@ class TermTitleRow extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              term.latinTerm,
-              style: getSemiBoldStyle(
-                fontSize: FontSize.s16,
-                fontFamily: FontConstants.interFamily,
-                color: ColorManager.primaryText,
+            Flexible(
+              
+              child: Text(
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                term.latinTerm,
+                style: getSemiBoldStyle(
+                  fontSize: FontSize.s16,
+                  fontFamily: FontConstants.interFamily,
+                  color: ColorManager.primaryText,
+                ),
               ),
             ),
             SizedBox(width: AppWidth.s8),
