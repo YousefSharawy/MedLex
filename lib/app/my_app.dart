@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transly/app/di.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/presentation/dictionary/cubit/az_list_cubit.dart';
 import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
 
 import '../presentation/resources/constants_manager.dart';
@@ -34,6 +35,9 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => SplashCubit()),
             BlocProvider<AppCubit>(
               create: (context) => getIt<AppCubit>()..getDailyTerm(),
+            ),
+            BlocProvider<AzListCubit>(
+              create: (context) => getIt<AzListCubit>(),
             ),
             BlocProvider<NavigationCubit>(
               create: (context) => getIt<NavigationCubit>(),

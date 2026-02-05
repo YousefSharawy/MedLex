@@ -121,7 +121,6 @@ class _DictionaryViewState extends State<DictionaryView>
     const duration = Duration(milliseconds: 300);
     return Stack(
       children: [
-        // Dictionary content (with categories and terms list)
         AnimatedOpacity(
           duration: duration,
           opacity: _isSearching ? 0.0 : 1.0,
