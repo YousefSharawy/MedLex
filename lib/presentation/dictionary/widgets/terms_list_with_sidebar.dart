@@ -1,3 +1,4 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -5,6 +6,7 @@ import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/dictionary/cubit/az_list_cubit.dart';
+import 'package:transly/presentation/dictionary/widgets/azListView/az_item.dart';
 import 'package:transly/presentation/dictionary/widgets/azListView/az_list_constants.dart';
 import 'package:transly/presentation/dictionary/widgets/azListView/az_term_list.dart';
 
@@ -32,52 +34,90 @@ class TermsListWithSidebar extends StatefulWidget {
 
 class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     with AutomaticKeepAliveClientMixin {
+  // Controllers
   final _scrollController = ItemScrollController();
   final _positionsListener = ItemPositionsListener.create();
+
+  // Data - LOCAL STATE (exactly like original)
+  List<AzItem> _azItems = [];
+  Set<String> _availableLettersSet = {};
+
+  // Debounce
   DateTime? _lastLoadTime;
 
   @override
   bool get wantKeepAlive => true;
 
+  // ==================== LIFECYCLE ====================
+
   @override
   void initState() {
     super.initState();
-    context.read<AzListCubit>().initialize(
-      terms: widget.terms,
-      selectedCategory: widget.selectedCategory,
-      hasMore: widget.hasMore,
-      isAllCategory: widget.isAllCategory,
-    );
+    _initializeCache();
+    _prepareAzData();
   }
 
   @override
   void didUpdateWidget(TermsListWithSidebar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final categoryChanged =
-        oldWidget.selectedCategory != widget.selectedCategory;
+    final categoryChanged = oldWidget.selectedCategory != widget.selectedCategory;
     final termsChanged = oldWidget.terms.length != widget.terms.length;
-    final loadingStateChanged =
-        oldWidget.hasMore != widget.hasMore ||
+    final loadingStateChanged = oldWidget.hasMore != widget.hasMore ||
         oldWidget.isLoadingMore != widget.isLoadingMore;
 
-    if (categoryChanged || termsChanged || loadingStateChanged) {
-      context.read<AzListCubit>().updateTerms(
-        terms: widget.terms,
-        selectedCategory: widget.selectedCategory,
-        hasMore: widget.hasMore,
-        isAllCategory: widget.isAllCategory,
-      );
+    if (categoryChanged) {
+      _prepareAzData();
+    } else if (termsChanged || loadingStateChanged) {
+      if (widget.isAllCategory) {
+        context.read<AzListCubit>().updateCache(
+          terms: widget.terms,
+          selectedCategory: widget.selectedCategory,
+          isAllCategory: widget.isAllCategory,
+        );
+      }
+      _prepareAzData(skipSetState: true);
     }
   }
 
-  void _handleLetterSelected(String letter, Set<String> availableLetters) {
-    final appCubit = context.read<AppCubit>();
+  // ==================== DATA PREPARATION ====================
 
-    if (appCubit.pendingLetter == letter) return;
+  void _initializeCache() {
+    context.read<AzListCubit>().initializeCache(
+      terms: widget.terms,
+      selectedCategory: widget.selectedCategory,
+      isAllCategory: widget.isAllCategory,
+    );
+  }
 
-    if (availableLetters.contains(letter)) {
-      context.read<AzListCubit>().requestScrollToLetter(letter);
+  void _prepareAzData({bool skipSetState = false}) {
+    final result = context.read<AzListCubit>().buildAzItems(
+      terms: widget.terms,
+      selectedCategory: widget.selectedCategory,
+      hasMore: widget.hasMore,
+      isAllCategory: widget.isAllCategory,
+    );
+
+    if (skipSetState) {
+      _azItems = result.items;
+      _availableLettersSet = result.availableLetters;
+    } else {
+      setState(() {
+        _azItems = result.items;
+        _availableLettersSet = result.availableLetters;
+      });
+    }
+  }
+
+  // ==================== SCROLLING ====================
+
+  void _scrollToLetter(String letter) {
+    final cubit = context.read<AppCubit>();
+
+    if (cubit.pendingLetter == letter) return;
+
+    if (_availableLettersSet.contains(letter)) {
+      Future.microtask(() => _scrollToLetterDirectly(letter));
       return;
     }
 
@@ -87,47 +127,52 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     }
 
     if (widget.hasMore) {
-      appCubit.loadTermsUntilLetter(letter);
+      cubit.loadTermsUntilLetter(letter);
     } else {
       _showLetterNotFoundMessage(letter);
     }
   }
 
-  void _scrollToIndex(int index) {
-    _scrollController.scrollTo(
-      index: index,
-      duration: AzListConstants.scrollDuration,
-      curve: Curves.easeInOut,
+  void _scrollToLetterDirectly(String letter) {
+    final index = _azItems.indexWhere(
+      (item) => item.getSuspensionTag() == letter && !item.isLoadingIndicator,
     );
+    
+    if (index != -1) {
+      _scrollController.scrollTo(
+        index: index,
+        duration: AzListConstants.scrollDuration,
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   void _showLetterNotFoundMessage(String letter) {
     final location = widget.isAllCategory ? 'found' : 'in this category';
-    final target =
-        letter == '#'
-            ? 'prefixes or suffixes'
-            : 'terms starting with "$letter"';
+    final target = letter == '#' 
+        ? 'prefixes or suffixes' 
+        : 'terms starting with "$letter"';
     UiUtils.showInfoMessage('No $target $location.');
   }
 
-  void _handleScrollNotification(ScrollNotification notification) {
-    if (!widget.isAllCategory || !widget.hasMore || widget.isLoadingMore)
-      return;
+  // ==================== SCROLL HANDLING ====================
 
-    final isScrollEvent =
-        notification is ScrollEndNotification ||
-        notification is ScrollUpdateNotification;
+  void _handleScrollNotification(ScrollNotification notification) {
+    if (!widget.isAllCategory || !widget.hasMore || widget.isLoadingMore) return;
+
+    final isScrollEvent = notification is ScrollEndNotification || 
+                          notification is ScrollUpdateNotification;
     if (!isScrollEvent) return;
 
     final metrics = notification.metrics;
-    final reachedThreshold =
-        metrics.pixels >=
+    final reachedThreshold = metrics.pixels >= 
         metrics.maxScrollExtent * AzListConstants.loadThreshold;
-
+    
     if (!reachedThreshold) return;
 
+    // Debounce
     final now = DateTime.now();
-    if (_lastLoadTime != null &&
+    if (_lastLoadTime != null && 
         now.difference(_lastLoadTime!) < AzListConstants.loadDebounce) {
       return;
     }
@@ -136,10 +181,13 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     widget.onLoadMore();
   }
 
-  bool _shouldListenToAppCubit(AppState previous, AppState current) {
+  // ==================== BLOC LISTENER ====================
+
+  bool _shouldListen(AppState previous, AppState current) {
     if (current is! AllTermsLoaded) return false;
     if (previous is! AllTermsLoaded) return current.letterJustLoaded != null;
 
+    // Handle loading dialog
     if (previous.pendingLetter != current.pendingLetter) {
       if (current.pendingLetter != null) {
         UiUtils.showLoading(context);
@@ -152,75 +200,43 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
         current.letterJustLoaded != null;
   }
 
-  void _onAppStateChanged(BuildContext context, AppState state) {
+  void _onStateChanged(BuildContext context, AppState state) {
     if (state is! AllTermsLoaded || state.letterJustLoaded == null) return;
 
     if (widget.isAllCategory) {
-      context.read<AzListCubit>().updateCache(widget.terms);
+      context.read<AzListCubit>().updateCache(
+        terms: widget.terms,
+        selectedCategory: widget.selectedCategory,
+        isAllCategory: widget.isAllCategory,
+      );
     }
 
     final letter = state.letterJustLoaded!;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        context.read<AzListCubit>().requestScrollToLetter(letter);
+        _scrollToLetterDirectly(letter);
         context.read<AppCubit>().clearLetterJustLoaded();
       }
     });
   }
 
+  // ==================== BUILD ====================
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AppCubit, AppState>(
-          listenWhen: _shouldListenToAppCubit,
-          listener: _onAppStateChanged,
-        ),
-        BlocListener<AzListCubit, AzListState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              scrollToLetter: (_, __, ___, ____, targetIndex) {
-                _scrollToIndex(targetIndex);
-              },
-            );
-          },
-        ),
-      ],
-      child: BlocBuilder<AzListCubit, AzListState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const SizedBox.shrink(),
-            loaded: (azItems, availableLetters, selectedCategory, _) {
-              return AzTermsList(
-                azItems: azItems,
-                scrollController: _scrollController,
-                positionsListener: _positionsListener,
-                onScrollNotification: _handleScrollNotification,
-                onLetterSelected:
-                    (letter) => _handleLetterSelected(letter, availableLetters),
-              );
-            },
-            scrollToLetter: (
-              azItems,
-              availableLetters,
-              selectedCategory,
-              _,
-              __,
-            ) {
-              return AzTermsList(
-                azItems: azItems,
-                scrollController: _scrollController,
-                positionsListener: _positionsListener,
-                onScrollNotification: _handleScrollNotification,
-                onLetterSelected:
-                    (letter) => _handleLetterSelected(letter, availableLetters),
-              );
-            },
-          );
-        },
+    return BlocConsumer<AppCubit, AppState>(
+      listenWhen: _shouldListen,
+      listener: _onStateChanged,
+      buildWhen: (_, __) => false,
+      builder: (_, __) => AzTermsList(
+        azItems: _azItems,
+        scrollController: _scrollController,
+        positionsListener: _positionsListener,
+        onScrollNotification: _handleScrollNotification,
+        onLetterSelected: _scrollToLetter,
       ),
     );
   }

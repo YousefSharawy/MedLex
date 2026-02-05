@@ -10,123 +10,54 @@ part 'az_list_cubit.freezed.dart';
 
 class AzListCubit extends Cubit<AzListState> {
   List<TermModel>? _cachedAllTerms;
+  String? _lastCategory;
   
   AzListCubit() : super(const AzListState.initial());
 
-  void initialize({
+  AzBuildResult buildAzItems({
     required List<TermModel> terms,
     required String selectedCategory,
     required bool hasMore,
     required bool isAllCategory,
   }) {
-    if (isAllCategory) {
-      _cachedAllTerms = List.from(terms);
-    }
+    final termsToUse = isAllCategory ? (_cachedAllTerms ?? terms) : terms;
     
-    _buildAzData(
-      terms: isAllCategory ? (_cachedAllTerms ?? terms) : terms,
-      selectedCategory: selectedCategory,
-      hasMore: isAllCategory && hasMore,
-    );
-  }
-
-  void updateTerms({
-    required List<TermModel> terms,
-    required String selectedCategory,
-    required bool hasMore,
-    required bool isAllCategory,
-  }) {
-    if (isAllCategory) {
-      _cachedAllTerms = List.from(terms);
-    }
-    
-    _buildAzData(
-      terms: isAllCategory ? (_cachedAllTerms ?? terms) : terms,
-      selectedCategory: selectedCategory,
-      hasMore: isAllCategory && hasMore,
-    );
-  }
-
-  void _buildAzData({
-    required List<TermModel> terms,
-    required String selectedCategory,
-    required bool hasMore,
-  }) {
     final result = AzBuildResult.build(
-      terms,
-      addLoadingIndicator: hasMore,
+      termsToUse,
+      addLoadingIndicator: isAllCategory && hasMore,
     );
 
     if (result.items.isNotEmpty) {
       SuspensionUtil.setShowSuspensionStatus(result.items);
     }
 
-    emit(AzListState.loaded(
-      azItems: result.items,
-      availableLetters: result.availableLetters,
-      selectedCategory: selectedCategory,
-    ));
+    return result;
   }
 
-  void requestScrollToLetter(String letter) {
-    state.maybeWhen(
-      loaded: (azItems, availableLetters, selectedCategory, _) {
-        if (availableLetters.contains(letter)) {
-          final index = azItems.indexWhere(
-            (item) => item.getSuspensionTag() == letter && !item.isLoadingIndicator,
-          );
-          
-          if (index != -1) {
-            emit(AzListState.scrollToLetter(
-              azItems: azItems,
-              availableLetters: availableLetters,
-              selectedCategory: selectedCategory,
-              letter: letter,
-              targetIndex: index,
-            ));
-            
-            // Reset back to loaded state
-            Future.microtask(() {
-              if (!isClosed) {
-                emit(AzListState.loaded(
-                  azItems: azItems,
-                  availableLetters: availableLetters,
-                  selectedCategory: selectedCategory,
-                ));
-              }
-            });
-          }
-        } else {
-          // Letter not available
-          emit(AzListState.loaded(
-            azItems: azItems,
-            availableLetters: availableLetters,
-            selectedCategory: selectedCategory,
-            pendingScrollLetter: letter,
-          ));
-        }
-      },
-      orElse: () {},
-    );
+  void initializeCache({
+    required List<TermModel> terms,
+    required String selectedCategory,
+    required bool isAllCategory,
+  }) {
+    if (isAllCategory && _cachedAllTerms == null) {
+      _cachedAllTerms = List.from(terms);
+    }
+    _lastCategory = selectedCategory;
   }
 
-  void clearPendingScroll() {
-    state.maybeWhen(
-      loaded: (azItems, availableLetters, selectedCategory, pendingScrollLetter) {
-        if (pendingScrollLetter != null) {
-          emit(AzListState.loaded(
-            azItems: azItems,
-            availableLetters: availableLetters,
-            selectedCategory: selectedCategory,
-          ));
-        }
-      },
-      orElse: () {},
-    );
+  void updateCache({
+    required List<TermModel> terms,
+    required String selectedCategory,
+    required bool isAllCategory,
+  }) {
+    if (isAllCategory) {
+      _cachedAllTerms = List.from(terms);
+    }
+    _lastCategory = selectedCategory;
   }
 
-  void updateCache(List<TermModel> terms) {
-    _cachedAllTerms = List.from(terms);
+  bool shouldRebuildData(String newCategory) {
+    return _lastCategory != newCategory;
   }
 
   List<TermModel>? get cachedTerms => _cachedAllTerms;
