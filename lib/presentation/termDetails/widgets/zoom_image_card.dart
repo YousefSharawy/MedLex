@@ -96,24 +96,3 @@ class ZoomableIndicator extends StatelessWidget {
     );
   }
 }
-
-class PlaceholderImage extends StatelessWidget {
-  const PlaceholderImage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: AppHeight.s155,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ColorManager.tealSoft.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(AppRadius.s12),
-      ),
-      child: Icon(
-        Icons.medical_information_outlined,
-        size: 60.sp,
-        color: ColorManager.secondaryText.withOpacity(0.5),
-      ),
-    );
-  }
-}

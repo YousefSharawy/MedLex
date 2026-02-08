@@ -14,14 +14,11 @@ class SplashCubit extends Cubit<SplashState> {
   void start() async {
     await Future.delayed(Duration(seconds: ConstantsManager.splashTimer));
     
-    // Check if onboarding has been completed
     final hasCompletedOnboarding = LocalAppStorage.isOnboardingCompleted();
     
     if (hasCompletedOnboarding) {
-      // Go directly to home if onboarding is completed
       emit(SplashState.success(route: Routes.home));
     } else {
-      // Show onboarding for first-time users
       emit(SplashState.success(route: Routes.onboarding1));
     }
     

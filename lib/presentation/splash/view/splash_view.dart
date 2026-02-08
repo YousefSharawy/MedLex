@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/app/local_storage.dart';
 import 'package:transly/presentation/base/primary_widgets.dart';
@@ -115,8 +116,8 @@ class _SplashViewState extends State<SplashView>
 
   @override
   Widget build(BuildContext context) {
-    const double moveUpDistance = 50.0;
-    const double slideDistance = 60.0;
+     double moveUpDistance = 50.sp;
+     double slideDistance = 60.0.sp;
 
     return Scaffold(
       body: AnimatedBuilder(

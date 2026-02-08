@@ -16,7 +16,6 @@ mixin ResettableTabState<T extends StatefulWidget> on State<T> {
           loaded: (prevCurrent, prevPrevious) {
             return current.maybeWhen(
               loaded: (currCurrent, currPrevious) {
-                // Reset when we were on this tab and now we're not
                 return prevCurrent == tabIndex && currCurrent != tabIndex;
               },
               orElse: () => false,

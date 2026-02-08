@@ -3,9 +3,7 @@ import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 
-/// Centered hint below the image card.
-/// Shows a static "pinch to zoom" label at 1×, and switches to a live
-/// scale readout once the user has zoomed in.
+
 class ZoomHintText extends StatelessWidget {
   const ZoomHintText({super.key, required this.currentScale});
 

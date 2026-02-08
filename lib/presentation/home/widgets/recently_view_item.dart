@@ -45,14 +45,15 @@ class RecentlyViewedItem extends StatelessWidget {
               height: AppHeight.s66,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppRadius.s8),
-                child: term.imageUrl != null && term.imageUrl!.isNotEmpty
-                    ? UiUtils.cachedNetworkImage(
-                        imageUrl: term.imageUrl,
-                        height: AppHeight.s66,
-                        width: AppWidth.s59,
-                        fit: BoxFit.cover,
-                      )
-                    : _buildPlaceholder(),
+                child:
+                    term.imageUrl != null && term.imageUrl!.isNotEmpty
+                        ? UiUtils.cachedNetworkImage(
+                          imageUrl: term.imageUrl,
+                          height: AppHeight.s66,
+                          width: AppWidth.s59,
+                          fit: BoxFit.cover,
+                        )
+                        : UiUtils.termItemNoImagePlaceholder(),
               ),
             ),
             SizedBox(width: AppWidth.s15),
@@ -105,28 +106,13 @@ class RecentlyViewedItem extends StatelessWidget {
           },
           child: Padding(
             padding: EdgeInsets.all(8.sp),
-            child: isFavorite
-                ? Image.asset(IconAssets.bookmarkActive)
-                : Image.asset(IconAssets.bookmark),
+            child:
+                isFavorite
+                    ? Image.asset(IconAssets.bookmarkActive)
+                    : Image.asset(IconAssets.bookmark),
           ),
         );
       },
-    );
-  }
-
-  Widget _buildPlaceholder() {
-    return Container(
-      width: AppWidth.s59,
-      height: AppHeight.s66,
-      decoration: BoxDecoration(
-        color: ColorManager.tealSoft.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(AppRadius.s8),
-      ),
-      child: Icon(
-        Icons.medical_information_outlined,
-        size: 28.sp,
-        color: ColorManager.secondaryText.withOpacity(0.5),
-      ),
     );
   }
 }

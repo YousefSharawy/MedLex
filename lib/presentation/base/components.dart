@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/presentation/resources/font_manager.dart';
+import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-
 
 class PrimaryScaffold extends StatefulWidget {
   const PrimaryScaffold({
@@ -20,7 +21,7 @@ class PrimaryScaffold extends StatefulWidget {
   final AppBar? appBar;
   final bool showBannerAd;
   final Drawer? drawer;
-  final Color ? backgroundColor;
+  final Color? backgroundColor;
   @override
   State<PrimaryScaffold> createState() => _PrimaryScaffoldState();
 }
@@ -105,7 +106,7 @@ class _PrimaryScaffoldState extends State<PrimaryScaffold> {
     return Scaffold(
       appBar: widget.appBar,
       drawer: widget.drawer,
-      backgroundColor: widget.backgroundColor?? ColorManager.background,
+      backgroundColor: widget.backgroundColor ?? ColorManager.background,
       body: widget.body,
       bottomNavigationBar: _buildBottomAdContainer(),
     );
@@ -153,10 +154,8 @@ class _PrimaryScaffoldState extends State<PrimaryScaffold> {
 }
 
 class ScaffoldWithNavBar extends StatelessWidget {
-  const ScaffoldWithNavBar({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
+  const ScaffoldWithNavBar({required this.navigationShell, Key? key})
+    : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
 
   final StatefulNavigationShell navigationShell;
 
@@ -224,7 +223,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   void _onTap(BuildContext context, int index) {
     context.read<NavigationCubit>().updateIndex(index);
-    
+
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
@@ -265,26 +264,34 @@ class _NavBarItemState extends State<_NavBarItem>
 
     _scaleAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: 1.2)
-            .chain(CurveTween(curve: Curves.easeOut)),
+        tween: Tween<double>(
+          begin: 1.0,
+          end: 1.2,
+        ).chain(CurveTween(curve: Curves.easeOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.2, end: 1.0)
-            .chain(CurveTween(curve: Curves.elasticOut)),
+        tween: Tween<double>(
+          begin: 1.2,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.elasticOut)),
         weight: 50,
       ),
     ]).animate(_controller);
 
     _bounceAnimation = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 0.0, end: -8.0)
-            .chain(CurveTween(curve: Curves.easeOut)),
+        tween: Tween<double>(
+          begin: 0.0,
+          end: -8.0,
+        ).chain(CurveTween(curve: Curves.easeOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: -8.0, end: 0.0)
-            .chain(CurveTween(curve: Curves.bounceOut)),
+        tween: Tween<double>(
+          begin: -8.0,
+          end: 0.0,
+        ).chain(CurveTween(curve: Curves.bounceOut)),
         weight: 50,
       ),
     ]).animate(_controller);
@@ -293,7 +300,6 @@ class _NavBarItemState extends State<_NavBarItem>
   @override
   void didUpdateWidget(covariant _NavBarItem oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Trigger animation when this item becomes selected
     if (widget.isSelected && !oldWidget.isSelected) {
       _controller.forward(from: 0.0);
     }
@@ -324,24 +330,24 @@ class _NavBarItemState extends State<_NavBarItem>
                     duration: const Duration(milliseconds: 200),
                     child: Image.asset(
                       widget.iconPath,
-                      width: 28,
-                      height: 28,
-                      color: widget.isSelected
-                          ? ColorManager.primary
-                          : const Color(0xFFBDBDBD),
+                      width: AppWidth.s24,
+                      height: AppHeight.s24,
+                      color:
+                          widget.isSelected
+                              ? ColorManager.primary
+                              : ColorManager.navbarInactiveItem,
                     ),
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: AppHeight.s4),
                 AnimatedDefaultTextStyle(
                   duration: const Duration(milliseconds: 200),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight:
-                        widget.isSelected ? FontWeight.w600 : FontWeight.w400,
-                    color: widget.isSelected
-                        ? ColorManager.primary
-                        : const Color(0xFFBDBDBD),
+                  style: getRegularStyle(
+                    fontSize: FontSize.s10,
+                    color:
+                        widget.isSelected
+                            ? ColorManager.black
+                            : ColorManager.navbarInactiveItemTitle,
                   ),
                   child: Text(widget.label),
                 ),

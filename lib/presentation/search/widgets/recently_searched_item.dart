@@ -18,7 +18,6 @@ class RecentlySearchedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('🔘 RecentlySearchedItem tapped: "$label"');
         onTap();
       },
       child: Container(

@@ -51,51 +51,49 @@ class UiUtils {
   // ==================== LOADING DIALOG ====================
 
   static void showLoading(BuildContext context, {String? message}) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    useRootNavigator: true,  // Add this line
-    builder:
-        (_) => PopScope(
-          canPop: false,
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.all(24.sp),
-              decoration: BoxDecoration(
-                color: ColorManager.white,
-                borderRadius: BorderRadius.circular(AppRadius.s16),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CircularProgressIndicator(),
-                  if (message != null) ...[
-                    SizedBox(height: AppHeight.s16),
-                    Text(
-                      message,
-                      style: getRegularStyle(
-                        fontSize: FontSize.s14,
-                        fontFamily: FontConstants.interFamily,
-                        color: ColorManager.primaryText,
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      useRootNavigator: true, // Add this line
+      builder:
+          (_) => PopScope(
+            canPop: false,
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(24.sp),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(AppRadius.s16),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(),
+                    if (message != null) ...[
+                      SizedBox(height: AppHeight.s16),
+                      Text(
+                        message,
+                        style: getRegularStyle(
+                          fontSize: FontSize.s14,
+                          fontFamily: FontConstants.interFamily,
+                          color: ColorManager.primaryText,
+                        ),
                       ),
-                    ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ),
           ),
-        ),
-  );
-}
-
-static void hideLoading(BuildContext context) {
-  final navigator = Navigator.of(context, rootNavigator: true);
-  if (navigator.canPop()) {
-    navigator.pop();
+    );
   }
-}
 
-
+  static void hideLoading(BuildContext context) {
+    final navigator = Navigator.of(context, rootNavigator: true);
+    if (navigator.canPop()) {
+      navigator.pop();
+    }
+  }
 
   static Widget loadingWidget({double? size}) {
     return Center(
@@ -251,6 +249,52 @@ static void hideLoading(BuildContext context) {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  static Widget termItemNoImagePlaceholder({double? height}) {
+    return Container(
+      width: AppWidth.s59,
+      height: AppHeight.s66,
+      decoration: BoxDecoration(
+        color: ColorManager.tealSoft.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(AppRadius.s8),
+      ),
+      child: Icon(
+        Icons.medical_information_outlined,
+        size: 28.sp,
+        color: ColorManager.secondaryText.withOpacity(0.5),
+      ),
+    );
+  }
+  static Widget dailyTermNoImagePlaceholder({double? height}) {
+    return Container(
+      height: AppHeight.s144,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: ColorManager.tealSoft.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(AppRadius.s12),
+      ),
+      child: Icon(
+        Icons.medical_information_outlined,
+        size: 60.sp,
+        color: ColorManager.secondaryText.withOpacity(0.5),
+      ),
+    );
+  }
+  static Widget zoomCardNoImagePlaceholder({double? height}) {
+    return Container(
+      height: AppHeight.s155,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: ColorManager.tealSoft.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(AppRadius.s12),
+      ),
+      child: Icon(
+        Icons.medical_information_outlined,
+        size: 60.sp,
+        color: ColorManager.secondaryText.withOpacity(0.5),
       ),
     );
   }

@@ -172,7 +172,7 @@ class PersistentSearchBarState extends State<PersistentSearchBar>
                                 focusNode: _focusNode,
                                 textInputAction: TextInputAction.search,
                                 onChanged: _onTextChanged,
-                                onSubmitted: _onSubmitted, // Handle Enter key
+                                onSubmitted: _onSubmitted,
                                 decoration: InputDecoration(
                                   filled: false,
                                   isDense: true,

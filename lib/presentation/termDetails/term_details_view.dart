@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
@@ -56,12 +58,15 @@ class _TermDetailsViewState extends State<TermDetailsView>
 
   void _handleDoubleTap(TapDownDetails details) {
     final position = details.localPosition;
+    final targetScale = 2.5.sp;
+    final translateMultiplier = 1.5.sp;
+    
     final Matrix4 endMatrix =
         _transformController.value != Matrix4.identity()
               ? Matrix4.identity()
               : Matrix4.identity()
-          ..translate(-position.dx * 1.5, -position.dy * 1.5)
-          ..scale(2.5);
+          ..translate(-position.dx * translateMultiplier, -position.dy * translateMultiplier)
+          ..scale(targetScale);
 
     _animateZoom(endMatrix);
   }
@@ -92,13 +97,13 @@ class _TermDetailsViewState extends State<TermDetailsView>
     final imageUrl = widget.term.imageUrl;
 
     if (imageUrl == null || imageUrl.isEmpty) {
-      return const PlaceholderImage();
+      return UiUtils.zoomCardNoImagePlaceholder();
     }
 
     return InteractiveViewer(
       transformationController: _transformController,
-      minScale: 0.8,
-      maxScale: 5.0,
+      minScale: 0.8.sp,
+      maxScale: 5.0.sp,
       onInteractionStart: (details) {
         if (_zoomAnimationController.isAnimating) {
           _zoomAnimationController.stop();
@@ -107,7 +112,7 @@ class _TermDetailsViewState extends State<TermDetailsView>
       child: Image.network(
         imageUrl,
         fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) => const PlaceholderImage(),
+        errorBuilder: (context, error, stackTrace) => UiUtils.zoomCardNoImagePlaceholder(),
       ),
     );
   }
@@ -149,7 +154,7 @@ class _TermDetailsViewState extends State<TermDetailsView>
                       term: widget.term,
                       isSimpleMode: _isSimpleMode,
                     ),
-                    SizedBox(height: AppHeight.s100),
+                    SizedBox(height: AppHeight.s80),
                   ],
                 ),
               ),

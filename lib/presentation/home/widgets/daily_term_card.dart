@@ -84,7 +84,7 @@ class DailyTermCard extends StatelessWidget {
                         height: AppHeight.s144,
                         borderRadius: BorderRadius.circular(AppRadius.s12),
                       )
-                    : _buildPlaceholder(),
+                    : UiUtils.dailyTermNoImagePlaceholder(),
               ),
               SizedBox(height: AppHeight.s14),
               Row(
@@ -161,19 +161,5 @@ class DailyTermCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPlaceholder() {
-    return Container(
-      height: AppHeight.s144,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ColorManager.tealSoft.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(AppRadius.s12),
-      ),
-      child: Icon(
-        Icons.medical_information_outlined,
-        size: 60,
-        color: ColorManager.secondaryText.withOpacity(0.5),
-      ),
-    );
-  }
+  
 }

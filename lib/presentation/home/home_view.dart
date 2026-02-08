@@ -60,7 +60,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
   }
 
   void _onSearchStart() {
-   
     scheduleMicrotask(() {
       if (!mounted) return;
       setState(() {
@@ -96,7 +95,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
             ),
             // ---------- Search Bar ----------
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppWidth.s14),
+              padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
               child: PersistentSearchBar(
                 isSearching: _isSearching,
                 onSearchStart: _onSearchStart,
@@ -112,15 +111,9 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // Header: replaces AnimatedCrossFade (which builds both children always)
-  // with two AnimatedOpacity widgets. Only the visible one participates in
-  // layout via AnimatedSize on its container, keeping layout work minimal.
-  // ---------------------------------------------------------------------------
   Widget _buildAnimatedHeader() {
     const duration = Duration(milliseconds: 300);
 
-    // The "home" header (title + subtitle)
     final homeHeader = AnimatedOpacity(
       duration: duration,
       opacity: _isSearching ? 0.0 : 1.0,
@@ -164,8 +157,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
         ],
       ),
     );
-
-    // The "search" header (just the word "Search")
     final searchHeader = AnimatedOpacity(
       duration: duration,
       opacity: _isSearching ? 1.0 : 0.0,
@@ -184,9 +175,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
       ),
     );
 
-    // AnimatedSize smoothly collapses/expands height as we swap headers.
-    // Only one child is visible at a time, so layout cost is halved vs
-    // AnimatedCrossFade which keeps both in the layout tree simultaneously.
     return AnimatedSize(
       duration: duration,
       curve: Curves.easeOut,
@@ -194,13 +182,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // Body: instead of AnimatedSwitcher (which disposes the old child and
-  // cold-starts the new one), we keep SearchView alive once it's been opened.
-  // We use AnimatedOpacity to fade and a IgnorePointer to block interaction
-  // on the hidden view. This way SearchView is never rebuilt from scratch after
-  // the first open — critical for eliminating the first-time jank.
-  // ---------------------------------------------------------------------------
   Widget _buildAnimatedBody() {
     const duration = Duration(milliseconds: 300);
 
@@ -215,8 +196,6 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
             child: _buildHomeContent(),
           ),
         ),
-        // --- Search content (kept alive after first open) ---
-        // RepaintBoundary isolates SearchView's repaints from the home tree.
         if (_searchEverOpened)
           AnimatedOpacity(
             duration: duration,
