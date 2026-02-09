@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/dictionary/view/widgets/category_chip_list.dart';
 import 'package:transly/presentation/dictionary/view/widgets/dictionary_header.dart';
@@ -9,6 +9,7 @@ import 'package:transly/presentation/dictionary/view/widgets/terms_content_view.
 import 'package:transly/presentation/resources/values_manager.dart';
 import 'package:transly/presentation/search/view/search_view.dart';
 import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -35,7 +36,7 @@ class _DictionaryViewState extends State<DictionaryView>
   }
 
   void _loadInitialData() {
-    context.read<AppCubit>().getAllTerms(refresh: true);
+    context.read<TermsCubit>().getAllTerms(refresh: true);
   }
 
   void _onSearchStart() {
@@ -45,7 +46,7 @@ class _DictionaryViewState extends State<DictionaryView>
         _isSearching = true;
         _searchEverOpened = true;
       });
-      context.read<AppCubit>().setSearching(true);
+      context.read<SearchCubit>().setSearching(true);
     });
   }
 
@@ -55,7 +56,7 @@ class _DictionaryViewState extends State<DictionaryView>
       setState(() {
         _isSearching = false;
       });
-      context.read<AppCubit>().setSearching(false);
+      context.read<SearchCubit>().setSearching(false);
     });
   }
 
@@ -70,8 +71,8 @@ class _DictionaryViewState extends State<DictionaryView>
       _isSearching = false;
       _selectedCategory = 'All';
     });
-    context.read<AppCubit>().clearSearchResults();
-    context.read<AppCubit>().getAllTerms(refresh: true);
+    context.read<SearchCubit>().clearSearchResults();
+    context.read<TermsCubit>().getAllTerms(refresh: true);
   }
 
   @override

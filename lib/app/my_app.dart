@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transly/app/di.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
-import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
+import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
 import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 import '../presentation/resources/constants_manager.dart';
 import '../presentation/resources/routes.dart';
 import '../presentation/resources/theme_manager.dart';
-import '../presentation/splash/viewModel/splash_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -32,12 +32,14 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => SplashCubit()),
-            BlocProvider<AppCubit>(
-              create: (context) => getIt<AppCubit>()..getDailyTerm(),
+          BlocProvider<HomeCubit>(
+              create: (context) => getIt<HomeCubit>()..getDailyTerm(),
             ),
-            BlocProvider<AzListCubit>(
-              create: (context) => getIt<AzListCubit>(),
+            BlocProvider<SearchCubit>(
+              create: (context) => getIt<SearchCubit>(),
+            ),
+            BlocProvider<TermsCubit>(
+              create: (context) => getIt<TermsCubit>(),
             ),
             BlocProvider<NavigationCubit>(
               create: (context) => getIt<NavigationCubit>(),

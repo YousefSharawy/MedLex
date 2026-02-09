@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/profile/screens/widgets/section_card.dart';
-import 'package:transly/presentation/profile/screens/widgets/section_header.dart';
+import 'package:transly/presentation/profile/view/widgets/section_card.dart';
+import 'package:transly/presentation/profile/view/widgets/section_header.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';

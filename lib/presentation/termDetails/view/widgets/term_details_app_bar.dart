@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
@@ -34,16 +34,16 @@ class BookmarButton extends StatelessWidget {
   TermModel term;
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<AppCubit, AppState, bool>(
+    return BlocSelector<TermsCubit, TermsState, bool>(
       selector: (state) {
-        if (state is HomeLoaded) {
+        if (state is FavoritesUpdated) {
           return state.favoriteIds.contains(term.id);
         }
-        return context.read<AppCubit>().isFavorite(term.id);
+        return context.read<TermsCubit>().isFavorite(term.id);
       },
       builder: (context, isFavorite) {
         return GestureDetector(
-          onTap: () => context.read<AppCubit>().toggleFavorite(term),
+          onTap: () => context.read<TermsCubit>().toggleFavorite(term),
           child: Padding(
             padding: EdgeInsets.all(8.sp),
             child: Image.asset(

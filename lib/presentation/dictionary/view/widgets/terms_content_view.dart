@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/presentation/dictionary/view/widgets/terms_list_with_sidebar.dart';
 import 'package:transly/app/ui_utiles.dart';
+import 'package:transly/app/di.dart';
+import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
 
 class TermsContentView extends StatelessWidget {
   final String selectedCategory;
@@ -18,9 +20,8 @@ class TermsContentView extends StatelessWidget {
       _loadData(context);
     });
 
-    return BlocBuilder<AppCubit, AppState>(
+    return BlocBuilder<TermsCubit, TermsState>(
       buildWhen: (previous, current) {
-        // Only rebuild for relevant state changes
         if (selectedCategory == 'All') {
           return current is AllTermsLoading ||
               current is AllTermsLoaded ||
@@ -41,7 +42,7 @@ class TermsContentView extends StatelessWidget {
     );
   }
 
-  Widget _buildAllTermsView(BuildContext context, AppState state) {
+  Widget _buildAllTermsView(BuildContext context, TermsState state) {
     if (state is AllTermsLoading) {
       return UiUtils.loadingWidget();
     }
@@ -58,19 +59,22 @@ class TermsContentView extends StatelessWidget {
         return UiUtils.emptyWidget(message: 'No terms found');
       }
 
-      return TermsListWithSidebar(
-        terms: state.terms,
-        selectedCategory: selectedCategory,
-        hasMore: state.hasMore,
-        isLoadingMore: state.isLoadingMore,
-        onLoadMore: () => context.read<AppCubit>().loadMoreTerms(),
+      return BlocProvider(
+        create: (_) => getIt<AzListCubit>(),
+        child: TermsListWithSidebar(
+          terms: state.terms,
+          selectedCategory: selectedCategory,
+          hasMore: state.hasMore,
+          isLoadingMore: state.isLoadingMore,
+          onLoadMore: () => context.read<TermsCubit>().loadMoreTerms(),
+        ),
       );
     }
 
     return UiUtils.loadingWidget();
   }
 
-  Widget _buildCategoryView(BuildContext context, AppState state) {
+  Widget _buildCategoryView(BuildContext context, TermsState state) {
     if (state is TermsByCategoryLoading) {
       return UiUtils.loadingWidget();
     }
@@ -89,12 +93,15 @@ class TermsContentView extends StatelessWidget {
         );
       }
 
-      return TermsListWithSidebar(
-        terms: state.terms,
-        selectedCategory: selectedCategory,
-        hasMore: false,
-        isLoadingMore: false,
-        onLoadMore: () {},
+      return BlocProvider(
+        create: (_) => getIt<AzListCubit>(),
+        child: TermsListWithSidebar(
+          terms: state.terms,
+          selectedCategory: selectedCategory,
+          hasMore: false,
+          isLoadingMore: false,
+          onLoadMore: () {},
+        ),
       );
     }
 
@@ -103,9 +110,9 @@ class TermsContentView extends StatelessWidget {
 
   void _loadData(BuildContext context) {
     if (selectedCategory == 'All') {
-      context.read<AppCubit>().getAllTerms(refresh: true);
+      context.read<TermsCubit>().getAllTerms(refresh: true);
     } else {
-      context.read<AppCubit>().getTermsByCategory(selectedCategory);
+      context.read<TermsCubit>().getTermsByCategory(selectedCategory);
     }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/dictionary/view/widgets/azListView/az_build_result.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
 import 'package:azlistview/azlistview.dart';
 
 part 'az_list_state.dart';

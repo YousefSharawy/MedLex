@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 class PersistentSearchBar extends StatefulWidget {
   final bool isSearching;
@@ -40,7 +40,7 @@ class PersistentSearchBarState extends State<PersistentSearchBar>
     _searchController.text = text;
     _debounceTimer?.cancel();
     if (text.trim().isNotEmpty) {
-      context.read<AppCubit>().searchTerms(text.trim());
+      context.read<SearchCubit>().searchTerms(text.trim());
     }
   }
   @override
@@ -93,9 +93,9 @@ class PersistentSearchBarState extends State<PersistentSearchBar>
 
     _debounceTimer = Timer(_debounceDuration, () {
       if (query.trim().isNotEmpty) {
-        context.read<AppCubit>().searchTerms(query.trim());
+context.read<SearchCubit>().searchTerms(query.trim());
       } else {
-        context.read<AppCubit>().clearSearchResults();
+context.read<SearchCubit>().clearSearchResults();
       }
     });
   }
@@ -107,37 +107,37 @@ class PersistentSearchBarState extends State<PersistentSearchBar>
 
     // Immediately search
     if (query.trim().isNotEmpty) {
-      context.read<AppCubit>().searchTerms(query.trim());
+context.read<SearchCubit>().searchTerms(query.trim());
     }
   }
 
   void _onClose() {
     _debounceTimer?.cancel();
     _searchController.clear();
-    context.read<AppCubit>().clearSearchResults();
+context.read<SearchCubit>().clearSearchResults();
     widget.onSearchClose();
   }
 
   void _clearText() {
     _debounceTimer?.cancel();
     _searchController.clear();
-    context.read<AppCubit>().clearSearchResults();
+context.read<SearchCubit>().clearSearchResults();
     _focusNode.requestFocus();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppCubit, AppState>(
+    return BlocListener<SearchCubit, SearchState>(
       listenWhen: (previous, current) {
-        if (current is! HomeLoaded) return false;
-        if (previous is! HomeLoaded) return true;
+        if (current is! SearchLoaded) return false;
+        if (previous is! SearchLoaded) return true;
         return current.pendingSearchText != previous.pendingSearchText;
       },
       listener: (context, state) {
-        if (state is HomeLoaded && state.pendingSearchText != null) {
+        if (state is SearchLoaded && state.pendingSearchText != null) {
           if (state.pendingSearchText!.isNotEmpty && widget.isSearching) {
             _searchController.text = state.pendingSearchText!;
-            context.read<AppCubit>().clearPendingSearchText();
+            context.read<SearchCubit>().clearPendingSearchText();
           }
         }
       },

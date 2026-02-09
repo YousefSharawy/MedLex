@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 void handleSearchItemClick(BuildContext context, String searchText) {
-  context.read<AppCubit>().setSearchTextAndActivate(searchText);
+  context.read<SearchCubit>().setSearchTextAndActivate(searchText);
 }
 
 class EmptyHint extends StatelessWidget {
@@ -133,7 +133,7 @@ class ClearRecentlySearchedDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            context.read<AppCubit>().clearRecentlySearched();
+            context.read<SearchCubit>().clearRecentlySearched();
             Navigator.of(context).pop();
 
             ScaffoldMessenger.of(context).showSnackBar(

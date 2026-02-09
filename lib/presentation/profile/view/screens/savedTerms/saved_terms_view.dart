@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/app/local_storage.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/base/primary_widgets.dart';
-import 'package:transly/presentation/profile/screens/savedItems/saved_term_item.dart';
+import 'package:transly/presentation/profile/view/widgets/saved_term_item.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
@@ -44,11 +44,11 @@ class _SavedTermsViewState extends State<SavedTermsView> {
       LocalAppStorage.removeFavorite(term.id);
       _favorites = LocalAppStorage.getFavorites();
     });
-    context.read<AppCubit>().removeFromFavorites(term.id);
+    context.read<TermsCubit>().removeFromFavorites(term.id);
   }
 
   Future<void> _navigateToDetails(TermModel term) async {
-    context.read<AppCubit>().addToRecentlyViewed(term);
+    context.read<TermsCubit>().addToRecentlyViewed(term);
     await context.push(Routes.termDetails, extra: term);
     _loadFavorites();
   }

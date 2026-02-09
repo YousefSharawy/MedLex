@@ -1,12 +1,14 @@
 // routes.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
+import 'package:transly/presentation/splash/viewModel/splash_cubit.dart';
 import 'package:transly/presentation/termDetails/view/term_details_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
-import 'package:transly/presentation/profile/screens/savedItems/saved_terms_view.dart';
+import 'package:transly/presentation/profile/view/screens/savedTerms/saved_terms_view.dart';
 
 import '../home/view/home_view.dart';
 import '../dictionary/view/dictionary_view.dart';
@@ -37,13 +39,16 @@ class AppNavigation {
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(
-        path: Routes.splash,
-        pageBuilder:
-            (context, state) => CustomTransitionPage2(
-              key: state.pageKey,
-              child: const SplashView(),
-            ),
+  path: Routes.splash,
+  pageBuilder:
+      (context, state) => CustomTransitionPage2(
+        key: state.pageKey,
+        child: BlocProvider(
+          create: (_) => SplashCubit(),
+          child: const SplashView(),
+        ),
       ),
+),
       GoRoute(
         path: Routes.onboarding1,
         pageBuilder:

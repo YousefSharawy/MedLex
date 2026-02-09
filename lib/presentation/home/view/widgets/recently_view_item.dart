@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
@@ -92,17 +92,17 @@ class RecentlyViewedItem extends StatelessWidget {
   }
 
   Widget _buildBookmarkButton(BuildContext context) {
-    return BlocSelector<AppCubit, AppState, bool>(
+    return BlocSelector<TermsCubit, TermsState, bool>(
       selector: (state) {
-        if (state is HomeLoaded) {
+        if (state is FavoritesUpdated) {
           return state.favoriteIds.contains(term.id);
         }
-        return context.read<AppCubit>().isFavorite(term.id);
+        return context.read<TermsCubit>().isFavorite(term.id);
       },
       builder: (context, isFavorite) {
         return GestureDetector(
           onTap: () {
-            context.read<AppCubit>().toggleFavorite(term);
+            context.read<TermsCubit>().toggleFavorite(term);
           },
           child: Padding(
             padding: EdgeInsets.all(8.sp),

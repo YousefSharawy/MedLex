@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
+import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
 import 'package:transly/presentation/search/view/widgets/default_view.dart';
 import 'package:transly/presentation/search/view/widgets/search_results.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 class SearchView extends StatelessWidget {
   final GlobalKey<dynamic>? searchBarKey;
@@ -12,21 +14,18 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
+    return BlocBuilder<SearchCubit, SearchState>(
       buildWhen: (previous, current) {
-        if (current is! HomeLoaded) return false;
-        if (previous is! HomeLoaded) return true;
+        if (current is! SearchLoaded) return false;
+        if (previous is! SearchLoaded) return true;
 
         return current.recentlySearched != previous.recentlySearched ||
             current.searchResults != previous.searchResults ||
             current.isSearchLoading != previous.isSearchLoading ||
-            current.searchError != previous.searchError ||
-            current.trendingTerms != previous.trendingTerms ||
-            current.popularTerms != previous.popularTerms ||
-            current.recentlyViewed != previous.recentlyViewed;
+            current.searchError != previous.searchError;
       },
       builder: (context, state) {
-        if (state is! HomeLoaded) {
+        if (state is! SearchLoaded) {
           return const SizedBox.shrink();
         }
 
@@ -49,10 +48,10 @@ class SearchView extends StatelessWidget {
         }
 
         return DefaultView(
-          recentlyViewed: state.recentlyViewed,
+          recentlyViewed: context.read<TermsCubit>().recentlyViewed,
           recentlySearched: state.recentlySearched,
-          popularTerms: state.popularTerms,
-          trendingTerms: state.trendingTerms,
+          popularTerms: context.read<HomeCubit>().popularTerms,
+          trendingTerms: context.read<HomeCubit>().trendingTerms,
         );
       },
     );

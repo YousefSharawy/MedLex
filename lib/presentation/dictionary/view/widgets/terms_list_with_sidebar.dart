@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
 import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
@@ -100,7 +100,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   // ==================== SCROLLING ====================
 
   void _scrollToLetter(String letter) {
-    final cubit = context.read<AppCubit>();
+    final cubit = context.read<TermsCubit>();
 
     if (cubit.pendingLetter == letter) return;
 
@@ -186,7 +186,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
 
   // ==================== BLOC LISTENER ====================
 
-  bool _shouldListen(AppState previous, AppState current) {
+  bool _shouldListen(TermsState previous, TermsState current) {
     if (current is! AllTermsLoaded) return false;
     if (previous is! AllTermsLoaded) return true;
 
@@ -198,7 +198,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     return pendingChanged || letterLoaded;
   }
 
-  void _onStateChanged(BuildContext context, AppState state) {
+  void _onStateChanged(BuildContext context, TermsState state) {
     if (state is! AllTermsLoaded) return;
 
     // Handle loading dialog
@@ -220,7 +220,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _scrollToLetterDirectly(letter);
-        context.read<AppCubit>().clearLetterJustLoaded();
+        context.read<TermsCubit>().clearLetterJustLoaded();
       }
     });
   }
@@ -231,7 +231,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return BlocConsumer<AppCubit, AppState>(
+    return BlocConsumer<TermsCubit, TermsState>(
       listenWhen: _shouldListen,
       listener: _onStateChanged,
       buildWhen: (_, __) => false,

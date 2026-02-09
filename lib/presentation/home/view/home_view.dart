@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/home/view/widgets/daily_term_card.dart';
@@ -18,6 +18,7 @@ import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/search/view/search_view.dart';
 import 'package:transly/presentation/search/view/widgets/resettable_tab.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -42,7 +43,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
       setState(() {
         _isSearching = false;
       });
-      context.read<AppCubit>().resetHomeState();
+      context.read<SearchCubit>().resetSearchState();
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           0,
@@ -66,7 +67,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
         _isSearching = true;
         _searchEverOpened = true;
       });
-      context.read<AppCubit>().setSearching(true);
+      context.read<SearchCubit>().setSearching(true);
     });
   }
 
@@ -76,7 +77,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
       setState(() {
         _isSearching = false;
       });
-      context.read<AppCubit>().setSearching(false);
+      context.read<SearchCubit>().setSearching(false);
     });
   }
 
@@ -215,11 +216,11 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
   }
 
   Widget _buildHomeContent() {
-    return BlocBuilder<AppCubit, AppState>(
-      buildWhen: (previous, current) => current is HomeLoaded,
+    return BlocBuilder<TermsCubit, TermsState>(
+      buildWhen: (previous, current) => current is RecentlyViewedUpdated,
       builder: (context, state) {
         final recentlyViewed =
-            state is HomeLoaded ? state.recentlyViewed : <TermModel>[];
+            state is RecentlyViewedUpdated ? state.recentlyViewed : <TermModel>[];
 
         return Align(
           alignment: Alignment.topCenter,
@@ -246,7 +247,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
                     (term) => RecentlyViewedItem(
                       term: term,
                       onTap: () {
-                        context.read<AppCubit>().addToRecentlyViewed(term);
+                        context.read<TermsCubit>().addToRecentlyViewed(term);
                         context.push(Routes.termDetails, extra: term);
                       },
                     ),

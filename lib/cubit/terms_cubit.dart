@@ -1,37 +1,20 @@
-import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transly/app/local_storage.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/domain/repository.dart';
 
-part 'app_state.dart';
-part 'app_cubit.freezed.dart';
+part 'terms_state.dart';
+part 'terms_cubit.freezed.dart';
 
-class AppCubit extends Cubit<AppState> {
+class TermsCubit extends Cubit<TermsState> {
   final Repository _repository;
-
-  TermModel? _dailyTerm;
-
-  bool _isSearching = false;
-  List<TermModel>? _searchResults;
-  bool _isSearchLoading = false;
-  String? _searchError;
-  String? _pendingSearchText;
-
-  // Recently Viewed & Searched
-  List<TermModel> _recentlyViewed = [];
-  List<String> _recentlySearched = [];
 
   // Favorites
   List<int> _favoriteIds = [];
 
-  // Popular & Trending
-  List<TermModel> _popularTerms = [];
-  List<TermModel> _trendingTerms = [];
-
-  // Total count (shared across features)
-  int _totalCount = 0;
+  // Recently Viewed
+  List<TermModel> _recentlyViewed = [];
 
   // Category State Tracking
   String? _currentCategory;
@@ -42,17 +25,25 @@ class AppCubit extends Cubit<AppState> {
   // Flag to cancel letter loading
   bool _cancelLetterLoading = false;
 
+  // Total count
+  int _totalCount = 0;
+
   static const int _pageSize = 30;
   static const int _maxLetterLoadIterations = 50;
 
-  AppCubit(this._repository) : super(const AppState.initial()) {
-    _recentlyViewed = LocalAppStorage.getRecentlyViewed();
-    _recentlySearched = LocalAppStorage.getRecentlySearched();
-    _loadFavoriteIds();
-  }
+  TermsCubit(this._repository) : super(const TermsState.initial()) {
+  _loadFavoriteIds();
+  _recentlyViewed = LocalAppStorage.getRecentlyViewed();
+
+  Future.microtask(() {
+    _safeEmit(TermsState.recentlyViewedUpdated(
+      recentlyViewed: List.from(_recentlyViewed),
+    ));
+  });
+}
 
   /// Safe emit that checks if cubit is still open
-  void _safeEmit(AppState state) {
+  void _safeEmit(TermsState state) {
     if (!isClosed) emit(state);
   }
 
@@ -63,188 +54,16 @@ class AppCubit extends Cubit<AppState> {
 
   // ==================== GETTERS ====================
 
-  bool get isSearching => _isSearching;
-  TermModel? get dailyTerm => _dailyTerm;
-  List<TermModel> get recentlyViewed => _recentlyViewed;
-  List<String> get recentlySearched => _recentlySearched;
   List<int> get favoriteIds => _favoriteIds;
-  List<TermModel> get popularTerms => _popularTerms;
-  List<TermModel> get trendingTerms => _trendingTerms;
-  String? get pendingSearchText => _pendingSearchText;
+  List<TermModel> get recentlyViewed => _recentlyViewed;
   String? get currentCategory => _currentCategory;
 
-  /// Get current AllTermsLoaded state or null
   AllTermsLoaded? get _allTermsState {
     final s = state;
     return s is AllTermsLoaded ? s : null;
   }
 
-  /// Get pending letter from current state
   String? get pendingLetter => _allTermsState?.pendingLetter;
-
-  // ==================== SEARCH STATE ====================
-
-  void setSearching(bool value) {
-    _isSearching = value;
-    if (!value) {
-      _searchResults = null;
-      _isSearchLoading = false;
-      _searchError = null;
-      _pendingSearchText = null;
-    }
-    _emitHomeState();
-  }
-
-  void setSearchTextAndActivate(String text) {
-    _pendingSearchText = text;
-    _isSearching = true;
-    _emitHomeState();
-    searchTerms(text);
-  }
-
-  void clearPendingSearchText() {
-    _pendingSearchText = null;
-  }
-
-  void resetHomeState() {
-    _isSearching = false;
-    _searchResults = null;
-    _isSearchLoading = false;
-    _searchError = null;
-    _emitHomeState();
-  }
-
-  void _emitHomeState({bool isLoading = false, String? errorMessage}) {
-    _safeEmit(
-      AppState.homeLoaded(
-        dailyTerm: _dailyTerm,
-        isSearching: _isSearching,
-        isLoading: isLoading,
-        errorMessage: errorMessage,
-        recentlyViewed: List.from(_recentlyViewed),
-        recentlySearched: List.from(_recentlySearched),
-        favoriteIds: List.from(_favoriteIds),
-        searchResults:
-            _searchResults != null ? List.from(_searchResults!) : null,
-        isSearchLoading: _isSearchLoading,
-        searchError: _searchError,
-        popularTerms: List.from(_popularTerms),
-        trendingTerms: List.from(_trendingTerms),
-        pendingSearchText: _pendingSearchText,
-      ),
-    );
-  }
-
-  // ==================== TRENDING TERMS ====================
-
-  Future<void> loadTrendingTerms() async {
-    final cachedTrending = LocalAppStorage.getCachedDailyTrendingTerms();
-    if (cachedTrending != null && cachedTrending.isNotEmpty) {
-      _trendingTerms = cachedTrending;
-      _emitHomeState();
-      return;
-    }
-
-    int totalCount = await _getTotalCount();
-    if (totalCount == 0 || isClosed) return;
-
-    final today = DateTime.now();
-    final seed = today.year * 10000 + today.month * 100 + today.day;
-    final random = Random(seed);
-
-    final totalPages = (totalCount / 30).ceil();
-    final randomPage =
-        random.nextInt(totalPages.clamp(1, totalPages - 3).toInt());
-
-    final List<TermModel> allTerms = [];
-    for (int i = 0; i < 4; i++) {
-      if (isClosed) return;
-
-      final result = await _repository.getAllTerms(
-        page: randomPage + i,
-        pageSize: 30,
-      );
-
-      final terms = result.fold<List<TermModel>?>(
-        (failure) => null,
-        (terms) => terms,
-      );
-
-      if (terms != null) {
-        allTerms.addAll(terms);
-      }
-    }
-
-    if (isClosed) return;
-
-    if (allTerms.isNotEmpty) {
-      final availableTerms = allTerms.where((term) {
-        return !_popularTerms.any((popular) => popular.id == term.id);
-      }).toList();
-
-      _trendingTerms = _getDailyRandomTerms(availableTerms, 5);
-
-      await LocalAppStorage.cacheDailyTrendingTerms(_trendingTerms);
-      _emitHomeState();
-    }
-  }
-
-  // ==================== POPULAR TERMS ====================
-
-  Future<void> loadPopularTerms() async {
-    int totalCount = await _getTotalCount();
-    if (totalCount == 0 || isClosed) return;
-
-    final today = DateTime.now();
-    final seed = today.year * 10000 + today.month * 100 + today.day;
-
-    final popularSeed = Random(seed + 12345);
-    final totalPages = (totalCount / 30).ceil();
-    final randomPage =
-        popularSeed.nextInt(totalPages.clamp(1, totalPages - 2).toInt());
-
-    List<TermModel> termsForSelection = [];
-
-    for (int i = 0; i < 2; i++) {
-      if (isClosed) return;
-
-      final result = await _repository.getAllTerms(
-        page: randomPage + i,
-        pageSize: 30,
-      );
-
-      final terms = result.fold<List<TermModel>?>(
-        (failure) => null,
-        (terms) => terms,
-      );
-
-      if (terms != null) {
-        termsForSelection.addAll(terms);
-      }
-    }
-
-    if (isClosed) return;
-
-    if (termsForSelection.isNotEmpty) {
-      _popularTerms = _getDailyRandomTerms(termsForSelection, 4);
-      _emitHomeState();
-
-      await loadTrendingTerms();
-    }
-  }
-
-  List<TermModel> _getDailyRandomTerms(List<TermModel> terms, int count) {
-    if (terms.isEmpty) return [];
-
-    final today = DateTime.now();
-    final seed = today.year * 10000 + today.month * 100 + today.day;
-    final random = Random(seed);
-
-    final shuffled = List<TermModel>.from(terms);
-    shuffled.shuffle(random);
-
-    return shuffled.take(count).toList();
-  }
 
   // ==================== FAVORITES ====================
 
@@ -260,7 +79,7 @@ class AppCubit extends Cubit<AppState> {
       await LocalAppStorage.addFavorite(term);
       _favoriteIds.add(term.id);
     }
-    _emitHomeState();
+    _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
   }
 
   Future<void> toggleFavoriteInSavedView(TermModel term) async {
@@ -273,14 +92,14 @@ class AppCubit extends Cubit<AppState> {
     }
     if (isClosed) return;
     final favorites = LocalAppStorage.getFavorites();
-    _safeEmit(AppState.favoritesLoaded(favorites));
+    _safeEmit(TermsState.favoritesLoaded(favorites));
   }
 
   Future<void> addToFavorites(TermModel term) async {
     if (!isFavorite(term.id)) {
       await LocalAppStorage.addFavorite(term);
       _favoriteIds.add(term.id);
-      _emitHomeState();
+      _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
     }
   }
 
@@ -288,14 +107,14 @@ class AppCubit extends Cubit<AppState> {
     if (isFavorite(termId)) {
       await LocalAppStorage.removeFavorite(termId);
       _favoriteIds.remove(termId);
-      _emitHomeState();
+      _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
     }
   }
 
   void loadFavorites() {
     final favorites = LocalAppStorage.getFavorites();
     _favoriteIds = favorites.map((term) => term.id).toList();
-    _safeEmit(AppState.favoritesLoaded(favorites));
+    _safeEmit(TermsState.favoritesLoaded(favorites));
   }
 
   // ==================== RECENTLY VIEWED ====================
@@ -303,115 +122,9 @@ class AppCubit extends Cubit<AppState> {
   Future<void> addToRecentlyViewed(TermModel term) async {
     await LocalAppStorage.addRecentlyViewed(term);
     _recentlyViewed = LocalAppStorage.getRecentlyViewed();
-    _emitHomeState();
-  }
-
-  // ==================== RECENTLY SEARCHED ====================
-
-  Future<void> addToRecentlySearched(String query) async {
-    final trimmedQuery = query.trim();
-    if (trimmedQuery.isEmpty) return;
-
-    await LocalAppStorage.addRecentlySearched(trimmedQuery);
-    _recentlySearched = List.from(LocalAppStorage.getRecentlySearched());
-    _emitHomeState();
-  }
-
-  Future<void> clearRecentlySearched() async {
-    await LocalAppStorage.clearRecentlySearched();
-    _recentlySearched = [];
-    _emitHomeState();
-  }
-
-  // ==================== DAILY TERM ====================
-
-  Future<void> getDailyTerm() async {
-    _emitHomeState(isLoading: true);
-
-    final cachedDailyTerm = LocalAppStorage.getCachedDailyTerm();
-    if (cachedDailyTerm != null) {
-      _dailyTerm = cachedDailyTerm;
-      _emitHomeState();
-      await loadPopularTerms();
-      return;
-    }
-
-    final result = await _repository.getDailyTerm();
-    if (isClosed) return;
-
-    result.fold(
-      (failure) {
-        _dailyTerm = null;
-        _emitHomeState(errorMessage: failure.message);
-      },
-      (term) {
-        _dailyTerm = term;
-        LocalAppStorage.cacheDailyTerm(term);
-        _emitHomeState();
-      },
-    );
-
-    await loadPopularTerms();
-  }
-
-  // ==================== SEARCH ====================
-
-  Future<void> searchTerms(String query) async {
-    final trimmedQuery = query.trim();
-
-    if (trimmedQuery.isEmpty) {
-      _searchResults = [];
-      _isSearchLoading = false;
-      _searchError = null;
-      _emitHomeState();
-      return;
-    }
-
-    await addToRecentlySearched(trimmedQuery);
-    if (isClosed) return;
-
-    final cachedResults = LocalAppStorage.getCachedSearchResults(trimmedQuery);
-    if (cachedResults != null) {
-      _searchResults = cachedResults;
-      _isSearchLoading = false;
-      _searchError = null;
-      _emitHomeState();
-      return;
-    }
-
-    _isSearchLoading = true;
-    _searchError = null;
-    _emitHomeState();
-
-    final result = await _repository.searchTerms(trimmedQuery);
-    if (isClosed) return;
-
-    final terms = result.fold<List<TermModel>?>(
-      (failure) {
-        _searchError = failure.message;
-        return null;
-      },
-      (terms) => terms,
-    );
-
-    if (terms != null) {
-      _searchResults = terms;
-      _isSearchLoading = false;
-      _searchError = null;
-      await LocalAppStorage.cacheSearchResults(trimmedQuery, terms);
-    } else {
-      _searchResults = null;
-      _isSearchLoading = false;
-    }
-
-    _emitHomeState();
-  }
-
-  void clearSearchResults() {
-    _searchResults = null;
-    _isSearchLoading = false;
-    _searchError = null;
-    _emitHomeState();
+    _safeEmit(TermsState.recentlyViewedUpdated(
+      recentlyViewed: List.from(_recentlyViewed),
+    ));
   }
 
   // ==================== HELPER METHODS ====================
@@ -492,7 +205,7 @@ class AppCubit extends Cubit<AppState> {
     final grouped = _groupTermsByLetter(terms);
 
     _safeEmit(
-      AppState.allTermsLoaded(
+      TermsState.allTermsLoaded(
         terms: terms,
         hasMore: hasMore,
         currentPage: currentPage,
@@ -526,14 +239,14 @@ class AppCubit extends Cubit<AppState> {
       }
     }
 
-    _safeEmit(const AppState.allTermsLoading());
+    _safeEmit(const TermsState.allTermsLoading());
 
     final result = await _repository.getAllTerms(page: 0, pageSize: _pageSize);
     if (isClosed) return;
 
     final terms = result.fold<List<TermModel>?>(
       (failure) {
-        _safeEmit(AppState.allTermsError(failure.message));
+        _safeEmit(TermsState.allTermsError(failure.message));
         return null;
       },
       (terms) => terms,
@@ -776,18 +489,18 @@ class AppCubit extends Cubit<AppState> {
 
     final cachedTerms = LocalAppStorage.getCachedCategoryTerms(category);
     if (cachedTerms != null) {
-      _safeEmit(AppState.termsByCategoryLoaded(cachedTerms));
+      _safeEmit(TermsState.termsByCategoryLoaded(cachedTerms));
       return;
     }
 
-    _safeEmit(const AppState.termsByCategoryLoading());
+    _safeEmit(const TermsState.termsByCategoryLoading());
 
     final result = await _repository.getTermsByCategory(category);
     if (isClosed) return;
 
     final terms = result.fold<List<TermModel>?>(
       (failure) {
-        _safeEmit(AppState.termsByCategoryError(failure.message));
+        _safeEmit(TermsState.termsByCategoryError(failure.message));
         return null;
       },
       (terms) => terms,
@@ -796,36 +509,13 @@ class AppCubit extends Cubit<AppState> {
     if (terms != null) {
       await LocalAppStorage.cacheCategoryTerms(category, terms);
       if (isClosed) return;
-      _safeEmit(AppState.termsByCategoryLoaded(terms));
+      _safeEmit(TermsState.termsByCategoryLoaded(terms));
     }
-  }
-
-  // ==================== TERM DETAILS ====================
-
-  Future<void> getTermById(int id) async {
-    _safeEmit(const AppState.termDetailsLoading());
-
-    final result = await _repository.getTermById(id);
-    if (isClosed) return;
-
-    result.fold(
-      (failure) => _safeEmit(AppState.termDetailsError(failure.message)),
-      (term) => _safeEmit(AppState.termDetailsLoaded(term)),
-    );
   }
 
   // ==================== CACHE MANAGEMENT ====================
 
-  Future<void> refreshAllData() async {
-    await LocalAppStorage.clearCache();
-    _totalCount = 0;
-    _currentCategory = null;
-    _cancelLetterLoading = true;
-    await getDailyTerm();
-  }
-
-  Future<void> clearAllCache() async {
-    await LocalAppStorage.clearCache();
+  void resetState() {
     _totalCount = 0;
     _currentCategory = null;
     _cancelLetterLoading = true;

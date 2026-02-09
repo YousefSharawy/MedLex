@@ -5,8 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:transly/app/di.dart';
 import 'package:transly/app/tts_service.dart';
 import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
+import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
@@ -19,7 +20,7 @@ class DailyTermCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
+    return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) => current is HomeLoaded,
       builder: (context, state) {
         if (state is! HomeLoaded) {
@@ -31,11 +32,11 @@ class DailyTermCard extends StatelessWidget {
         if (state.errorMessage != null) {
           return UiUtils.errorCard(
             message: state.errorMessage!,
-            onRetry: () => context.read<AppCubit>().getDailyTerm(),
+            onRetry: () => context.read<HomeCubit>().getDailyTerm(),
           );
         }
         if (state.dailyTerm != null) {
-          return _buildTermCard(context, state.dailyTerm!, state.favoriteIds);
+          return _buildTermCard(context, state.dailyTerm!, context.read<TermsCubit>().favoriteIds);
         }
         return UiUtils.loadingCard();
       },
@@ -52,7 +53,7 @@ class DailyTermCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.read<AppCubit>().addToRecentlyViewed(term);
+        context.read<TermsCubit>().addToRecentlyViewed(term);
         context.push(Routes.termDetails, extra: term);
       },
       child: Container(
@@ -68,7 +69,7 @@ class DailyTermCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
-                  onTap: () => context.read<AppCubit>().toggleFavorite(term),
+                  onTap: () => context.read<TermsCubit>().toggleFavorite(term),
                   child: Padding(
                     padding: EdgeInsets.all(4.sp),
                     child: isFavorite

@@ -1,12 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:transly/app/tts_service.dart';
-import 'package:transly/cubit/cubit/app_cubit.dart';
+import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/data/remote_data_source.dart';
 import 'package:transly/data/repository_impl.dart';
 import 'package:transly/domain/repository.dart';
 import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
 import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
+import 'package:transly/presentation/termDetails/viewModel/cubit/term_details_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -31,10 +34,20 @@ Future<void> initAppModule() async {
     () => RepositoryImpl(getIt()),
   );
 
-  getIt.registerLazySingleton<AppCubit>(
-    () => AppCubit(getIt()),
+  // Cubits
+  getIt.registerLazySingleton<HomeCubit>(
+  () => HomeCubit(getIt()),
+);
+  getIt.registerLazySingleton<SearchCubit>(
+    () => SearchCubit(getIt()),
   );
-  getIt.registerLazySingleton<AzListCubit>(
+  getIt.registerLazySingleton<TermsCubit>(
+    () => TermsCubit(getIt()),
+  );
+  getIt.registerFactory<TermDetailsCubit>(
+    () => TermDetailsCubit(getIt()),
+  );
+  getIt.registerFactory<AzListCubit>(
     () => AzListCubit(),
   );
   getIt.registerLazySingleton<NavigationCubit>(
