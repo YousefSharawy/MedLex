@@ -11,7 +11,6 @@ part 'app_cubit.freezed.dart';
 class AppCubit extends Cubit<AppState> {
   final Repository _repository;
 
-  // Daily Term
   TermModel? _dailyTerm;
 
   bool _isSearching = false;
@@ -44,11 +43,17 @@ class AppCubit extends Cubit<AppState> {
   bool _cancelLetterLoading = false;
 
   static const int _pageSize = 30;
+  static const int _maxLetterLoadIterations = 50;
 
   AppCubit(this._repository) : super(const AppState.initial()) {
     _recentlyViewed = LocalAppStorage.getRecentlyViewed();
     _recentlySearched = LocalAppStorage.getRecentlySearched();
     _loadFavoriteIds();
+  }
+
+  /// Safe emit that checks if cubit is still open
+  void _safeEmit(AppState state) {
+    if (!isClosed) emit(state);
   }
 
   void _loadFavoriteIds() {
@@ -110,7 +115,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   void _emitHomeState({bool isLoading = false, String? errorMessage}) {
-    emit(
+    _safeEmit(
       AppState.homeLoaded(
         dailyTerm: _dailyTerm,
         isSearching: _isSearching,
@@ -141,31 +146,41 @@ class AppCubit extends Cubit<AppState> {
     }
 
     int totalCount = await _getTotalCount();
-    if (totalCount == 0) return;
+    if (totalCount == 0 || isClosed) return;
 
     final today = DateTime.now();
     final seed = today.year * 10000 + today.month * 100 + today.day;
     final random = Random(seed);
 
     final totalPages = (totalCount / 30).ceil();
-    final randomPage = random.nextInt(totalPages.clamp(0, totalPages - 3));
+    final randomPage =
+        random.nextInt(totalPages.clamp(1, totalPages - 3).toInt());
 
     final List<TermModel> allTerms = [];
     for (int i = 0; i < 4; i++) {
+      if (isClosed) return;
+
       final result = await _repository.getAllTerms(
         page: randomPage + i,
         pageSize: 30,
       );
-      result.fold((failure) => null, (terms) {
+
+      final terms = result.fold<List<TermModel>?>(
+        (failure) => null,
+        (terms) => terms,
+      );
+
+      if (terms != null) {
         allTerms.addAll(terms);
-      });
+      }
     }
 
+    if (isClosed) return;
+
     if (allTerms.isNotEmpty) {
-      final availableTerms =
-          allTerms.where((term) {
-            return !_popularTerms.any((popular) => popular.id == term.id);
-          }).toList();
+      final availableTerms = allTerms.where((term) {
+        return !_popularTerms.any((popular) => popular.id == term.id);
+      }).toList();
 
       _trendingTerms = _getDailyRandomTerms(availableTerms, 5);
 
@@ -178,26 +193,37 @@ class AppCubit extends Cubit<AppState> {
 
   Future<void> loadPopularTerms() async {
     int totalCount = await _getTotalCount();
-    if (totalCount == 0) return;
+    if (totalCount == 0 || isClosed) return;
 
     final today = DateTime.now();
     final seed = today.year * 10000 + today.month * 100 + today.day;
 
     final popularSeed = Random(seed + 12345);
     final totalPages = (totalCount / 30).ceil();
-    final randomPage = popularSeed.nextInt(totalPages.clamp(0, totalPages - 2));
+    final randomPage =
+        popularSeed.nextInt(totalPages.clamp(1, totalPages - 2).toInt());
 
     List<TermModel> termsForSelection = [];
 
     for (int i = 0; i < 2; i++) {
+      if (isClosed) return;
+
       final result = await _repository.getAllTerms(
         page: randomPage + i,
         pageSize: 30,
       );
-      result.fold((failure) => null, (terms) {
+
+      final terms = result.fold<List<TermModel>?>(
+        (failure) => null,
+        (terms) => terms,
+      );
+
+      if (terms != null) {
         termsForSelection.addAll(terms);
-      });
+      }
     }
+
+    if (isClosed) return;
 
     if (termsForSelection.isNotEmpty) {
       _popularTerms = _getDailyRandomTerms(termsForSelection, 4);
@@ -245,8 +271,9 @@ class AppCubit extends Cubit<AppState> {
       await LocalAppStorage.addFavorite(term);
       _favoriteIds.add(term.id);
     }
+    if (isClosed) return;
     final favorites = LocalAppStorage.getFavorites();
-    emit(AppState.favoritesLoaded(favorites));
+    _safeEmit(AppState.favoritesLoaded(favorites));
   }
 
   Future<void> addToFavorites(TermModel term) async {
@@ -268,7 +295,7 @@ class AppCubit extends Cubit<AppState> {
   void loadFavorites() {
     final favorites = LocalAppStorage.getFavorites();
     _favoriteIds = favorites.map((term) => term.id).toList();
-    emit(AppState.favoritesLoaded(favorites));
+    _safeEmit(AppState.favoritesLoaded(favorites));
   }
 
   // ==================== RECENTLY VIEWED ====================
@@ -310,15 +337,16 @@ class AppCubit extends Cubit<AppState> {
     }
 
     final result = await _repository.getDailyTerm();
+    if (isClosed) return;
 
     result.fold(
       (failure) {
         _dailyTerm = null;
         _emitHomeState(errorMessage: failure.message);
       },
-      (term) async {
+      (term) {
         _dailyTerm = term;
-        await LocalAppStorage.cacheDailyTerm(term);
+        LocalAppStorage.cacheDailyTerm(term);
         _emitHomeState();
       },
     );
@@ -340,6 +368,7 @@ class AppCubit extends Cubit<AppState> {
     }
 
     await addToRecentlySearched(trimmedQuery);
+    if (isClosed) return;
 
     final cachedResults = LocalAppStorage.getCachedSearchResults(trimmedQuery);
     if (cachedResults != null) {
@@ -355,22 +384,27 @@ class AppCubit extends Cubit<AppState> {
     _emitHomeState();
 
     final result = await _repository.searchTerms(trimmedQuery);
+    if (isClosed) return;
 
-    result.fold(
+    final terms = result.fold<List<TermModel>?>(
       (failure) {
-        _searchResults = null;
-        _isSearchLoading = false;
         _searchError = failure.message;
-        _emitHomeState();
+        return null;
       },
-      (terms) async {
-        _searchResults = terms;
-        _isSearchLoading = false;
-        _searchError = null;
-        await LocalAppStorage.cacheSearchResults(trimmedQuery, terms);
-        _emitHomeState();
-      },
+      (terms) => terms,
     );
+
+    if (terms != null) {
+      _searchResults = terms;
+      _isSearchLoading = false;
+      _searchError = null;
+      await LocalAppStorage.cacheSearchResults(trimmedQuery, terms);
+    } else {
+      _searchResults = null;
+      _isSearchLoading = false;
+    }
+
+    _emitHomeState();
   }
 
   void clearSearchResults() {
@@ -393,10 +427,16 @@ class AppCubit extends Cubit<AppState> {
     }
 
     final countResult = await _repository.getTotalTermsCount();
-    countResult.fold((failure) => null, (count) {
+
+    final count = countResult.fold<int?>(
+      (failure) => null,
+      (count) => count,
+    );
+
+    if (count != null) {
       _totalCount = count;
       LocalAppStorage.cacheTotalCount(count);
-    });
+    }
 
     return _totalCount;
   }
@@ -451,7 +491,7 @@ class AppCubit extends Cubit<AppState> {
     final hasMore = terms.length < totalCount;
     final grouped = _groupTermsByLetter(terms);
 
-    emit(
+    _safeEmit(
       AppState.allTermsLoaded(
         terms: terms,
         hasMore: hasMore,
@@ -468,9 +508,10 @@ class AppCubit extends Cubit<AppState> {
   /// Load initial all terms
   Future<void> getAllTerms({bool refresh = false}) async {
     _currentCategory = 'All';
-    _cancelLetterLoading = true; // Cancel any ongoing letter loading
+    _cancelLetterLoading = true;
 
     final totalCount = await _getTotalCount();
+    if (isClosed) return;
 
     // Check cache first (unless refreshing)
     if (!refresh) {
@@ -485,19 +526,31 @@ class AppCubit extends Cubit<AppState> {
       }
     }
 
-    emit(const AppState.allTermsLoading());
+    _safeEmit(const AppState.allTermsLoading());
 
     final result = await _repository.getAllTerms(page: 0, pageSize: _pageSize);
+    if (isClosed) return;
 
-    result.fold((failure) => emit(AppState.allTermsError(failure.message)), (
-      terms,
-    ) async {
+    final terms = result.fold<List<TermModel>?>(
+      (failure) {
+        _safeEmit(AppState.allTermsError(failure.message));
+        return null;
+      },
+      (terms) => terms,
+    );
+
+    if (terms != null) {
       await LocalAppStorage.cacheAllTerms(0, terms);
-      _emitAllTermsLoaded(terms: terms, currentPage: 0, totalCount: totalCount);
-    });
+      if (isClosed) return;
+      _emitAllTermsLoaded(
+        terms: terms,
+        currentPage: 0,
+        totalCount: totalCount,
+      );
+    }
   }
 
-  /// Load more terms (pagination) - simple version without letter loading
+  /// Load more terms (pagination)
   Future<void> loadMoreTerms() async {
     final currentState = _allTermsState;
     if (currentState == null) return;
@@ -507,7 +560,7 @@ class AppCubit extends Cubit<AppState> {
     _isLoadingTerms = true;
 
     try {
-      emit(currentState.copyWith(isLoadingMore: true));
+      _safeEmit(currentState.copyWith(isLoadingMore: true));
 
       final nextPage = currentState.currentPage + 1;
 
@@ -528,21 +581,25 @@ class AppCubit extends Cubit<AppState> {
         page: nextPage,
         pageSize: _pageSize,
       );
+      if (isClosed) return;
 
-      result.fold(
-        (failure) {
-          emit(currentState.copyWith(isLoadingMore: false));
-        },
-        (terms) async {
-          await LocalAppStorage.cacheAllTerms(nextPage, terms);
-          final allTerms = [...currentState.terms, ...terms];
-          _emitAllTermsLoaded(
-            terms: allTerms,
-            currentPage: nextPage,
-            totalCount: currentState.totalCount,
-          );
-        },
+      final terms = result.fold<List<TermModel>?>(
+        (failure) => null,
+        (terms) => terms,
       );
+
+      if (terms != null) {
+        await LocalAppStorage.cacheAllTerms(nextPage, terms);
+        if (isClosed) return;
+        final allTerms = [...currentState.terms, ...terms];
+        _emitAllTermsLoaded(
+          terms: allTerms,
+          currentPage: nextPage,
+          totalCount: currentState.totalCount,
+        );
+      } else {
+        _safeEmit(currentState.copyWith(isLoadingMore: false));
+      }
     } finally {
       _isLoadingTerms = false;
     }
@@ -557,7 +614,7 @@ class AppCubit extends Cubit<AppState> {
     if (currentState.pendingLetter == letter) return;
 
     if (isLetterAvailable(letter)) {
-      emit(
+      _safeEmit(
         currentState.copyWith(letterJustLoaded: letter, pendingLetter: null),
       );
       return;
@@ -567,153 +624,193 @@ class AppCubit extends Cubit<AppState> {
 
     _cancelLetterLoading = false;
 
-    emit(currentState.copyWith(pendingLetter: letter, letterJustLoaded: null));
+    _safeEmit(
+      currentState.copyWith(pendingLetter: letter, letterJustLoaded: null),
+    );
 
     await _loadUntilLetterFound(letter);
   }
 
   Future<void> _loadUntilLetterFound(String letter) async {
-  while (!_cancelLetterLoading) {
-    final currentState = _allTermsState;
-    if (currentState == null) break;
+    int outerIterations = 0;
 
-    if (_termsContainLetter(currentState.terms, letter)) {
-      emit(
-        currentState.copyWith(pendingLetter: null, letterJustLoaded: letter),
-      );
-      return;
-    }
-    if (!currentState.hasMore) {
-      emit(currentState.copyWith(pendingLetter: null));
-      return;
-    }
-
-    if (_isLoadingTerms) {
-      await Future.delayed(const Duration(milliseconds: 100));
-      continue;
-    }
-
-    _isLoadingTerms = true;
-
-    try {
-      List<TermModel> accumulatedTerms = List.from(currentState.terms);
-      int page = currentState.currentPage;
-      bool hasMore = currentState.hasMore;
-      bool letterFound = false;
-
-      while (!_cancelLetterLoading && hasMore && !letterFound) {
-        page++;
-
-        List<TermModel>? newTerms;
-        final cachedTerms = LocalAppStorage.getCachedAllTerms(page);
-
-        if (cachedTerms != null && cachedTerms.isNotEmpty) {
-          newTerms = cachedTerms;
-        } else {
-          final result = await _repository.getAllTerms(
-            page: page,
-            pageSize: _pageSize,
-          );
-
-          result.fold(
-            (failure) {
-              _cancelLetterLoading = true;
-            },
-            (terms) async {
-              await LocalAppStorage.cacheAllTerms(page, terms);
-              newTerms = terms;
-            },
-          );
-        }
-
-        if (_cancelLetterLoading || newTerms == null) break;
-
-        accumulatedTerms.addAll(newTerms!);
-        hasMore = newTerms!.length >= _pageSize &&
-            accumulatedTerms.length < currentState.totalCount;
-        letterFound = _termsContainLetter(newTerms!, letter);
-      }
-
-      // === SINGLE EMIT at the end ===
-      if (_cancelLetterLoading) {
-        final state = _allTermsState;
-        if (state != null && state.pendingLetter != null) {
-          emit(state.copyWith(pendingLetter: null));
+    while (!_cancelLetterLoading && !isClosed) {
+      outerIterations++;
+      if (outerIterations > _maxLetterLoadIterations) {
+        // Safety limit reached — stop loading
+        final currentState = _allTermsState;
+        if (currentState != null) {
+          _safeEmit(currentState.copyWith(pendingLetter: null));
         }
         return;
       }
 
-      _emitAllTermsLoaded(
-        terms: accumulatedTerms,
-        currentPage: page,
-        totalCount: currentState.totalCount,
-        pendingLetter: letterFound ? null : (hasMore ? letter : null),
-        letterJustLoaded: letterFound ? letter : null,
-      );
+      final currentState = _allTermsState;
+      if (currentState == null) break;
 
-      if (letterFound || !hasMore) return;
+      if (_termsContainLetter(currentState.terms, letter)) {
+        _safeEmit(
+          currentState.copyWith(pendingLetter: null, letterJustLoaded: letter),
+        );
+        return;
+      }
+      if (!currentState.hasMore) {
+        _safeEmit(currentState.copyWith(pendingLetter: null));
+        return;
+      }
 
-    } finally {
-      _isLoadingTerms = false;
+      if (_isLoadingTerms) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        continue;
+      }
+
+      _isLoadingTerms = true;
+
+      try {
+        List<TermModel> accumulatedTerms = List.from(currentState.terms);
+        int page = currentState.currentPage;
+        bool hasMore = currentState.hasMore;
+        bool letterFound = false;
+        int innerIterations = 0;
+
+        while (!_cancelLetterLoading &&
+            !isClosed &&
+            hasMore &&
+            !letterFound) {
+          innerIterations++;
+          if (innerIterations > _maxLetterLoadIterations) break;
+
+          page++;
+
+          List<TermModel>? newTerms;
+          final cachedTerms = LocalAppStorage.getCachedAllTerms(page);
+
+          if (cachedTerms != null && cachedTerms.isNotEmpty) {
+            newTerms = cachedTerms;
+          } else {
+            final result = await _repository.getAllTerms(
+              page: page,
+              pageSize: _pageSize,
+            );
+
+            if (isClosed) return;
+
+            newTerms = result.fold<List<TermModel>?>(
+              (failure) {
+                _cancelLetterLoading = true;
+                return null;
+              },
+              (terms) => terms,
+            );
+
+            // Cache the fetched terms
+            if (newTerms != null) {
+              await LocalAppStorage.cacheAllTerms(page, newTerms);
+              if (isClosed) return;
+            }
+          }
+
+          if (_cancelLetterLoading || isClosed || newTerms == null) break;
+
+          accumulatedTerms.addAll(newTerms);
+          hasMore = newTerms.length >= _pageSize &&
+              accumulatedTerms.length < currentState.totalCount;
+          letterFound = _termsContainLetter(newTerms, letter);
+        }
+
+        // === SINGLE EMIT at the end ===
+        if (_cancelLetterLoading || isClosed) {
+          final s = _allTermsState;
+          if (s != null && s.pendingLetter != null) {
+            _safeEmit(s.copyWith(pendingLetter: null));
+          }
+          return;
+        }
+
+        _emitAllTermsLoaded(
+          terms: accumulatedTerms,
+          currentPage: page,
+          totalCount: currentState.totalCount,
+          pendingLetter: letterFound ? null : (hasMore ? letter : null),
+          letterJustLoaded: letterFound ? letter : null,
+        );
+
+        if (letterFound || !hasMore) return;
+      } finally {
+        _isLoadingTerms = false;
+      }
+    }
+
+    // Cancelled or closed — clear pending letter
+    if (!isClosed) {
+      final s = _allTermsState;
+      if (s != null && s.pendingLetter != null) {
+        _safeEmit(s.copyWith(pendingLetter: null));
+      }
     }
   }
 
-  // Cancelled - clear pending letter
-  final state = _allTermsState;
-  if (state != null && state.pendingLetter != null) {
-    emit(state.copyWith(pendingLetter: null));
-  }
-}
   /// Cancel pending letter loading
   void cancelLetterLoading() {
     _cancelLetterLoading = true;
     final currentState = _allTermsState;
     if (currentState != null && currentState.pendingLetter != null) {
-      emit(currentState.copyWith(pendingLetter: null, isLoadingMore: false));
+      _safeEmit(
+        currentState.copyWith(pendingLetter: null, isLoadingMore: false),
+      );
     }
   }
 
   void clearLetterJustLoaded() {
     final currentState = _allTermsState;
     if (currentState != null && currentState.letterJustLoaded != null) {
-      emit(currentState.copyWith(letterJustLoaded: null));
+      _safeEmit(currentState.copyWith(letterJustLoaded: null));
     }
   }
 
   // ==================== CATEGORY ====================
+
   Future<void> getTermsByCategory(String category) async {
     _currentCategory = category;
-    _cancelLetterLoading = true; // Cancel any ongoing letter loading
+    _cancelLetterLoading = true;
 
     final cachedTerms = LocalAppStorage.getCachedCategoryTerms(category);
     if (cachedTerms != null) {
-      emit(AppState.termsByCategoryLoaded(cachedTerms));
+      _safeEmit(AppState.termsByCategoryLoaded(cachedTerms));
       return;
     }
 
-    emit(const AppState.termsByCategoryLoading());
+    _safeEmit(const AppState.termsByCategoryLoading());
 
     final result = await _repository.getTermsByCategory(category);
+    if (isClosed) return;
 
-    result.fold(
-      (failure) => emit(AppState.termsByCategoryError(failure.message)),
-      (terms) async {
-        await LocalAppStorage.cacheCategoryTerms(category, terms);
-        emit(AppState.termsByCategoryLoaded(terms));
+    final terms = result.fold<List<TermModel>?>(
+      (failure) {
+        _safeEmit(AppState.termsByCategoryError(failure.message));
+        return null;
       },
+      (terms) => terms,
     );
+
+    if (terms != null) {
+      await LocalAppStorage.cacheCategoryTerms(category, terms);
+      if (isClosed) return;
+      _safeEmit(AppState.termsByCategoryLoaded(terms));
+    }
   }
 
   // ==================== TERM DETAILS ====================
 
   Future<void> getTermById(int id) async {
-    emit(const AppState.termDetailsLoading());
+    _safeEmit(const AppState.termDetailsLoading());
 
     final result = await _repository.getTermById(id);
+    if (isClosed) return;
 
     result.fold(
-      (failure) => emit(AppState.termDetailsError(failure.message)),
-      (term) => emit(AppState.termDetailsLoaded(term)),
+      (failure) => _safeEmit(AppState.termDetailsError(failure.message)),
+      (term) => _safeEmit(AppState.termDetailsLoaded(term)),
     );
   }
 
@@ -732,5 +829,13 @@ class AppCubit extends Cubit<AppState> {
     _totalCount = 0;
     _currentCategory = null;
     _cancelLetterLoading = true;
+  }
+
+  // ==================== CLOSE ====================
+
+  @override
+  Future<void> close() {
+    _cancelLetterLoading = true;
+    return super.close();
   }
 }

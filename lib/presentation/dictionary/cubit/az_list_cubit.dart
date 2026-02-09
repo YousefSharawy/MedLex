@@ -51,9 +51,17 @@ class AzListCubit extends Cubit<AzListState> {
     _cachedResult = null;
     _cachedTermsLength = 0;
     _lastHasMore = false;
+    _lastCategory = null;
   }
 
   bool shouldRebuildData(String newCategory) {
     return _lastCategory != newCategory;
+  }
+
+  @override
+  Future<void> close() {
+    // Clear cache to free memory
+    invalidateCache();
+    return super.close();
   }
 }

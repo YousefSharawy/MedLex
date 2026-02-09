@@ -39,8 +39,7 @@ class AppState with _$AppState {
     @Default(false) bool isLoadingMore,
     String? pendingLetter,
     String? letterJustLoaded,
-     @Default(false) bool isLetterLoading,
-
+    @Default(false) bool isLetterLoading,
     @Default({}) Map<String, List<TermModel>> groupedTerms,
   }) = AllTermsLoaded;
 

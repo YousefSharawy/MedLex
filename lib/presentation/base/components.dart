@@ -222,6 +222,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, int index) {
+  if (index == navigationShell.currentIndex) return; 
     context.read<NavigationCubit>().updateIndex(index);
 
     navigationShell.goBranch(
