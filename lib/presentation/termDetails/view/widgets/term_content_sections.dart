@@ -4,8 +4,8 @@ import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/termDetails/widgets/term_bullet_point.dart';
-import 'package:transly/presentation/termDetails/widgets/term_section_header.dart';
+import 'package:transly/presentation/termDetails/view/widgets/term_bullet_point.dart';
+import 'package:transly/presentation/termDetails/view/widgets/term_section_header.dart';
 
 /// All content sections below the mode toggle:
 /// definition, causes, symptoms, treatment.

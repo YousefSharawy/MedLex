@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
-import 'package:transly/presentation/search/widgets/default_view.dart';
-import 'package:transly/presentation/search/widgets/search_results.dart';
+import 'package:transly/presentation/search/view/widgets/default_view.dart';
+import 'package:transly/presentation/search/view/widgets/search_results.dart';
 
 class SearchView extends StatelessWidget {
   final GlobalKey<dynamic>? searchBarKey;

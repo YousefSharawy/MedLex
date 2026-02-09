@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/termDetails/term_details_view.dart';
+import 'package:transly/presentation/termDetails/view/term_details_view.dart';
 import 'package:transly/presentation/onboarding/on_boarding_view.dart';
 import 'package:transly/presentation/profile/screens/savedItems/saved_terms_view.dart';
 
-import '../home/home_view.dart';
-import '../dictionary/dictionary_view.dart';
+import '../home/view/home_view.dart';
+import '../dictionary/view/dictionary_view.dart';
 import '../study/study_view.dart';
 import '../profile/profile_view.dart';
 import '../splash/view/splash_view.dart';

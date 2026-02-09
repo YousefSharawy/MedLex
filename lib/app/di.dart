@@ -5,8 +5,8 @@ import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/data/remote_data_source.dart';
 import 'package:transly/data/repository_impl.dart';
 import 'package:transly/domain/repository.dart';
-import 'package:transly/presentation/dictionary/cubit/az_list_cubit.dart';
-import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
 
 final getIt = GetIt.instance;
 

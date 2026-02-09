@@ -4,17 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/primary_widgets.dart';
-import 'package:transly/presentation/home/widgets/recently_view_item.dart';
-import 'package:transly/presentation/home/widgets/section_header.dart';
+import 'package:transly/presentation/home/view/widgets/recently_view_item.dart';
+import 'package:transly/presentation/home/view/widgets/section_header.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/routes.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/search/widgets/recently_searched_item.dart';
-import 'package:transly/presentation/search/widgets/search_helper.dart';
-import 'package:transly/presentation/search/widgets/trending_search_item.dart';
+import 'package:transly/presentation/search/view/widgets/recently_searched_item.dart';
+import 'package:transly/presentation/search/view/widgets/search_helper.dart';
+import 'package:transly/presentation/search/view/widgets/trending_search_item.dart';
 
 class DefaultView extends StatelessWidget {
   const DefaultView({

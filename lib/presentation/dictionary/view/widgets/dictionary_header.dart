@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/search/widgets/presistent_search_bar.dart';
+import 'package:transly/presentation/search/view/widgets/presistent_search_bar.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';

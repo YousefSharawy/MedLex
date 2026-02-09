@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/dictionary/widgets/category_chip_list.dart';
-import 'package:transly/presentation/dictionary/widgets/dictionary_header.dart';
-import 'package:transly/presentation/dictionary/widgets/terms_content_view.dart';
+import 'package:transly/presentation/dictionary/view/widgets/category_chip_list.dart';
+import 'package:transly/presentation/dictionary/view/widgets/dictionary_header.dart';
+import 'package:transly/presentation/dictionary/view/widgets/terms_content_view.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/search/search_view.dart';
-import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/search/view/search_view.dart';
+import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});

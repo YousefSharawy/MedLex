@@ -1,10 +1,10 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_item.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_list_constants.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_list_item.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/index_hint_bubble.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_item.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/index_hint_bubble.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';

@@ -4,12 +4,12 @@ import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/termDetails/widgets/mode_toggle.dart';
-import 'package:transly/presentation/termDetails/widgets/term_content_sections.dart';
-import 'package:transly/presentation/termDetails/widgets/term_details_app_bar.dart';
-import 'package:transly/presentation/termDetails/widgets/term_title_row.dart';
-import 'package:transly/presentation/termDetails/widgets/zoom_hint_text.dart';
-import 'package:transly/presentation/termDetails/widgets/zoom_image_card.dart';
+import 'package:transly/presentation/termDetails/view/widgets/mode_toggle.dart';
+import 'package:transly/presentation/termDetails/view/widgets/term_content_sections.dart';
+import 'package:transly/presentation/termDetails/view/widgets/term_details_app_bar.dart';
+import 'package:transly/presentation/termDetails/view/widgets/term_title_row.dart';
+import 'package:transly/presentation/termDetails/view/widgets/zoom_hint_text.dart';
+import 'package:transly/presentation/termDetails/view/widgets/zoom_image_card.dart';
 
 class TermDetailsView extends StatefulWidget {
   final TermModel term;

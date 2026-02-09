@@ -1,6 +1,6 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_list_constants.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
 
 class AzItem extends ISuspensionBean {
   final TermModel? term;

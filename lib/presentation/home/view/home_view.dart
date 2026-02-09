@@ -6,18 +6,18 @@ import 'package:go_router/go_router.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/home/widgets/daily_term_card.dart';
-import 'package:transly/presentation/home/widgets/recently_view_item.dart';
-import 'package:transly/presentation/home/widgets/section_header.dart';
-import 'package:transly/presentation/search/widgets/presistent_search_bar.dart';
+import 'package:transly/presentation/home/view/widgets/daily_term_card.dart';
+import 'package:transly/presentation/home/view/widgets/recently_view_item.dart';
+import 'package:transly/presentation/home/view/widgets/section_header.dart';
+import 'package:transly/presentation/search/view/widgets/presistent_search_bar.dart';
 import 'package:transly/presentation/resources/color_manager.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/resources/values_manager.dart';
 import 'package:transly/presentation/resources/assets_manager.dart';
 import 'package:transly/presentation/resources/routes.dart';
-import 'package:transly/presentation/search/search_view.dart';
-import 'package:transly/presentation/search/widgets/resettable_tab.dart';
+import 'package:transly/presentation/search/view/search_view.dart';
+import 'package:transly/presentation/search/view/widgets/resettable_tab.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

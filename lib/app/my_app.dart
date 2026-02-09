@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transly/app/di.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
-import 'package:transly/presentation/dictionary/cubit/az_list_cubit.dart';
-import 'package:transly/presentation/search/view_model/cubit/navigation_cubit.dart';
+import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
 
 import '../presentation/resources/constants_manager.dart';
 import '../presentation/resources/routes.dart';

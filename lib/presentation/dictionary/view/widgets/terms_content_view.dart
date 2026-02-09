@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
-import 'package:transly/presentation/dictionary/widgets/terms_list_with_sidebar.dart';
+import 'package:transly/presentation/dictionary/view/widgets/terms_list_with_sidebar.dart';
 import 'package:transly/app/ui_utiles.dart';
 
 class TermsContentView extends StatelessWidget {

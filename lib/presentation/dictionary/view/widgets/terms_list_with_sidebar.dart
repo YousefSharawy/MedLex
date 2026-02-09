@@ -5,10 +5,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/cubit/cubit/app_cubit.dart';
 import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/dictionary/cubit/az_list_cubit.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_item.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_list_constants.dart';
-import 'package:transly/presentation/dictionary/widgets/azListView/az_term_list.dart';
+import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
+import 'package:transly/presentation/dictionary/view/widgets/azListView/az_term_list.dart';
 
 class TermsListWithSidebar extends StatefulWidget {
   final List<TermModel> terms;
