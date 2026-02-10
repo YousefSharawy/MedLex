@@ -37,6 +37,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
   // Controllers
   final _scrollController = ItemScrollController();
   final _positionsListener = ItemPositionsListener.create();
+  final _azTermsListKey = GlobalKey<AzTermsListState>();
 
   // Data - LOCAL STATE
   List<AzItem> _azItems = [];
@@ -80,11 +81,11 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
 
   void _prepareAzData({bool skipSetState = false}) {
     final result = context.read<AzListCubit>().buildAzItems(
-          terms: widget.terms,
-          selectedCategory: widget.selectedCategory,
-          hasMore: widget.hasMore,
-          isAllCategory: widget.isAllCategory,
-        );
+      terms: widget.terms,
+      selectedCategory: widget.selectedCategory,
+      hasMore: widget.hasMore,
+      isAllCategory: widget.isAllCategory,
+    );
 
     if (skipSetState) {
       _azItems = result.items;
@@ -137,23 +138,26 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
 
   void _showLetterNotFoundMessage(String letter) {
     final location = widget.isAllCategory ? 'found' : 'in this category';
-    final target = letter == '#'
-        ? 'prefixes or suffixes'
-        : 'terms starting with "$letter"';
+    final target =
+        letter == '#'
+            ? 'prefixes or suffixes'
+            : 'terms starting with "$letter"';
     UiUtils.showInfoMessage('No $target $location.');
   }
 
   // ==================== SCROLL HANDLING ====================
 
   void _handleScrollNotification(ScrollNotification notification) {
-    if (!widget.isAllCategory || !widget.hasMore || widget.isLoadingMore) return;
+    if (!widget.isAllCategory || !widget.hasMore || widget.isLoadingMore)
+      return;
 
     // Only check on scroll end, not every frame
     if (notification is! ScrollEndNotification) return;
 
     final metrics = notification.metrics;
     final reachedThreshold =
-        metrics.pixels >= metrics.maxScrollExtent * AzListConstants.loadThreshold;
+        metrics.pixels >=
+        metrics.maxScrollExtent * AzListConstants.loadThreshold;
 
     if (!reachedThreshold) return;
 
@@ -193,7 +197,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     final pendingChanged = previous.pendingLetter != current.pendingLetter;
     final letterLoaded =
         previous.letterJustLoaded != current.letterJustLoaded &&
-            current.letterJustLoaded != null;
+        current.letterJustLoaded != null;
 
     return pendingChanged || letterLoaded;
   }
@@ -221,6 +225,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
       if (mounted) {
         _scrollToLetterDirectly(letter);
         context.read<TermsCubit>().clearLetterJustLoaded();
+        _azTermsListKey.currentState?.onScrollToLetterComplete(letter);
       }
     });
   }
@@ -235,13 +240,17 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
       listenWhen: _shouldListen,
       listener: _onStateChanged,
       buildWhen: (_, __) => false,
-      builder: (_, __) => AzTermsList(
-        azItems: _azItems,
-        scrollController: _scrollController,
-        positionsListener: _positionsListener,
-        onScrollNotification: _handleScrollNotification,
-        onLetterSelected: _scrollToLetter,
-      ),
+      builder:
+          (_, __) => AzTermsList(
+            key: _azTermsListKey,
+            azItems: _azItems,
+            scrollController: _scrollController,
+            positionsListener: _positionsListener,
+            onScrollNotification: _handleScrollNotification,
+            onLetterSelected: _scrollToLetter,
+            isAllCategory: widget.isAllCategory,
+            hasMore: widget.hasMore,
+          ),
     );
   }
 }
