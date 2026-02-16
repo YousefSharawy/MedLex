@@ -66,18 +66,18 @@ class DailyTermCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Bookmark button at top right
-              Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () => context.read<TermsCubit>().toggleFavorite(term),
-                  child: Padding(
-                    padding: EdgeInsets.all(4.sp),
-                    child: isFavorite
-                        ? Image.asset(IconAssets.bookmarkActive)
-                        : Image.asset(IconAssets.bookmark),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topRight,
+              //   child: GestureDetector(
+              //     onTap: () => context.read<TermsCubit>().toggleFavorite(term),
+              //     child: Padding(
+              //       padding: EdgeInsets.all(4.sp),
+              //       child: isFavorite
+              //           ? Image.asset(IconAssets.bookmarkActive)
+              //           : Image.asset(IconAssets.bookmark),
+              //     ),
+              //   ),
+              // ),
               Center(
                 child: term.imageUrl != null && term.imageUrl!.isNotEmpty
                     ? UiUtils.cachedNetworkImage(

@@ -37,3 +37,21 @@ Map<String, dynamic> _$$TermModelImplToJson(_$TermModelImpl instance) =>
       'academic_definition': instance.academicDefinition,
       'category': instance.category,
     };
+
+_$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
+    _$UserModelImpl(
+      id: json['id'] as String,
+      email: json['email'] as String?,
+      displayName: json['display_name'] as String?,
+      photoUrl: json['photo_url'] as String?,
+      isAnonymous: json['isAnonymous'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'display_name': instance.displayName,
+      'photo_url': instance.photoUrl,
+      'isAnonymous': instance.isAnonymous,
+    };

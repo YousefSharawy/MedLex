@@ -3,35 +3,36 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transly/app/local_storage.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/domain/repository.dart';
-
+import 'package:transly/data/remote_data_source.dart';
+import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 part 'terms_state.dart';
 part 'terms_cubit.freezed.dart';
 
 class TermsCubit extends Cubit<TermsState> {
   final Repository _repository;
-
+ final RemoteDataSource _remoteDataSource; 
+  final AuthCubit _authCubit; 
   // Favorites
   List<int> _favoriteIds = [];
-
   // Recently Viewed
   List<TermModel> _recentlyViewed = [];
-
   // Category State Tracking
   String? _currentCategory;
-
   // Loading lock to prevent concurrent loads
   bool _isLoadingTerms = false;
-
   // Flag to cancel letter loading
   bool _cancelLetterLoading = false;
-
   // Total count
   int _totalCount = 0;
 
   static const int _pageSize = 30;
   static const int _maxLetterLoadIterations = 50;
 
-  TermsCubit(this._repository) : super(const TermsState.initial()) {
+  bool _isSyncing = false;
+
+  TermsCubit(this._repository, this._remoteDataSource, this._authCubit)
+    : super(const TermsState.initial()) {
+      
   _loadFavoriteIds();
   _recentlyViewed = LocalAppStorage.getRecentlyViewed();
 
@@ -39,9 +40,9 @@ class TermsCubit extends Cubit<TermsState> {
     _safeEmit(TermsState.recentlyViewedUpdated(
       recentlyViewed: List.from(_recentlyViewed),
     ));
+    syncFavoritesFromRemote();
   });
 }
-
   /// Safe emit that checks if cubit is still open
   void _safeEmit(TermsState state) {
     if (!isClosed) emit(state);
@@ -65,58 +66,138 @@ class TermsCubit extends Cubit<TermsState> {
 
   String? get pendingLetter => _allTermsState?.pendingLetter;
 
-  // ==================== FAVORITES ====================
+// ==================== FAVORITES ====================
 
-  bool isFavorite(int termId) {
-    return _favoriteIds.contains(termId);
+bool isFavorite(int termId) {
+  return _favoriteIds.contains(termId);
+}
+
+Future<void> toggleFavorite(TermModel term) async {
+  if (isFavorite(term.id)) {
+    await LocalAppStorage.removeFavorite(term.id);
+    _favoriteIds.remove(term.id);
+    _remoteFavoriteRemove(term.id);
+  } else {
+    await LocalAppStorage.addFavorite(term);
+    _favoriteIds.add(term.id);
+    _remoteFavoriteAdd(term.id);
   }
+  _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
+}
 
-  Future<void> toggleFavorite(TermModel term) async {
-    if (isFavorite(term.id)) {
-      await LocalAppStorage.removeFavorite(term.id);
-      _favoriteIds.remove(term.id);
-    } else {
-      await LocalAppStorage.addFavorite(term);
-      _favoriteIds.add(term.id);
-    }
+Future<void> toggleFavoriteInSavedView(TermModel term) async {
+  if (isFavorite(term.id)) {
+    await LocalAppStorage.removeFavorite(term.id);
+    _favoriteIds.remove(term.id);
+    _remoteFavoriteRemove(term.id);
+  } else {
+    await LocalAppStorage.addFavorite(term);
+    _favoriteIds.add(term.id);
+    _remoteFavoriteAdd(term.id);
+  }
+  if (isClosed) return;
+  final favorites = LocalAppStorage.getFavorites();
+  _safeEmit(TermsState.favoritesLoaded(favorites));
+}
+
+Future<void> addToFavorites(TermModel term) async {
+  if (!isFavorite(term.id)) {
+    await LocalAppStorage.addFavorite(term);
+    _favoriteIds.add(term.id);
+    _remoteFavoriteAdd(term.id);
     _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
   }
+}
 
-  Future<void> toggleFavoriteInSavedView(TermModel term) async {
-    if (isFavorite(term.id)) {
-      await LocalAppStorage.removeFavorite(term.id);
-      _favoriteIds.remove(term.id);
-    } else {
-      await LocalAppStorage.addFavorite(term);
-      _favoriteIds.add(term.id);
+Future<void> removeFromFavorites(int termId) async {
+  if (isFavorite(termId)) {
+    await LocalAppStorage.removeFavorite(termId);
+    _favoriteIds.remove(termId);
+    _remoteFavoriteRemove(termId);
+    _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
+  }
+}
+
+void loadFavorites() {
+  final favorites = LocalAppStorage.getFavorites();
+  _favoriteIds = favorites.map((term) => term.id).toList();
+  _safeEmit(TermsState.favoritesLoaded(favorites));
+}
+  String? get _userId => _authCubit.userId;
+
+// ==================== REMOTE FAVORITES SYNC ====================
+
+/// Fire-and-forget: add to Supabase
+void _remoteFavoriteAdd(int termId) {
+  final userId = _userId;
+  if (userId == null || userId.isEmpty) return;
+  _remoteDataSource.addFavorite(userId, termId).catchError((_) {});
+}
+
+/// Fire-and-forget: remove from Supabase
+void _remoteFavoriteRemove(int termId) {
+  final userId = _userId;
+  if (userId == null || userId.isEmpty) return;
+  _remoteDataSource.removeFavorite(userId, termId).catchError((_) {});
+}
+
+/// Bidirectional sync: compare local vs remote, fill gaps both ways.
+/// Only fetches full term data for IDs missing locally.
+Future<void> syncFavoritesFromRemote() async {
+  final userId = _userId;
+  if (userId == null || userId.isEmpty) return;
+  if (_isSyncing) return;
+
+  _isSyncing = true;
+
+  try {
+    // 1. Get remote IDs
+    final remoteIds = await _remoteDataSource.getFavoriteTermIds(userId);
+    final remoteIdSet = remoteIds.toSet();
+
+    // 2. Get local IDs
+    final localFavorites = LocalAppStorage.getFavorites();
+    final localIdSet = localFavorites.map((t) => t.id).toSet();
+
+    // 3. Remote has but local doesn't → download
+    final missingLocally = remoteIdSet.difference(localIdSet);
+
+    // 4. Local has but remote doesn't → upload
+    final missingRemotely = localIdSet.difference(remoteIdSet);
+
+    // 5. Download missing terms one by one and save locally
+    for (final termId in missingLocally) {
+      try {
+        final result = await _repository.getTermById(termId);
+        result.fold(
+          (_) {},
+          (term) => LocalAppStorage.addFavorite(term),
+        );
+      } catch (_) {}
     }
-    if (isClosed) return;
-    final favorites = LocalAppStorage.getFavorites();
-    _safeEmit(TermsState.favoritesLoaded(favorites));
-  }
 
-  Future<void> addToFavorites(TermModel term) async {
-    if (!isFavorite(term.id)) {
-      await LocalAppStorage.addFavorite(term);
-      _favoriteIds.add(term.id);
-      _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
+    // 6. Upload local-only favorites to Supabase
+    if (missingRemotely.isNotEmpty) {
+      try {
+        await _remoteDataSource.syncFavorites(userId, missingRemotely.toList());
+      } catch (_) {}
     }
-  }
 
-  Future<void> removeFromFavorites(int termId) async {
-    if (isFavorite(termId)) {
-      await LocalAppStorage.removeFavorite(termId);
-      _favoriteIds.remove(termId);
-      _safeEmit(TermsState.favoritesUpdated(favoriteIds: List.from(_favoriteIds)));
+    // 7. Refresh local state if anything changed
+    if (missingLocally.isNotEmpty || missingRemotely.isNotEmpty) {
+      _loadFavoriteIds();
+      if (!isClosed) {
+        _safeEmit(TermsState.favoritesUpdated(
+          favoriteIds: List.from(_favoriteIds),
+        ));
+      }
     }
+  } catch (_) {
+    // Best-effort
+  } finally {
+    _isSyncing = false;
   }
-
-  void loadFavorites() {
-    final favorites = LocalAppStorage.getFavorites();
-    _favoriteIds = favorites.map((term) => term.id).toList();
-    _safeEmit(TermsState.favoritesLoaded(favorites));
-  }
-
+}
   // ==================== RECENTLY VIEWED ====================
 
   Future<void> addToRecentlyViewed(TermModel term) async {

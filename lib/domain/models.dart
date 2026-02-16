@@ -23,11 +23,42 @@ class TermModel with _$TermModel {
   factory TermModel.fromJson(Map<String, dynamic> json) => _$TermModelFromJson(json);
 }
 
+@freezed
+class UserModel with _$UserModel {
+  const factory UserModel({
+    required String id,
+    String? email,
+    @JsonKey(name: 'display_name') String? displayName,
+    @JsonKey(name: 'photo_url') String? photoUrl,
+    @Default(true) bool isAnonymous,
+  }) = _UserModel;
+
+  const UserModel._();
+
+  bool get isAuthenticated => !isAnonymous && email != null;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+
+  /// Create from Supabase auth User object
+  factory UserModel.fromSupabaseUser(dynamic user, {required bool isAnonymous}) {
+    return UserModel(
+      id: user.id,
+      email: user.email,
+      displayName: user.userMetadata?['full_name'] as String?,
+      photoUrl: user.userMetadata?['avatar_url'] as String?,
+      isAnonymous: isAnonymous,
+    );
+  }
+
+  factory UserModel.anonymous(String userId) {
+    return UserModel(id: userId, isAnonymous: true);
+  }
+}
+
 String? _parseStringOrList(dynamic value) {
   if (value == null) return null;
   if (value is String) return value;
   if (value is List) {
-    // Join list items with comma or newline
     return value.map((e) => e.toString()).join(', ');
   }
   return value.toString();
