@@ -31,6 +31,7 @@ class ColorManager {
   static const shimmerBaseColor = Color(0xFFF4F4F4);
   static const shimmerHighlightedColor = Color(0xFFDADADA);
   static const Color error = Color(0xffEF3826);
+  static const Color lightError = Color(0xFFFEF2F2);
   static const Color success = Color(0xff0D943C);
   static const Color warning = Color(0xffFD9A56);
   static const Color chevronRight = Color(0xff99A1AF);

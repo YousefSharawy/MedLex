@@ -26,6 +26,7 @@ class IconAssets {
   static const String person = '$ICON_PATH/person.png';
   static const String savedItemSection = '$ICON_PATH/saveditemsection.png';
   static const String noResult = '$ICON_PATH/noresult.png';
+  static const String google = '$ICON_PATH/google.png';
 }
 
 class DemoAssets {}

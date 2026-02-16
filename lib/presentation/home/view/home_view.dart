@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
+import 'package:transly/presentation/auth/view/login_bottom_sheet.dart';
+import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 import 'package:transly/presentation/base/components.dart';
 import 'package:transly/presentation/home/view/widgets/daily_term_card.dart';
 import 'package:transly/presentation/home/view/widgets/recently_view_item.dart';
@@ -134,7 +136,12 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
                 ),
               ),
               IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  final authCubit = context.read<AuthCubit>();
+                  if (authCubit.isAnonymous) {
+                    final result = await LoginBottomSheet.show(context);
+                    if (result != true) return;
+                  }
                   context.push(Routes.profile);
                   context.pushReplacement(Routes.savedItems);
                 },
@@ -220,7 +227,9 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
       buildWhen: (previous, current) => current is RecentlyViewedUpdated,
       builder: (context, state) {
         final recentlyViewed =
-            state is RecentlyViewedUpdated ? state.recentlyViewed : <TermModel>[];
+            state is RecentlyViewedUpdated
+                ? state.recentlyViewed
+                : <TermModel>[];
 
         return Align(
           alignment: Alignment.topCenter,

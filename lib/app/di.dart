@@ -5,6 +5,7 @@ import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/data/remote_data_source.dart';
 import 'package:transly/data/repository_impl.dart';
 import 'package:transly/domain/repository.dart';
+import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
 import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
 import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
@@ -15,14 +16,10 @@ final getIt = GetIt.instance;
 
 Future<void> initAppModule() async {
   // TTS Service
-  getIt.registerLazySingleton<TtsService>(
-    () => TtsService(),
-  );
+  getIt.registerLazySingleton<TtsService>(() => TtsService());
 
   // Supabase client
-  getIt.registerLazySingleton<SupabaseClient>(
-    () => Supabase.instance.client,
-  );
+  getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
   // Remote data source
   getIt.registerLazySingleton<RemoteDataSource>(
@@ -30,27 +27,14 @@ Future<void> initAppModule() async {
   );
 
   // Repository
-  getIt.registerLazySingleton<Repository>(
-    () => RepositoryImpl(getIt()),
-  );
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
 
   // Cubits
-  getIt.registerLazySingleton<HomeCubit>(
-  () => HomeCubit(getIt()),
-);
-  getIt.registerLazySingleton<SearchCubit>(
-    () => SearchCubit(getIt()),
-  );
-  getIt.registerLazySingleton<TermsCubit>(
-    () => TermsCubit(getIt()),
-  );
-  getIt.registerFactory<TermDetailsCubit>(
-    () => TermDetailsCubit(getIt()),
-  );
-  getIt.registerFactory<AzListCubit>(
-    () => AzListCubit(),
-  );
-  getIt.registerLazySingleton<NavigationCubit>(
-    () => NavigationCubit(),
-  );
+  getIt.registerLazySingleton<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerLazySingleton<SearchCubit>(() => SearchCubit(getIt()));
+  getIt.registerLazySingleton<TermsCubit>(() => TermsCubit(getIt(),getIt(),getIt()));
+  getIt.registerFactory<TermDetailsCubit>(() => TermDetailsCubit(getIt()));
+  getIt.registerFactory<AzListCubit>(() => AzListCubit());
+  getIt.registerLazySingleton<NavigationCubit>(() => NavigationCubit());
+  getIt.registerSingleton<AuthCubit>(AuthCubit(getIt()));
 }

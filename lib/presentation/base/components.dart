@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/presentation/auth/view/login_bottom_sheet.dart';
+import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
 import 'package:transly/presentation/resources/style_manager.dart';
 import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
@@ -212,7 +214,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 iconPath: IconAssets.profileIcon,
                 label: 'Profile',
                 isSelected: navigationShell.currentIndex == 3,
-                onTap: () => _onTap(context, 3),
+                onTap: () async {
+                  final authCubit = context.read<AuthCubit>();
+                  if (authCubit.isAnonymous) {
+                    final result = await LoginBottomSheet.show(context);
+                    if (result != true) return;
+                  }
+                  _onTap(context, 3);
+                },
               ),
             ],
           ),
@@ -222,7 +231,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, int index) {
-  if (index == navigationShell.currentIndex) return; 
+    if (index == navigationShell.currentIndex) return;
     context.read<NavigationCubit>().updateIndex(index);
 
     navigationShell.goBranch(

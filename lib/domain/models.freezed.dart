@@ -478,3 +478,266 @@ abstract class _TermModel implements TermModel {
   _$$TermModelImplCopyWith<_$TermModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+  return _UserModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserModel {
+  String get id => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'display_name')
+  String? get displayName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_url')
+  String? get photoUrl => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
+
+  /// Serializes this UserModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UserModelCopyWith<UserModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserModelCopyWith<$Res> {
+  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
+      _$UserModelCopyWithImpl<$Res, UserModel>;
+  @useResult
+  $Res call({
+    String id,
+    String? email,
+    @JsonKey(name: 'display_name') String? displayName,
+    @JsonKey(name: 'photo_url') String? photoUrl,
+    bool isAnonymous,
+  });
+}
+
+/// @nodoc
+class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
+    implements $UserModelCopyWith<$Res> {
+  _$UserModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? email = freezed,
+    Object? displayName = freezed,
+    Object? photoUrl = freezed,
+    Object? isAnonymous = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            displayName:
+                freezed == displayName
+                    ? _value.displayName
+                    : displayName // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            photoUrl:
+                freezed == photoUrl
+                    ? _value.photoUrl
+                    : photoUrl // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            isAnonymous:
+                null == isAnonymous
+                    ? _value.isAnonymous
+                    : isAnonymous // ignore: cast_nullable_to_non_nullable
+                        as bool,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UserModelImplCopyWith<$Res>
+    implements $UserModelCopyWith<$Res> {
+  factory _$$UserModelImplCopyWith(
+    _$UserModelImpl value,
+    $Res Function(_$UserModelImpl) then,
+  ) = __$$UserModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String id,
+    String? email,
+    @JsonKey(name: 'display_name') String? displayName,
+    @JsonKey(name: 'photo_url') String? photoUrl,
+    bool isAnonymous,
+  });
+}
+
+/// @nodoc
+class __$$UserModelImplCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
+    implements _$$UserModelImplCopyWith<$Res> {
+  __$$UserModelImplCopyWithImpl(
+    _$UserModelImpl _value,
+    $Res Function(_$UserModelImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? email = freezed,
+    Object? displayName = freezed,
+    Object? photoUrl = freezed,
+    Object? isAnonymous = null,
+  }) {
+    return _then(
+      _$UserModelImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        displayName:
+            freezed == displayName
+                ? _value.displayName
+                : displayName // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        photoUrl:
+            freezed == photoUrl
+                ? _value.photoUrl
+                : photoUrl // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        isAnonymous:
+            null == isAnonymous
+                ? _value.isAnonymous
+                : isAnonymous // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserModelImpl extends _UserModel {
+  const _$UserModelImpl({
+    required this.id,
+    this.email,
+    @JsonKey(name: 'display_name') this.displayName,
+    @JsonKey(name: 'photo_url') this.photoUrl,
+    this.isAnonymous = true,
+  }) : super._();
+
+  factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserModelImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String? email;
+  @override
+  @JsonKey(name: 'display_name')
+  final String? displayName;
+  @override
+  @JsonKey(name: 'photo_url')
+  final String? photoUrl;
+  @override
+  @JsonKey()
+  final bool isAnonymous;
+
+  @override
+  String toString() {
+    return 'UserModel(id: $id, email: $email, displayName: $displayName, photoUrl: $photoUrl, isAnonymous: $isAnonymous)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.photoUrl, photoUrl) ||
+                other.photoUrl == photoUrl) &&
+            (identical(other.isAnonymous, isAnonymous) ||
+                other.isAnonymous == isAnonymous));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, email, displayName, photoUrl, isAnonymous);
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserModelImplToJson(this);
+  }
+}
+
+abstract class _UserModel extends UserModel {
+  const factory _UserModel({
+    required final String id,
+    final String? email,
+    @JsonKey(name: 'display_name') final String? displayName,
+    @JsonKey(name: 'photo_url') final String? photoUrl,
+    final bool isAnonymous,
+  }) = _$UserModelImpl;
+  const _UserModel._() : super._();
+
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$UserModelImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String? get email;
+  @override
+  @JsonKey(name: 'display_name')
+  String? get displayName;
+  @override
+  @JsonKey(name: 'photo_url')
+  String? get photoUrl;
+  @override
+  bool get isAnonymous;
+
+  /// Create a copy of UserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
