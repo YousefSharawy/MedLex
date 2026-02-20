@@ -23,11 +23,17 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
+  // First-time user animations
   late Animation<double> _circleAnimation;
   late Animation<double> _logoAnimation;
   late Animation<double> _moveUpAnimation;
   late Animation<double> _textSwapAnimation;
   late Animation<double> _buttonAnimation;
+
+  // Returning user animations
+  late Animation<double> _returningCircleAnimation;
+  late Animation<double> _returningLogoAnimation;
 
   bool _hasCompletedOnboarding = false;
 
@@ -35,73 +41,85 @@ class _SplashViewState extends State<SplashView>
   void initState() {
     super.initState();
 
-    // Check onboarding status
     _hasCompletedOnboarding = LocalAppStorage.isOnboardingCompleted();
 
     context.read<SplashCubit>().start();
 
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 3200),
-      vsync: this,
-    );
+    if (_hasCompletedOnboarding) {
+      // Shorter duration for returning users: circle fill + logo fade
+      _controller = AnimationController(
+        duration: const Duration(milliseconds: 1500),
+        vsync: this,
+      );
 
-    // Circle expansion (0 - 550ms)
-    _circleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.17, curve: Curves.easeInOut),
-      ),
-    );
+      // Circle fills screen (0 - 700ms)
+      _returningCircleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.0, 0.47, curve: Curves.easeInOut),
+        ),
+      );
 
-    // Logo + MedLex fade in (350ms - 800ms)
-    _logoAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.11, 0.25, curve: Curves.easeIn),
-      ),
-    );
+      // Logo fades in (600ms - 1200ms)
+      _returningLogoAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.40, 0.80, curve: Curves.easeIn),
+        ),
+      );
 
-    // Move up animation (1100ms - 1600ms)
-    _moveUpAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.34, 0.50, curve: Curves.easeInOut),
-      ),
-    );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.forward();
+        Future.delayed(const Duration(milliseconds: 2000), () {
+          if (mounted) context.go(Routes.home);
+        });
+      });
+    } else {
+      // Full duration for first-time users
+      _controller = AnimationController(
+        duration: const Duration(milliseconds: 3200),
+        vsync: this,
+      );
 
-    // Text swap animation (1600ms - 2200ms)
-    _textSwapAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.50, 0.69, curve: Curves.easeInOut),
-      ),
-    );
+      _circleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.0, 0.17, curve: Curves.easeInOut),
+        ),
+      );
 
-    // Button fade in (2300ms - 2800ms)
-    _buttonAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.72, 0.88, curve: Curves.easeOut),
-      ),
-    );
+      _logoAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.11, 0.25, curve: Curves.easeIn),
+        ),
+      );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.forward();
+      _moveUpAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.34, 0.50, curve: Curves.easeInOut),
+        ),
+      );
 
-      // If user has completed onboarding, navigate to home after animation
-      if (_hasCompletedOnboarding) {
-        _navigateToHomeAfterAnimation();
-      }
-    });
-  }
+      _textSwapAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.50, 0.69, curve: Curves.easeInOut),
+        ),
+      );
 
-  void _navigateToHomeAfterAnimation() {
-    // Navigate to home after the full animation completes (3200ms)
-    Future.delayed(const Duration(milliseconds: 3200), () {
-      if (mounted) {
-        context.go(Routes.home);
-      }
-    });
+      _buttonAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.72, 0.88, curve: Curves.easeOut),
+        ),
+      );
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.forward();
+      });
+    }
   }
 
   @override
@@ -116,8 +134,76 @@ class _SplashViewState extends State<SplashView>
 
   @override
   Widget build(BuildContext context) {
-     double moveUpDistance = 50.sp;
-     double slideDistance = 60.0.sp;
+    if (_hasCompletedOnboarding) {
+      return _buildReturningSplash();
+    }
+    return _buildFirstTimeSplash();
+  }
+
+  // ─── Returning User Splash ───────────────────────────────────────────────────
+
+  Widget _buildReturningSplash() {
+    return Scaffold(
+      body: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: _returningCircleAnimation.value < 1.0 ? ColorManager.white : null,
+            decoration: _returningCircleAnimation.value >= 1.0
+                ? BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        ColorManager.splashGradiant1,
+                        ColorManager.splashGradiant2,
+                      ],
+                    ),
+                  )
+                : null,
+            child: Stack(
+              children: [
+                // Circle fill animation
+                if (_returningCircleAnimation.value < 1.0)
+                  ClipPath(
+                    clipper:
+                        CircleRevealClipper(_returningCircleAnimation.value),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            ColorManager.splashGradiant1,
+                            ColorManager.splashGradiant2,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // Centered logo fades in after circle fills
+                Center(
+                  child: Opacity(
+                    opacity: _returningLogoAnimation.value,
+                    child: Image.asset(IconAssets.logo),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // ─── First-Time User Splash ──────────────────────────────────────────────────
+
+  Widget _buildFirstTimeSplash() {
+    double moveUpDistance = AppHeight.s50;
+    double slideDistance = 60.0.sp;
 
     return Scaffold(
       body: AnimatedBuilder(
@@ -127,18 +213,17 @@ class _SplashViewState extends State<SplashView>
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: _circleAnimation.value < 1.0 ? Colors.white : null,
-              gradient:
-                  _circleAnimation.value >= 1.0
-                      ? LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          ColorManager.splashGradiant1,
-                          ColorManager.splashGradiant2,
-                        ],
-                      )
-                      : null,
+              color: _circleAnimation.value < 1.0 ? ColorManager.white : null,
+              gradient: _circleAnimation.value >= 1.0
+                  ? LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        ColorManager.splashGradiant1,
+                        ColorManager.splashGradiant2,
+                      ],
+                    )
+                  : null,
             ),
             child: Stack(
               children: [
@@ -188,12 +273,12 @@ class _SplashViewState extends State<SplashView>
                                 children: [
                                   Transform.translate(
                                     offset: Offset(
-                                      -slideDistance * _textSwapAnimation.value,
+                                      -slideDistance *
+                                          _textSwapAnimation.value,
                                       0,
                                     ),
                                     child: Opacity(
-                                      opacity:
-                                          _logoAnimation.value *
+                                      opacity: _logoAnimation.value *
                                           (1 - _textSwapAnimation.value),
                                       child: Text(
                                         "MedLex",
@@ -247,31 +332,28 @@ class _SplashViewState extends State<SplashView>
                           ),
                         ),
                         SizedBox(height: AppHeight.s120),
-
-                        // Only show button if onboarding is NOT completed
-                        if (!_hasCompletedOnboarding)
-                          Opacity(
-                            opacity: _buttonAnimation.value,
-                            child: Transform.translate(
-                              offset: Offset(
-                                0,
-                                30 * (1 - _buttonAnimation.value),
+                        Opacity(
+                          opacity: _buttonAnimation.value,
+                          child: Transform.translate(
+                            offset: Offset(
+                              0,
+                              30 * (1 - _buttonAnimation.value),
+                            ),
+                            child: PrimaryElevatedButton(
+                              title: "Next",
+                              height: AppHeight.s46,
+                              width: AppWidth.s267,
+                              backGroundColor: ColorManager.white,
+                              buttonRadius: AppRadius.s16,
+                              textStyle: getBoldStyle(
+                                fontSize: FontSize.s14,
+                                fontFamily: FontConstants.interFamily,
+                                color: ColorManager.primary,
                               ),
-                              child: PrimaryElevatedButton(
-                                title: "Next",
-                                height: AppHeight.s46,
-                                width: AppWidth.s267,
-                                backGroundColor: ColorManager.white,
-                                buttonRadius: AppRadius.s16,
-                                textStyle: getBoldStyle(
-                                  fontSize: FontSize.s14,
-                                  fontFamily: FontConstants.interFamily,
-                                  color: ColorManager.primary,
-                                ),
-                                onPress: _onContinuePressed,
-                              ),
+                              onPress: _onContinuePressed,
                             ),
                           ),
+                        ),
                       ],
                     ),
                   ),
