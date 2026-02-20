@@ -225,7 +225,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       throw ErrorHandler.handle(error).failture;
     }
   }
-@override
+  @override
 Future<User> signInWithGoogle() async {
   try {
     final webClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID'] ?? '';
@@ -239,11 +239,9 @@ Future<User> signInWithGoogle() async {
       clientId = androidClientId;
     }
 
-    // Save anonymous user info BEFORE Google sign-in
     final anonUser = currentUser;
     final anonUserId = (anonUser?.isAnonymous ?? false) ? anonUser!.id : null;
 
-    // Google Sign-In
     final signIn = GoogleSignIn.instance;
     await signIn.initialize(clientId: clientId, serverClientId: webClientId);
 
@@ -263,7 +261,6 @@ Future<User> signInWithGoogle() async {
       accessToken = authResult?.accessToken;
     } catch (_) {}
 
-    // Sign in to Supabase (replaces the anonymous session)
     final response = await _supabase.auth.signInWithIdToken(
       provider: OAuthProvider.google,
       idToken: idToken,
@@ -275,7 +272,6 @@ Future<User> signInWithGoogle() async {
       throw Exception('Supabase sign-in failed: no user returned');
     }
 
-    // Ensure Google user exists in public.users
     try {
       await ensureUserExists(
         user.id,
@@ -285,7 +281,6 @@ Future<User> signInWithGoogle() async {
       );
     } catch (_) {}
 
-    // Migrate favorites from anonymous → Google user
     if (anonUserId != null && anonUserId != user.id) {
       await _migrateAnonymousData(anonUserId, user.id);
     }
@@ -295,7 +290,6 @@ Future<User> signInWithGoogle() async {
     throw ErrorHandler.handle(error).failture;
   }
 }
-
 Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
   try {
     await _supabase.rpc('migrate_anonymous_user', params: {
