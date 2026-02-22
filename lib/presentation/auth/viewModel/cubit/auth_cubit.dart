@@ -60,6 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
           displayName: status.displayName,
           photoUrl: status.photoUrl,
         ));
+          _repository.syncFavorites();
       },
     );
   }

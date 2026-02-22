@@ -149,7 +149,7 @@ Future<void> syncFavoritesFromRemote() async {
   if (_isSyncing) return;
 
   _isSyncing = true;
-
+   _safeEmit(const TermsState.favoritesLoading()); 
   try {
     // 1. Get remote IDs
     final remoteIds = await _remoteDataSource.getFavoriteTermIds(userId);
@@ -191,6 +191,11 @@ Future<void> syncFavoritesFromRemote() async {
           favoriteIds: List.from(_favoriteIds),
         ));
       }
+    }
+     _loadFavoriteIds();
+    if (!isClosed) {
+      final favorites = LocalAppStorage.getFavorites();
+      _safeEmit(TermsState.favoritesLoaded(favorites)); // 👈 always emit
     }
   } catch (_) {
     // Best-effort
@@ -564,35 +569,51 @@ Future<void> syncFavoritesFromRemote() async {
 
   // ==================== CATEGORY ====================
 
-  Future<void> getTermsByCategory(String category) async {
-    _currentCategory = category;
-    _cancelLetterLoading = true;
+Future<void> getTermsByCategory(String category) async {
+  if (_currentCategory != null && _currentCategory != category) {
+    await LocalAppStorage.clearCategoryCache(_currentCategory!);
+  }
 
-    final cachedTerms = LocalAppStorage.getCachedCategoryTerms(category);
-    if (cachedTerms != null) {
+  _currentCategory = category;
+  _cancelLetterLoading = true;
+// Category State Tracking
+  int categoryRequestToken = 0; // ← add this
+  // Increment token — any previous in-flight request will see its token
+  // is stale and discard its result
+  final myToken = ++categoryRequestToken;
+
+  final cachedTerms = LocalAppStorage.getCachedCategoryTerms(category);
+  if (cachedTerms != null) {
+    if (categoryRequestToken == myToken) {
       _safeEmit(TermsState.termsByCategoryLoaded(cachedTerms));
-      return;
     }
+    return;
+  }
 
-    _safeEmit(const TermsState.termsByCategoryLoading());
+  _safeEmit(const TermsState.termsByCategoryLoading());
 
-    final result = await _repository.getTermsByCategory(category);
+  final result = await _repository.getTermsByCategory(category);
+  if (isClosed) return;
+
+  // If a newer request came in while we were awaiting, discard this result
+  if (categoryRequestToken != myToken) return;
+
+  final terms = result.fold<List<TermModel>?>(
+    (failure) {
+      _safeEmit(TermsState.termsByCategoryError(failure.message));
+      return null;
+    },
+    (terms) => terms,
+  );
+
+  if (terms != null) {
+    await LocalAppStorage.cacheCategoryTerms(category, terms);
     if (isClosed) return;
-
-    final terms = result.fold<List<TermModel>?>(
-      (failure) {
-        _safeEmit(TermsState.termsByCategoryError(failure.message));
-        return null;
-      },
-      (terms) => terms,
-    );
-
-    if (terms != null) {
-      await LocalAppStorage.cacheCategoryTerms(category, terms);
-      if (isClosed) return;
+    if (categoryRequestToken == myToken) {
       _safeEmit(TermsState.termsByCategoryLoaded(terms));
     }
   }
+}
 
   // ==================== CACHE MANAGEMENT ====================
 

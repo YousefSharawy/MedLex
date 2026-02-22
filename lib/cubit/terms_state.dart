@@ -5,7 +5,7 @@ class TermsState with _$TermsState {
   const factory TermsState.initial() = _TermsInitial;
 
   // ==================== FAVORITES ====================
-
+const factory TermsState.favoritesLoading() = FavoritesLoading;
   const factory TermsState.favoritesUpdated({
     @Default([]) List<int> favoriteIds,
   }) = FavoritesUpdated;

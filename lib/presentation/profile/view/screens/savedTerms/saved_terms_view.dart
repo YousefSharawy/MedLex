@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transly/app/local_storage.dart';
+import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/domain/models.dart';
 import 'package:transly/presentation/base/components.dart';
@@ -29,7 +30,8 @@ class _SavedTermsViewState extends State<SavedTermsView> {
   @override
   void initState() {
     super.initState();
-    _loadFavorites();
+    // _loadFavorites();
+    context.read<TermsCubit>().syncFavoritesFromRemote();
   }
 
   void _loadFavorites() {
@@ -57,37 +59,47 @@ class _SavedTermsViewState extends State<SavedTermsView> {
   Widget build(BuildContext context) {
     return PrimaryScaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: AppHeight.s21),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => context.pop(),
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: ColorManager.primaryText,
-                      size: 24.sp,
+        child: BlocListener<TermsCubit, TermsState>(
+          listener: (_, state) {
+            if (state is FavoritesLoading){
+                UiUtils.loadingWidget();
+            }
+            else if (state is FavoritesLoaded || state is FavoritesUpdated) {
+              _loadFavorites();
+            }
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: AppHeight.s21),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => context.pop(),
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: ColorManager.primaryText,
+                        size: 24.sp,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: AppWidth.s66),
-                  Text(
-                    'Saved Terms',
-                    style: getBoldStyle(
-                      fontSize: FontSize.s24,
-                      fontFamily: FontConstants.interFamily,
-                      color: ColorManager.primaryText,
+                    SizedBox(width: AppWidth.s66),
+                    Text(
+                      'Saved Terms',
+                      style: getBoldStyle(
+                        fontSize: FontSize.s24,
+                        fontFamily: FontConstants.interFamily,
+                        color: ColorManager.primaryText,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: AppHeight.s17),
-            Expanded(child: _buildContent()),
-          ],
+              SizedBox(height: AppHeight.s17),
+              Expanded(child: _buildContent()),
+            ],
+          ),
         ),
       ),
     );

@@ -34,6 +34,9 @@ class LocalAppStorage {
 
     // One-time migration for recently viewed (format change, same type).
     await _migrateRecentlyViewed();
+    
+    // await _cachedTermsBoxInstance.clear();
+    // await _cacheMetadataBoxInstance.clear();
   }
 
   static Future<void> _openBoxSafely<T>(String boxName) async {
@@ -364,8 +367,15 @@ class LocalAppStorage {
   // --- Key generators -------------------------------------------------------
 
   static String _allTermsCacheKey(int page) => 'all_terms_page_$page';
-  static String _categoryTermsCacheKey(String category) =>
-      'category_$category';
+  static String _categoryTermsCacheKey(String category) {
+  final sanitized = category
+      .toLowerCase()
+      .replaceAll(' ', '_')
+      .replaceAll('&', 'and')
+      .replaceAll('-', '_')
+      .replaceAll('/', '_');
+  return 'category_$sanitized';
+}
   static String _searchTermsCacheKey(String query) =>
       'search_${query.toLowerCase()}';
   static String _dailyTermCacheKey() =>

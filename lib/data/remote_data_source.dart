@@ -110,7 +110,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .select()
           .eq('category', category)
           .order('latin_term', ascending: true);
-
       return response
           .map<TermModel>((json) => TermModel.fromJson(json))
           .toList();
@@ -266,6 +265,8 @@ Future<User> signInWithGoogle() async {
       idToken: idToken,
       accessToken: accessToken,
     );
+    await _supabase.auth.refreshSession(); 
+
 
     final user = response.user;
     if (user == null) {

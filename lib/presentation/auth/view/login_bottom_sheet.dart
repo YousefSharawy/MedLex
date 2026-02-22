@@ -16,10 +16,11 @@ class LoginBottomSheet extends StatefulWidget {
       backgroundColor: ColorManager.trasnparent,
       isDismissible: true,
       enableDrag: true,
-      builder: (_) => BlocProvider.value(
-        value: context.read<AuthCubit>(),
-        child: const LoginBottomSheet(),
-      ),
+      builder:
+          (_) => BlocProvider.value(
+            value: context.read<AuthCubit>(),
+            child: const LoginBottomSheet(),
+          ),
     );
   }
 
@@ -31,6 +32,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet>
     with SingleTickerProviderStateMixin {
   bool _showSuccess = false;
   String? _errorMsg;
+    bool _isPopping = false;
 
   late AnimationController _successController;
 
@@ -61,19 +63,28 @@ class _LoginBottomSheetState extends State<LoginBottomSheet>
     if (state is AuthAuthenticated) {
       setState(() => _showSuccess = true);
       _successController.forward();
-      await Future.delayed(const Duration(milliseconds: 1800));
-      if (mounted) Navigator.pop(context, true);
+      await Future.delayed(const Duration(milliseconds: 2800));
+      if (mounted){
+        _safePop();
+         }
+
     } else if (state is AuthError) {
       setState(() => _errorMsg = state.message);
     }
   }
-
+void _safePop() {
+    if (_isPopping || !mounted) return;
+    _isPopping = true;
+    Navigator.pop(context, true);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: ColorManager.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.s32)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppRadius.s32),
+        ),
       ),
       child: SafeArea(
         top: false,
@@ -96,16 +107,19 @@ class _LoginBottomSheetState extends State<LoginBottomSheet>
               duration: const Duration(milliseconds: 400),
               switchInCurve: Curves.easeOutCubic,
               switchOutCurve: Curves.easeInCubic,
-              child: _showSuccess
-                  ? SuccessView(
-                      controller: _successController,
-                      onStartLearning: () => Navigator.pop(context, true),
-                    )
-                  : SignInView(
-                      errorMsg: _errorMsg,
-                      onGoogleSignIn: _handleGoogleSignIn,
-                      onClose: () => Navigator.pop(context, false),
-                    ),
+              child:
+                  _showSuccess
+                      ? SuccessView(
+                        controller: _successController,
+                        onStartLearning: () {
+                         _safePop();
+                        },
+                      )
+                      : SignInView(
+                        errorMsg: _errorMsg,
+                        onGoogleSignIn: _handleGoogleSignIn,
+                        onClose: () => Navigator.pop(context, false),
+                      ),
             ),
           ],
         ),
