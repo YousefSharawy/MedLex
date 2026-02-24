@@ -163,7 +163,6 @@ class _DictionaryViewState extends State<DictionaryView>
             selectedCategory: _selectedCategory,
           ),
         ),
-        SizedBox(height: AppHeight.s80),
       ],
     );
   }

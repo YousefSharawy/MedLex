@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transly/app/adds/ad_container.dart';
 import 'package:transly/presentation/auth/view/login_bottom_sheet.dart';
 import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 import 'package:transly/presentation/resources/font_manager.dart';
@@ -164,8 +165,15 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: navigationShell,
-      extendBody: true,
+      body: Column(
+        
+        children: [
+          Expanded(
+          child: navigationShell),
+           const BannerAdWidget(),
+        ],
+      ),
+      extendBody: false,
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(
           left: AppWidth.s16,

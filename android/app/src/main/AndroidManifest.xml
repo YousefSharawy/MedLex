@@ -12,7 +12,9 @@
         android:label="MedLex"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4517039160016440~5894033772"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
