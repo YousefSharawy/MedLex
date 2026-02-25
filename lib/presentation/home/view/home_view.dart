@@ -262,7 +262,7 @@ class _HomeViewState extends State<HomeView> with ResettableTabState {
                     ),
                   ),
                 ],
-                SizedBox(height: AppHeight.s80),
+                SizedBox(height: AppHeight.s10),
               ],
             ),
           ),

@@ -99,7 +99,9 @@ class _DictionaryViewState extends State<DictionaryView>
         _resetState();
       },
       child: PrimaryScaffold(
+        
         body: SafeArea(
+          bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,6 +1,7 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:transly/app/ui_utiles.dart';
 import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
 import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
 import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_item.dart';
@@ -115,20 +116,17 @@ class AzTermsListState extends State<AzTermsList> {
     }
 
     if (widget.isAllCategory && widget.hasMore) {
-      // Letter not loaded yet but can be fetched — force it and wait
       setState(() {
         _forcedLetter = letter;
         _activeLetter = letter;
         _waitingForLetterLoad = true;
       });
       widget.onLetterSelected(letter);
+      UiUtils.showInfoMessage("Just a moment while we finish this up.");
       return;
     }
-
-    // Letter doesn't exist in this category — don't force, just notify parent
     widget.onLetterSelected(letter);
   }
-
   void _releaseForceAfterScroll() {
     Future.delayed(
       AzListConstants.scrollDuration + const Duration(milliseconds: 150),
@@ -142,8 +140,6 @@ class AzTermsListState extends State<AzTermsList> {
       },
     );
   }
-
-  /// Called by parent after scroll to a remotely loaded letter completes
   void onScrollToLetterComplete(String letter) {
     if (mounted && _forcedLetter == letter) {
       _releaseForceAfterScroll();
@@ -153,114 +149,112 @@ class AzTermsListState extends State<AzTermsList> {
   String get displayLetter => _forcedLetter ?? _activeLetter;
 
   @override
-  Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        widget.onScrollNotification(notification);
-        return false;
-      },
-      child: Stack(
-        children: [
-          AzListView(
-            data: widget.azItems,
-            itemCount: widget.azItems.length,
-            itemScrollController: widget.scrollController,
-            itemPositionsListener: widget.positionsListener,
-            padding: EdgeInsets.only(
-              left: AppWidth.s16,
-              right: AppWidth.s28,
-              bottom: AppHeight.s16,
-            ),
-            itemBuilder:
-                (context, index) => AzListItem(item: widget.azItems[index]),
-            susItemBuilder: (_, __) => const SizedBox.shrink(),
-            susItemHeight: 0,
-            indexBarData: AzListConstants.allLetters,
-            indexBarWidth: AppWidth.s24,
-            indexBarItemHeight: AppHeight.s18,
-            indexBarAlignment: Alignment.centerRight,
-            indexBarMargin: EdgeInsets.only(right: AppWidth.s4),
-            indexBarOptions: IndexBarOptions(
-              hapticFeedback: true,
-              needRebuild: true,
-              indexHintAlignment: Alignment.centerRight,
-              indexHintOffset: const Offset(-20, 0),
-              selectItemDecoration: const BoxDecoration(), // disabled
-              textStyle: getRegularStyle(
-                fontSize: FontSize.s9,
-                fontFamily: FontConstants.interFamily,
-                color: Colors.transparent, // hide library text
+Widget build(BuildContext context) {
+  return NotificationListener<ScrollNotification>(
+    onNotification: (notification) {
+      widget.onScrollNotification(notification);
+      return false;
+    },
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        final dynamicItemHeight =
+            constraints.maxHeight / AzListConstants.allLetters.length;
+
+        return Stack(
+          children: [
+            AzListView(
+              data: widget.azItems,
+              itemCount: widget.azItems.length,
+              itemScrollController: widget.scrollController,
+              itemPositionsListener: widget.positionsListener,
+              padding: EdgeInsets.only(
+                left: AppWidth.s16,
+                right: AppWidth.s28,
+                bottom: AppHeight.s16,
               ),
-              selectTextStyle: getRegularStyle(
-                fontSize: FontSize.s9,
-                fontFamily: FontConstants.interFamily,
-                color: Colors.transparent, // hide library text
+              itemBuilder: (context, index) =>
+                  AzListItem(item: widget.azItems[index]),
+              susItemBuilder: (_, __) => const SizedBox.shrink(),
+              susItemHeight: 0,
+              indexBarData: AzListConstants.allLetters,
+              indexBarWidth: AppWidth.s24,
+              indexBarItemHeight: dynamicItemHeight,
+              indexBarAlignment: Alignment.centerRight,
+              indexBarMargin: EdgeInsets.only(right: AppWidth.s4),
+              indexBarOptions: IndexBarOptions(
+                hapticFeedback: true,
+                needRebuild: true,
+                indexHintAlignment: Alignment.centerRight,
+                indexHintOffset: const Offset(-20, 0),
+                selectItemDecoration: const BoxDecoration(),
+                textStyle: getRegularStyle(
+                  fontSize: FontSize.s9,
+                  fontFamily: FontConstants.interFamily,
+                  color: Colors.transparent,
+                ),
+                selectTextStyle: getRegularStyle(
+                  fontSize: FontSize.s9,
+                  fontFamily: FontConstants.interFamily,
+                  color: Colors.transparent,
+                ),
               ),
+              indexHintBuilder: (context, hint) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (mounted) _onLetterTapped(hint);
+                });
+                return IndexHintBubble(hint: hint, onSelected: (_) {});
+              },
             ),
-            indexHintBuilder: (context, hint) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (mounted) _onLetterTapped(hint);
-              });
-              return IndexHintBubble(hint: hint, onSelected: (_) {});
-            },
-          ),
-          // Our own letter overlay — controlled by displayLetter
-          Positioned(
-            right: AppWidth.s4,
-            top: 0,
-            bottom: 0,
-            child: IgnorePointer(
-              child: Center(
+            Positioned(
+              right: AppWidth.s4,
+              top: 0,
+              bottom: 0,
+              child: IgnorePointer(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children:
-                      AzListConstants.allLetters.map((letter) {
-                        final isActive = displayLetter == letter;
-                        final isAvailable = widget.azItems.any(
-                          (item) =>
-                              item.getSuspensionTag() == letter &&
-                              !item.isLoadingIndicator,
-                        );
-                        return SizedBox(
-                          height: AppHeight.s18,
-                          width: AppWidth.s24,
-                          child: Center(
-                            child: Container(
-                              height: AppHeight.s18,
-                              width: AppWidth.s20,
-                              alignment: Alignment.center,
-                              decoration:
-                                  isActive
-                                      ? BoxDecoration(
-                                        color: ColorManager.primary.withOpacity(
-                                          0.15,
-                                        ),
-                                        shape: BoxShape.circle,
-                                      )
-                                      : null,
-                              child: Text(
-                                letter,
-                                style: getRegularStyle(
-                                  fontSize: FontSize.s9,
-                                  fontFamily: FontConstants.interFamily,
+                  children: AzListConstants.allLetters.map((letter) {
+                    final isActive = displayLetter == letter;
+                    final isAvailable = widget.azItems.any(
+                      (item) =>
+                          item.getSuspensionTag() == letter &&
+                          !item.isLoadingIndicator,
+                    );
+                    return SizedBox(
+                      height: dynamicItemHeight, // DYNAMIC
+                      width: AppWidth.s24,
+                      child: Center(
+                        child: Container(
+                          height: dynamicItemHeight, // DYNAMIC
+                          width: AppWidth.s20,
+                          alignment: Alignment.center,
+                          decoration: isActive
+                              ? BoxDecoration(
                                   color:
-                                      (isAvailable || widget.hasMore)
-                                          ? ColorManager.primary
-                                          : ColorManager.primary.withOpacity(
-                                            0.25,
-                                          ),
-                                ),
-                              ),
+                                      ColorManager.primary.withOpacity(0.15),
+                                  shape: BoxShape.circle,
+                                )
+                              : null,
+                          child: Text(
+                            letter,
+                            style: getRegularStyle(
+                              fontSize: FontSize.s9,
+                              fontFamily: FontConstants.interFamily,
+                              color: (isAvailable || widget.hasMore)
+                                  ? ColorManager.primary
+                                  : ColorManager.primary.withOpacity(0.25),
                             ),
                           ),
-                        );
-                      }).toList(),
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        );
+      },
+    ),
+  );
+}
 }

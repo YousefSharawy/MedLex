@@ -13,26 +13,22 @@ class BannerAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!Platform.isAndroid) return const SizedBox.shrink();
-
     return BlocProvider(
       create: (_) => AdCubit(getIt<AdViewModel>())..loadBanner(),
       child: BlocBuilder<AdCubit, AdState>(
         builder: (context, state) {
           return state.when(
             initial: () => const SizedBox.shrink(),
-            loading:
-                () => SizedBox(
-                  height: AppHeight.s30,
-                  child: const Center(child: CircularProgressIndicator()),
-                ),
-            loaded:
-                (bannerAd) => SizedBox(
-                  width: bannerAd.size.width.toDouble(),
-                  height: bannerAd.size.height.toDouble(),
-                  child: AdWidget(ad: bannerAd),
-                ),
-            error: (_) => const SizedBox.shrink(), // hide on error
+            loading: () => SizedBox(
+              height: AppHeight.s50,
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+            loaded: (bannerAd) => SizedBox(
+              width: bannerAd.size.width.toDouble(),
+              height: bannerAd.size.height.toDouble(),
+              child: AdWidget(ad: bannerAd),
+            ),
+            error: (_) => const SizedBox.shrink(),
           );
         },
       ),

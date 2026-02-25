@@ -72,5 +72,7 @@
 </array>
 <key>GIDClientID</key>
 <string>193965355912-911oaratfd5f686vr4o1ajacaarb0i16.apps.googleusercontent.com</string>
+<key>GADApplicationIdentifier</key>
+<string>ca-app-pub-4517039160016440~9172960894</string>
 </dict>
 </plist>

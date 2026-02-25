@@ -168,6 +168,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       body: Column(
         
         children: [
+          
           Expanded(
           child: navigationShell),
            const BannerAdWidget(),
