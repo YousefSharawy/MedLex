@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:transly/app/adds/ad_container.dart';
+import 'package:transly/app/adds/view/ad_container.dart';
 import 'package:transly/presentation/auth/view/login_bottom_sheet.dart';
 import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
 import 'package:transly/presentation/resources/font_manager.dart';

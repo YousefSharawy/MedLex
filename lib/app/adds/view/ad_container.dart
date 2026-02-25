@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:transly/app/adds/ad_view_model.dart';
+import 'package:transly/app/adds/viewModel/ad_view_model.dart';
 import 'package:transly/app/adds/cubit/ad_cubit.dart';
 import 'package:transly/app/di.dart';
 import 'package:transly/presentation/resources/values_manager.dart';

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:transly/app/adds/ad_repository.dart';
-import 'package:transly/app/adds/ad_view_model.dart';
+import 'package:transly/app/adds/viewModel/ad_repository.dart';
+import 'package:transly/app/adds/viewModel/ad_view_model.dart';
 import 'package:transly/app/tts_service.dart';
 import 'package:transly/cubit/terms_cubit.dart';
 import 'package:transly/data/remote_data_source.dart';

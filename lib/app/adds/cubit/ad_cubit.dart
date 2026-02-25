@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:transly/app/adds/ad_view_model.dart';
+import 'package:transly/app/adds/viewModel/ad_view_model.dart';
 
 part 'ad_state.dart';
 part 'ad_cubit.freezed.dart';
