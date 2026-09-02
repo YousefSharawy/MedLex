@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'toggle_button.dart';
 
 class ModeToggle extends StatelessWidget {
   const ModeToggle({
@@ -57,55 +56,19 @@ class ModeToggle extends StatelessWidget {
   Widget _buildToggleButtons() {
     return Row(
       children: [
-        _ToggleButton(
+        ToggleButton(
           label: 'Simple',
           isActive: isSimpleMode,
           activeColor: ColorManager.primaryText,
           onTap: () => onToggle(true),
         ),
-        _ToggleButton(
+        ToggleButton(
           label: 'Academic',
           isActive: !isSimpleMode,
-          activeColor: ColorManager.primary,
+          activeColor: ColorManager.primaryTeal,
           onTap: () => onToggle(false),
         ),
       ],
-    );
-  }
-}
-
-class _ToggleButton extends StatelessWidget {
-  const _ToggleButton({
-    super.key,
-    required this.label,
-    required this.isActive,
-    required this.activeColor,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool isActive;
-  final Color activeColor;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: Center(
-          child: AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: 200),
-            style: getMediumStyle(
-              fontSize: FontSize.s14,
-              fontFamily: FontConstants.interFamily,
-              color: isActive ? activeColor : ColorManager.secondaryText,
-            ),
-            child: Text(label),
-          ),
-        ),
-      ),
     );
   }
 }

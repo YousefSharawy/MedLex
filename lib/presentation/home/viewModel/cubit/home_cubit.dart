@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/app/local_storage.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/domain/repository.dart';
+import 'package:medlex/app/local_storage.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/domain/repository.dart';
 
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';

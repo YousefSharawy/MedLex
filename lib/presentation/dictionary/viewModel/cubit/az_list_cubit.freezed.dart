@@ -17,32 +17,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AzListState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
+  List<AzItem> get azItems => throw _privateConstructorUsedError;
+  Set<String> get availableLetters => throw _privateConstructorUsedError;
+  bool get isNavigating => throw _privateConstructorUsedError;
+
+  /// Create a copy of AzListState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AzListStateCopyWith<AzListState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -51,6 +34,12 @@ abstract class $AzListStateCopyWith<$Res> {
     AzListState value,
     $Res Function(AzListState) then,
   ) = _$AzListStateCopyWithImpl<$Res, AzListState>;
+  @useResult
+  $Res call({
+    List<AzItem> azItems,
+    Set<String> availableLetters,
+    bool isNavigating,
+  });
 }
 
 /// @nodoc
@@ -65,14 +54,50 @@ class _$AzListStateCopyWithImpl<$Res, $Val extends AzListState>
 
   /// Create a copy of AzListState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? azItems = null,
+    Object? availableLetters = null,
+    Object? isNavigating = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            azItems:
+                null == azItems
+                    ? _value.azItems
+                    : azItems // ignore: cast_nullable_to_non_nullable
+                        as List<AzItem>,
+            availableLetters:
+                null == availableLetters
+                    ? _value.availableLetters
+                    : availableLetters // ignore: cast_nullable_to_non_nullable
+                        as Set<String>,
+            isNavigating:
+                null == isNavigating
+                    ? _value.isNavigating
+                    : isNavigating // ignore: cast_nullable_to_non_nullable
+                        as bool,
+          )
+          as $Val,
+    );
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
+abstract class _$$InitialImplCopyWith<$Res>
+    implements $AzListStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
     _$InitialImpl value,
     $Res Function(_$InitialImpl) then,
   ) = __$$InitialImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    List<AzItem> azItems,
+    Set<String> availableLetters,
+    bool isNavigating,
+  });
 }
 
 /// @nodoc
@@ -86,80 +111,121 @@ class __$$InitialImplCopyWithImpl<$Res>
 
   /// Create a copy of AzListState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? azItems = null,
+    Object? availableLetters = null,
+    Object? isNavigating = null,
+  }) {
+    return _then(
+      _$InitialImpl(
+        azItems:
+            null == azItems
+                ? _value._azItems
+                : azItems // ignore: cast_nullable_to_non_nullable
+                    as List<AzItem>,
+        availableLetters:
+            null == availableLetters
+                ? _value._availableLetters
+                : availableLetters // ignore: cast_nullable_to_non_nullable
+                    as Set<String>,
+        isNavigating:
+            null == isNavigating
+                ? _value.isNavigating
+                : isNavigating // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
+  }
 }
 
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+  const _$InitialImpl({
+    final List<AzItem> azItems = const [],
+    final Set<String> availableLetters = const {},
+    this.isNavigating = false,
+  }) : _azItems = azItems,
+       _availableLetters = availableLetters;
+
+  final List<AzItem> _azItems;
+  @override
+  @JsonKey()
+  List<AzItem> get azItems {
+    if (_azItems is EqualUnmodifiableListView) return _azItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_azItems);
+  }
+
+  final Set<String> _availableLetters;
+  @override
+  @JsonKey()
+  Set<String> get availableLetters {
+    if (_availableLetters is EqualUnmodifiableSetView) return _availableLetters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_availableLetters);
+  }
+
+  @override
+  @JsonKey()
+  final bool isNavigating;
 
   @override
   String toString() {
-    return 'AzListState.initial()';
+    return 'AzListState(azItems: $azItems, availableLetters: $availableLetters, isNavigating: $isNavigating)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$InitialImpl &&
+            const DeepCollectionEquality().equals(other._azItems, _azItems) &&
+            const DeepCollectionEquality().equals(
+              other._availableLetters,
+              _availableLetters,
+            ) &&
+            (identical(other.isNavigating, isNavigating) ||
+                other.isNavigating == isNavigating));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_azItems),
+    const DeepCollectionEquality().hash(_availableLetters),
+    isNavigating,
+  );
 
+  /// Create a copy of AzListState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({required TResult Function() initial}) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({TResult? Function()? initial}) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
+  @pragma('vm:prefer-inline')
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 }
 
 abstract class _Initial implements AzListState {
-  const factory _Initial() = _$InitialImpl;
+  const factory _Initial({
+    final List<AzItem> azItems,
+    final Set<String> availableLetters,
+    final bool isNavigating,
+  }) = _$InitialImpl;
+
+  @override
+  List<AzItem> get azItems;
+  @override
+  Set<String> get availableLetters;
+  @override
+  bool get isNavigating;
+
+  /// Create a copy of AzListState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

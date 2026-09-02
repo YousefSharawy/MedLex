@@ -1,15 +1,15 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_list_item.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/index_hint_bubble.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/ui_utils.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_item.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_list_constants.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_list_item.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/index_hint_bubble.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class AzTermsList extends StatefulWidget {
   final List<AzItem> azItems;
@@ -159,7 +159,6 @@ Widget build(BuildContext context) {
       builder: (context, constraints) {
         final dynamicItemHeight =
             constraints.maxHeight / AzListConstants.allLetters.length;
-
         return Stack(
           children: [
             AzListView(
@@ -172,8 +171,14 @@ Widget build(BuildContext context) {
                 right: AppWidth.s28,
                 bottom: AppHeight.s16,
               ),
-              itemBuilder: (context, index) =>
-                  AzListItem(item: widget.azItems[index]),
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return AzListItem(
+                    item: widget.azItems[index],
+                  );
+                }
+                return AzListItem(item: widget.azItems[index]);
+              },
               susItemBuilder: (_, __) => const SizedBox.shrink(),
               susItemHeight: 0,
               indexBarData: AzListConstants.allLetters,
@@ -230,7 +235,7 @@ Widget build(BuildContext context) {
                           decoration: isActive
                               ? BoxDecoration(
                                   color:
-                                      ColorManager.primary.withOpacity(0.15),
+                                      ColorManager.primaryTeal.withOpacity(0.15),
                                   shape: BoxShape.circle,
                                 )
                               : null,
@@ -240,8 +245,8 @@ Widget build(BuildContext context) {
                               fontSize: FontSize.s9,
                               fontFamily: FontConstants.interFamily,
                               color: (isAvailable || widget.hasMore)
-                                  ? ColorManager.primary
-                                  : ColorManager.primary.withOpacity(0.25),
+                                  ? ColorManager.primaryTeal
+                                  : ColorManager.primaryTeal.withOpacity(0.25),
                             ),
                           ),
                         ),

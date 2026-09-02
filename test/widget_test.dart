@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:transly/app/my_app.dart';
+import 'package:medlex/app/my_app.dart';
 
 // import 'package:medlex/main.dart';
 

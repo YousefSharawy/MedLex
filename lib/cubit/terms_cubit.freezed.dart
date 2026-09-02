@@ -20,11 +20,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -46,10 +41,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -71,10 +62,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -97,11 +84,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -114,10 +96,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -128,10 +106,6 @@ mixin _$TermsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -208,11 +182,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -238,10 +207,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -267,10 +232,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -300,11 +261,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -321,10 +277,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -339,10 +291,6 @@ class _$TermsInitialImpl implements _TermsInitial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -360,955 +308,6 @@ class _$TermsInitialImpl implements _TermsInitial {
 
 abstract class _TermsInitial implements TermsState {
   const factory _TermsInitial() = _$TermsInitialImpl;
-}
-
-/// @nodoc
-abstract class _$$FavoritesLoadingImplCopyWith<$Res> {
-  factory _$$FavoritesLoadingImplCopyWith(
-    _$FavoritesLoadingImpl value,
-    $Res Function(_$FavoritesLoadingImpl) then,
-  ) = __$$FavoritesLoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$FavoritesLoadingImplCopyWithImpl<$Res>
-    extends _$TermsStateCopyWithImpl<$Res, _$FavoritesLoadingImpl>
-    implements _$$FavoritesLoadingImplCopyWith<$Res> {
-  __$$FavoritesLoadingImplCopyWithImpl(
-    _$FavoritesLoadingImpl _value,
-    $Res Function(_$FavoritesLoadingImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$FavoritesLoadingImpl implements FavoritesLoading {
-  const _$FavoritesLoadingImpl();
-
-  @override
-  String toString() {
-    return 'TermsState.favoritesLoading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FavoritesLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
-    required TResult Function() allTermsLoading,
-    required TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )
-    allTermsLoaded,
-    required TResult Function(String message) allTermsError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-  }) {
-    return favoritesLoading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult? Function()? allTermsLoading,
-    TResult? Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult? Function(String message)? allTermsError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-  }) {
-    return favoritesLoading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult Function()? allTermsLoading,
-    TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult Function(String message)? allTermsError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesLoading != null) {
-      return favoritesLoading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
-    required TResult Function(AllTermsLoading value) allTermsLoading,
-    required TResult Function(AllTermsLoaded value) allTermsLoaded,
-    required TResult Function(AllTermsError value) allTermsError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-  }) {
-    return favoritesLoading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult? Function(AllTermsLoading value)? allTermsLoading,
-    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult? Function(AllTermsError value)? allTermsError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-  }) {
-    return favoritesLoading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult Function(AllTermsLoading value)? allTermsLoading,
-    TResult Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult Function(AllTermsError value)? allTermsError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesLoading != null) {
-      return favoritesLoading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FavoritesLoading implements TermsState {
-  const factory FavoritesLoading() = _$FavoritesLoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$FavoritesUpdatedImplCopyWith<$Res> {
-  factory _$$FavoritesUpdatedImplCopyWith(
-    _$FavoritesUpdatedImpl value,
-    $Res Function(_$FavoritesUpdatedImpl) then,
-  ) = __$$FavoritesUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<int> favoriteIds});
-}
-
-/// @nodoc
-class __$$FavoritesUpdatedImplCopyWithImpl<$Res>
-    extends _$TermsStateCopyWithImpl<$Res, _$FavoritesUpdatedImpl>
-    implements _$$FavoritesUpdatedImplCopyWith<$Res> {
-  __$$FavoritesUpdatedImplCopyWithImpl(
-    _$FavoritesUpdatedImpl _value,
-    $Res Function(_$FavoritesUpdatedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? favoriteIds = null}) {
-    return _then(
-      _$FavoritesUpdatedImpl(
-        favoriteIds:
-            null == favoriteIds
-                ? _value._favoriteIds
-                : favoriteIds // ignore: cast_nullable_to_non_nullable
-                    as List<int>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$FavoritesUpdatedImpl implements FavoritesUpdated {
-  const _$FavoritesUpdatedImpl({final List<int> favoriteIds = const []})
-    : _favoriteIds = favoriteIds;
-
-  final List<int> _favoriteIds;
-  @override
-  @JsonKey()
-  List<int> get favoriteIds {
-    if (_favoriteIds is EqualUnmodifiableListView) return _favoriteIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_favoriteIds);
-  }
-
-  @override
-  String toString() {
-    return 'TermsState.favoritesUpdated(favoriteIds: $favoriteIds)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FavoritesUpdatedImpl &&
-            const DeepCollectionEquality().equals(
-              other._favoriteIds,
-              _favoriteIds,
-            ));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_favoriteIds),
-  );
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FavoritesUpdatedImplCopyWith<_$FavoritesUpdatedImpl> get copyWith =>
-      __$$FavoritesUpdatedImplCopyWithImpl<_$FavoritesUpdatedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
-    required TResult Function() allTermsLoading,
-    required TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )
-    allTermsLoaded,
-    required TResult Function(String message) allTermsError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-  }) {
-    return favoritesUpdated(favoriteIds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult? Function()? allTermsLoading,
-    TResult? Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult? Function(String message)? allTermsError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-  }) {
-    return favoritesUpdated?.call(favoriteIds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult Function()? allTermsLoading,
-    TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult Function(String message)? allTermsError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesUpdated != null) {
-      return favoritesUpdated(favoriteIds);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
-    required TResult Function(AllTermsLoading value) allTermsLoading,
-    required TResult Function(AllTermsLoaded value) allTermsLoaded,
-    required TResult Function(AllTermsError value) allTermsError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-  }) {
-    return favoritesUpdated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult? Function(AllTermsLoading value)? allTermsLoading,
-    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult? Function(AllTermsError value)? allTermsError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-  }) {
-    return favoritesUpdated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult Function(AllTermsLoading value)? allTermsLoading,
-    TResult Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult Function(AllTermsError value)? allTermsError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesUpdated != null) {
-      return favoritesUpdated(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FavoritesUpdated implements TermsState {
-  const factory FavoritesUpdated({final List<int> favoriteIds}) =
-      _$FavoritesUpdatedImpl;
-
-  List<int> get favoriteIds;
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FavoritesUpdatedImplCopyWith<_$FavoritesUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$FavoritesLoadedImplCopyWith<$Res> {
-  factory _$$FavoritesLoadedImplCopyWith(
-    _$FavoritesLoadedImpl value,
-    $Res Function(_$FavoritesLoadedImpl) then,
-  ) = __$$FavoritesLoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<TermModel> favorites});
-}
-
-/// @nodoc
-class __$$FavoritesLoadedImplCopyWithImpl<$Res>
-    extends _$TermsStateCopyWithImpl<$Res, _$FavoritesLoadedImpl>
-    implements _$$FavoritesLoadedImplCopyWith<$Res> {
-  __$$FavoritesLoadedImplCopyWithImpl(
-    _$FavoritesLoadedImpl _value,
-    $Res Function(_$FavoritesLoadedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? favorites = null}) {
-    return _then(
-      _$FavoritesLoadedImpl(
-        null == favorites
-            ? _value._favorites
-            : favorites // ignore: cast_nullable_to_non_nullable
-                as List<TermModel>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$FavoritesLoadedImpl implements FavoritesLoaded {
-  const _$FavoritesLoadedImpl(final List<TermModel> favorites)
-    : _favorites = favorites;
-
-  final List<TermModel> _favorites;
-  @override
-  List<TermModel> get favorites {
-    if (_favorites is EqualUnmodifiableListView) return _favorites;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_favorites);
-  }
-
-  @override
-  String toString() {
-    return 'TermsState.favoritesLoaded(favorites: $favorites)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FavoritesLoadedImpl &&
-            const DeepCollectionEquality().equals(
-              other._favorites,
-              _favorites,
-            ));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_favorites));
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FavoritesLoadedImplCopyWith<_$FavoritesLoadedImpl> get copyWith =>
-      __$$FavoritesLoadedImplCopyWithImpl<_$FavoritesLoadedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
-    required TResult Function() allTermsLoading,
-    required TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )
-    allTermsLoaded,
-    required TResult Function(String message) allTermsError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-  }) {
-    return favoritesLoaded(favorites);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult? Function()? allTermsLoading,
-    TResult? Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult? Function(String message)? allTermsError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-  }) {
-    return favoritesLoaded?.call(favorites);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult Function()? allTermsLoading,
-    TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult Function(String message)? allTermsError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesLoaded != null) {
-      return favoritesLoaded(favorites);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
-    required TResult Function(AllTermsLoading value) allTermsLoading,
-    required TResult Function(AllTermsLoaded value) allTermsLoaded,
-    required TResult Function(AllTermsError value) allTermsError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-  }) {
-    return favoritesLoaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult? Function(AllTermsLoading value)? allTermsLoading,
-    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult? Function(AllTermsError value)? allTermsError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-  }) {
-    return favoritesLoaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult Function(AllTermsLoading value)? allTermsLoading,
-    TResult Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult Function(AllTermsError value)? allTermsError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (favoritesLoaded != null) {
-      return favoritesLoaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class FavoritesLoaded implements TermsState {
-  const factory FavoritesLoaded(final List<TermModel> favorites) =
-      _$FavoritesLoadedImpl;
-
-  List<TermModel> get favorites;
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FavoritesLoadedImplCopyWith<_$FavoritesLoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$RecentlyViewedUpdatedImplCopyWith<$Res> {
-  factory _$$RecentlyViewedUpdatedImplCopyWith(
-    _$RecentlyViewedUpdatedImpl value,
-    $Res Function(_$RecentlyViewedUpdatedImpl) then,
-  ) = __$$RecentlyViewedUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<TermModel> recentlyViewed});
-}
-
-/// @nodoc
-class __$$RecentlyViewedUpdatedImplCopyWithImpl<$Res>
-    extends _$TermsStateCopyWithImpl<$Res, _$RecentlyViewedUpdatedImpl>
-    implements _$$RecentlyViewedUpdatedImplCopyWith<$Res> {
-  __$$RecentlyViewedUpdatedImplCopyWithImpl(
-    _$RecentlyViewedUpdatedImpl _value,
-    $Res Function(_$RecentlyViewedUpdatedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? recentlyViewed = null}) {
-    return _then(
-      _$RecentlyViewedUpdatedImpl(
-        recentlyViewed:
-            null == recentlyViewed
-                ? _value._recentlyViewed
-                : recentlyViewed // ignore: cast_nullable_to_non_nullable
-                    as List<TermModel>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$RecentlyViewedUpdatedImpl implements RecentlyViewedUpdated {
-  const _$RecentlyViewedUpdatedImpl({
-    final List<TermModel> recentlyViewed = const [],
-  }) : _recentlyViewed = recentlyViewed;
-
-  final List<TermModel> _recentlyViewed;
-  @override
-  @JsonKey()
-  List<TermModel> get recentlyViewed {
-    if (_recentlyViewed is EqualUnmodifiableListView) return _recentlyViewed;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_recentlyViewed);
-  }
-
-  @override
-  String toString() {
-    return 'TermsState.recentlyViewedUpdated(recentlyViewed: $recentlyViewed)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RecentlyViewedUpdatedImpl &&
-            const DeepCollectionEquality().equals(
-              other._recentlyViewed,
-              _recentlyViewed,
-            ));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_recentlyViewed),
-  );
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RecentlyViewedUpdatedImplCopyWith<_$RecentlyViewedUpdatedImpl>
-  get copyWith =>
-      __$$RecentlyViewedUpdatedImplCopyWithImpl<_$RecentlyViewedUpdatedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
-    required TResult Function() allTermsLoading,
-    required TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )
-    allTermsLoaded,
-    required TResult Function(String message) allTermsError,
-    required TResult Function() termsByCategoryLoading,
-    required TResult Function(List<TermModel> terms) termsByCategoryLoaded,
-    required TResult Function(String message) termsByCategoryError,
-  }) {
-    return recentlyViewedUpdated(recentlyViewed);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult? Function()? allTermsLoading,
-    TResult? Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult? Function(String message)? allTermsError,
-    TResult? Function()? termsByCategoryLoading,
-    TResult? Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult? Function(String message)? termsByCategoryError,
-  }) {
-    return recentlyViewedUpdated?.call(recentlyViewed);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
-    TResult Function()? allTermsLoading,
-    TResult Function(
-      List<TermModel> terms,
-      bool hasMore,
-      int currentPage,
-      int totalCount,
-      bool isLoadingMore,
-      String? pendingLetter,
-      String? letterJustLoaded,
-      bool isLetterLoading,
-      Map<String, List<TermModel>> groupedTerms,
-    )?
-    allTermsLoaded,
-    TResult Function(String message)? allTermsError,
-    TResult Function()? termsByCategoryLoading,
-    TResult Function(List<TermModel> terms)? termsByCategoryLoaded,
-    TResult Function(String message)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (recentlyViewedUpdated != null) {
-      return recentlyViewedUpdated(recentlyViewed);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
-    required TResult Function(AllTermsLoading value) allTermsLoading,
-    required TResult Function(AllTermsLoaded value) allTermsLoaded,
-    required TResult Function(AllTermsError value) allTermsError,
-    required TResult Function(TermsByCategoryLoading value)
-    termsByCategoryLoading,
-    required TResult Function(TermsByCategoryLoaded value)
-    termsByCategoryLoaded,
-    required TResult Function(TermsByCategoryError value) termsByCategoryError,
-  }) {
-    return recentlyViewedUpdated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult? Function(AllTermsLoading value)? allTermsLoading,
-    TResult? Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult? Function(AllTermsError value)? allTermsError,
-    TResult? Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult? Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult? Function(TermsByCategoryError value)? termsByCategoryError,
-  }) {
-    return recentlyViewedUpdated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
-    TResult Function(AllTermsLoading value)? allTermsLoading,
-    TResult Function(AllTermsLoaded value)? allTermsLoaded,
-    TResult Function(AllTermsError value)? allTermsError,
-    TResult Function(TermsByCategoryLoading value)? termsByCategoryLoading,
-    TResult Function(TermsByCategoryLoaded value)? termsByCategoryLoaded,
-    TResult Function(TermsByCategoryError value)? termsByCategoryError,
-    required TResult orElse(),
-  }) {
-    if (recentlyViewedUpdated != null) {
-      return recentlyViewedUpdated(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class RecentlyViewedUpdated implements TermsState {
-  const factory RecentlyViewedUpdated({final List<TermModel> recentlyViewed}) =
-      _$RecentlyViewedUpdatedImpl;
-
-  List<TermModel> get recentlyViewed;
-
-  /// Create a copy of TermsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RecentlyViewedUpdatedImplCopyWith<_$RecentlyViewedUpdatedImpl>
-  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1355,11 +354,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -1385,10 +379,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -1414,10 +404,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -1447,11 +433,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -1468,10 +449,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -1486,10 +463,6 @@ class _$AllTermsLoadingImpl implements AllTermsLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -1713,11 +686,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -1753,10 +721,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -1792,10 +756,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -1835,11 +795,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -1856,10 +811,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -1874,10 +825,6 @@ class _$AllTermsLoadedImpl implements AllTermsLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -1994,11 +941,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -2024,10 +966,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -2053,10 +991,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -2086,11 +1020,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -2107,10 +1036,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -2125,10 +1050,6 @@ class _$AllTermsErrorImpl implements AllTermsError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -2201,11 +1122,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -2231,10 +1147,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -2260,10 +1172,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -2293,11 +1201,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -2314,10 +1217,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -2332,10 +1231,6 @@ class _$TermsByCategoryLoadingImpl implements TermsByCategoryLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -2437,11 +1332,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -2467,10 +1357,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -2496,10 +1382,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -2529,11 +1411,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -2550,10 +1427,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -2568,10 +1441,6 @@ class _$TermsByCategoryLoadedImpl implements TermsByCategoryLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,
@@ -2675,11 +1544,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() favoritesLoading,
-    required TResult Function(List<int> favoriteIds) favoritesUpdated,
-    required TResult Function(List<TermModel> favorites) favoritesLoaded,
-    required TResult Function(List<TermModel> recentlyViewed)
-    recentlyViewedUpdated,
     required TResult Function() allTermsLoading,
     required TResult Function(
       List<TermModel> terms,
@@ -2705,10 +1569,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? favoritesLoading,
-    TResult? Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult? Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult? Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult? Function()? allTermsLoading,
     TResult? Function(
       List<TermModel> terms,
@@ -2734,10 +1594,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? favoritesLoading,
-    TResult Function(List<int> favoriteIds)? favoritesUpdated,
-    TResult Function(List<TermModel> favorites)? favoritesLoaded,
-    TResult Function(List<TermModel> recentlyViewed)? recentlyViewedUpdated,
     TResult Function()? allTermsLoading,
     TResult Function(
       List<TermModel> terms,
@@ -2767,11 +1623,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TermsInitial value) initial,
-    required TResult Function(FavoritesLoading value) favoritesLoading,
-    required TResult Function(FavoritesUpdated value) favoritesUpdated,
-    required TResult Function(FavoritesLoaded value) favoritesLoaded,
-    required TResult Function(RecentlyViewedUpdated value)
-    recentlyViewedUpdated,
     required TResult Function(AllTermsLoading value) allTermsLoading,
     required TResult Function(AllTermsLoaded value) allTermsLoaded,
     required TResult Function(AllTermsError value) allTermsError,
@@ -2788,10 +1639,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TermsInitial value)? initial,
-    TResult? Function(FavoritesLoading value)? favoritesLoading,
-    TResult? Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult? Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult? Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult? Function(AllTermsLoading value)? allTermsLoading,
     TResult? Function(AllTermsLoaded value)? allTermsLoaded,
     TResult? Function(AllTermsError value)? allTermsError,
@@ -2806,10 +1653,6 @@ class _$TermsByCategoryErrorImpl implements TermsByCategoryError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TermsInitial value)? initial,
-    TResult Function(FavoritesLoading value)? favoritesLoading,
-    TResult Function(FavoritesUpdated value)? favoritesUpdated,
-    TResult Function(FavoritesLoaded value)? favoritesLoaded,
-    TResult Function(RecentlyViewedUpdated value)? recentlyViewedUpdated,
     TResult Function(AllTermsLoading value)? allTermsLoading,
     TResult Function(AllTermsLoaded value)? allTermsLoaded,
     TResult Function(AllTermsError value)? allTermsError,

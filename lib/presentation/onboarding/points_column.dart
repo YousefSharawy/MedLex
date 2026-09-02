@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/resources/assets_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class PointsColumn extends StatelessWidget {
   const PointsColumn({super.key});

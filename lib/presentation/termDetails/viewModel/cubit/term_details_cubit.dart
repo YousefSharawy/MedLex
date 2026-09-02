@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/domain/repository.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/domain/repository.dart';
 
 part 'term_details_state.dart';
 part 'term_details_cubit.freezed.dart';

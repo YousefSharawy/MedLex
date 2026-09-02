@@ -1,4 +1,4 @@
-name: transly
+name: medlex
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.3+13
+version: 1.1.4+14
 
 environment:
   sdk: '>=3.7.2 <4.0.0'
@@ -31,7 +31,7 @@ environment:
 dependencies:
   bloc: ^9.0.0
   cherry_toast: ^1.12.0
-  cloud_firestore: ^6.0.0
+  # cloud_firestore: ^6.0.0
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   easy_localization: ^3.0.7+1
@@ -69,6 +69,13 @@ dependencies:
   flutter_dotenv: ^6.0.0
   crypto: ^3.0.7
   google_mobile_ads: ^7.0.0
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
+  tutorial_coach_mark: ^1.2.11
+  feedback: ^3.2.0
+  flutter_email_sender: ^8.0.0
+  path_provider: ^2.1.5
+  url_launcher: ^6.3.2
 
 
 
@@ -78,6 +85,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.9.5
+
+# path_provider_foundation >=2.5.0 moved to Dart native assets (pulls in
+# `objective_c`), which this Flutter/Xcode setup fails to link on iOS/macOS:
+# "Target native_assets required define SdkRoot but it was not provided".
+# Pinned to the last pre-native-assets release until that's resolved upstream
+# or the toolchain is updated. Remove once native assets work here.
+dependency_overrides:
+  path_provider_foundation: 2.4.4
 
 flutter:
 

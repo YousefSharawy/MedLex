@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/presentation/home/viewModel/cubit/home_cubit.dart';
-import 'package:transly/presentation/search/view/widgets/default_view.dart';
-import 'package:transly/presentation/search/view/widgets/search_results.dart';
-import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
+import 'package:medlex/app/ui_utils.dart';
+import 'package:medlex/cubit/recently_viewed_cubit.dart';
+import 'package:medlex/presentation/home/viewModel/cubit/home_cubit.dart';
+import 'package:medlex/presentation/search/view/widgets/default_view.dart';
+import 'package:medlex/presentation/search/view/widgets/search_results.dart';
+import 'package:medlex/presentation/search/viewModel/cubit/search_cubit.dart';
 
 class SearchView extends StatelessWidget {
   final GlobalKey<dynamic>? searchBarKey;
@@ -42,13 +42,13 @@ class SearchView extends StatelessWidget {
 
         if (state.searchResults != null) {
           if (state.searchResults!.isEmpty) {
-            return UiUtils.emptyWidget(message: 'No results found');
+            return UiUtils.emptyWidget(message: 'No results found',subMessage:  "Try searching with a different keyword or check spelling");
           }
           return SearchResults(terms: state.searchResults!);
         }
 
         return DefaultView(
-          recentlyViewed: context.read<TermsCubit>().recentlyViewed,
+          recentlyViewed: context.read<RecentlyViewedCubit>().recentlyViewed,
           recentlySearched: state.recentlySearched,
           popularTerms: context.read<HomeCubit>().popularTerms,
           trendingTerms: context.read<HomeCubit>().trendingTerms,

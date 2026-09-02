@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class TermSectionHeader extends StatelessWidget {
   const TermSectionHeader({super.key, required this.child, required this.title});

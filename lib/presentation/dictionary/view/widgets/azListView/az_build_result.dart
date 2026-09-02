@@ -1,5 +1,5 @@
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_item.dart';
 
 class AzBuildResult {
   final List<AzItem> items;

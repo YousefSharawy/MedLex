@@ -36,6 +36,8 @@ mixin _$TermModel {
   String? get symptoms => throw _privateConstructorUsedError;
   @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   String? get treatment => throw _privateConstructorUsedError;
+  @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+  String? get differentialDiagnoses => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
   String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'simple_definition')
@@ -44,6 +46,12 @@ mixin _$TermModel {
   String get academicDefinition => throw _privateConstructorUsedError;
   @JsonKey(name: 'category')
   String get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cloudinary_public_id')
+  String? get cloudinaryPublicId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'has_image')
+  bool get hasImage => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  bool get isSaved => throw _privateConstructorUsedError;
 
   /// Serializes this TermModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,10 +77,15 @@ abstract class $TermModelCopyWith<$Res> {
     @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
     @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
     @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
+    @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+    String? differentialDiagnoses,
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'simple_definition') String simpleDefinition,
     @JsonKey(name: 'academic_definition') String academicDefinition,
     @JsonKey(name: 'category') String category,
+    @JsonKey(name: 'cloudinary_public_id') String? cloudinaryPublicId,
+    @JsonKey(name: 'has_image') bool hasImage,
+    @JsonKey(ignore: true) bool isSaved,
   });
 }
 
@@ -99,10 +112,14 @@ class _$TermModelCopyWithImpl<$Res, $Val extends TermModel>
     Object? causes = freezed,
     Object? symptoms = freezed,
     Object? treatment = freezed,
+    Object? differentialDiagnoses = freezed,
     Object? imageUrl = freezed,
     Object? simpleDefinition = null,
     Object? academicDefinition = null,
     Object? category = null,
+    Object? cloudinaryPublicId = freezed,
+    Object? hasImage = null,
+    Object? isSaved = null,
   }) {
     return _then(
       _value.copyWith(
@@ -146,6 +163,11 @@ class _$TermModelCopyWithImpl<$Res, $Val extends TermModel>
                     ? _value.treatment
                     : treatment // ignore: cast_nullable_to_non_nullable
                         as String?,
+            differentialDiagnoses:
+                freezed == differentialDiagnoses
+                    ? _value.differentialDiagnoses
+                    : differentialDiagnoses // ignore: cast_nullable_to_non_nullable
+                        as String?,
             imageUrl:
                 freezed == imageUrl
                     ? _value.imageUrl
@@ -166,6 +188,21 @@ class _$TermModelCopyWithImpl<$Res, $Val extends TermModel>
                     ? _value.category
                     : category // ignore: cast_nullable_to_non_nullable
                         as String,
+            cloudinaryPublicId:
+                freezed == cloudinaryPublicId
+                    ? _value.cloudinaryPublicId
+                    : cloudinaryPublicId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            hasImage:
+                null == hasImage
+                    ? _value.hasImage
+                    : hasImage // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isSaved:
+                null == isSaved
+                    ? _value.isSaved
+                    : isSaved // ignore: cast_nullable_to_non_nullable
+                        as bool,
           )
           as $Val,
     );
@@ -190,10 +227,15 @@ abstract class _$$TermModelImplCopyWith<$Res>
     @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
     @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
     @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
+    @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+    String? differentialDiagnoses,
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'simple_definition') String simpleDefinition,
     @JsonKey(name: 'academic_definition') String academicDefinition,
     @JsonKey(name: 'category') String category,
+    @JsonKey(name: 'cloudinary_public_id') String? cloudinaryPublicId,
+    @JsonKey(name: 'has_image') bool hasImage,
+    @JsonKey(ignore: true) bool isSaved,
   });
 }
 
@@ -219,10 +261,14 @@ class __$$TermModelImplCopyWithImpl<$Res>
     Object? causes = freezed,
     Object? symptoms = freezed,
     Object? treatment = freezed,
+    Object? differentialDiagnoses = freezed,
     Object? imageUrl = freezed,
     Object? simpleDefinition = null,
     Object? academicDefinition = null,
     Object? category = null,
+    Object? cloudinaryPublicId = freezed,
+    Object? hasImage = null,
+    Object? isSaved = null,
   }) {
     return _then(
       _$TermModelImpl(
@@ -266,6 +312,11 @@ class __$$TermModelImplCopyWithImpl<$Res>
                 ? _value.treatment
                 : treatment // ignore: cast_nullable_to_non_nullable
                     as String?,
+        differentialDiagnoses:
+            freezed == differentialDiagnoses
+                ? _value.differentialDiagnoses
+                : differentialDiagnoses // ignore: cast_nullable_to_non_nullable
+                    as String?,
         imageUrl:
             freezed == imageUrl
                 ? _value.imageUrl
@@ -286,6 +337,21 @@ class __$$TermModelImplCopyWithImpl<$Res>
                 ? _value.category
                 : category // ignore: cast_nullable_to_non_nullable
                     as String,
+        cloudinaryPublicId:
+            freezed == cloudinaryPublicId
+                ? _value.cloudinaryPublicId
+                : cloudinaryPublicId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        hasImage:
+            null == hasImage
+                ? _value.hasImage
+                : hasImage // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isSaved:
+            null == isSaved
+                ? _value.isSaved
+                : isSaved // ignore: cast_nullable_to_non_nullable
+                    as bool,
       ),
     );
   }
@@ -303,10 +369,15 @@ class _$TermModelImpl implements _TermModel {
     @JsonKey(name: 'causes', fromJson: _parseStringOrList) this.causes,
     @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) this.symptoms,
     @JsonKey(name: 'treatment', fromJson: _parseStringOrList) this.treatment,
+    @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+    this.differentialDiagnoses,
     @JsonKey(name: 'image_url') this.imageUrl,
     @JsonKey(name: 'simple_definition') this.simpleDefinition = '',
     @JsonKey(name: 'academic_definition') this.academicDefinition = '',
     @JsonKey(name: 'category') this.category = 'General',
+    @JsonKey(name: 'cloudinary_public_id') this.cloudinaryPublicId,
+    @JsonKey(name: 'has_image') this.hasImage = false,
+    @JsonKey(ignore: true) this.isSaved = false,
   });
 
   factory _$TermModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -336,6 +407,9 @@ class _$TermModelImpl implements _TermModel {
   @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   final String? treatment;
   @override
+  @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+  final String? differentialDiagnoses;
+  @override
   @JsonKey(name: 'image_url')
   final String? imageUrl;
   @override
@@ -347,10 +421,19 @@ class _$TermModelImpl implements _TermModel {
   @override
   @JsonKey(name: 'category')
   final String category;
+  @override
+  @JsonKey(name: 'cloudinary_public_id')
+  final String? cloudinaryPublicId;
+  @override
+  @JsonKey(name: 'has_image')
+  final bool hasImage;
+  @override
+  @JsonKey(ignore: true)
+  final bool isSaved;
 
   @override
   String toString() {
-    return 'TermModel(id: $id, latinTerm: $latinTerm, pronunciation: $pronunciation, englishTerm: $englishTerm, englishDefinition: $englishDefinition, causes: $causes, symptoms: $symptoms, treatment: $treatment, imageUrl: $imageUrl, simpleDefinition: $simpleDefinition, academicDefinition: $academicDefinition, category: $category)';
+    return 'TermModel(id: $id, latinTerm: $latinTerm, pronunciation: $pronunciation, englishTerm: $englishTerm, englishDefinition: $englishDefinition, causes: $causes, symptoms: $symptoms, treatment: $treatment, differentialDiagnoses: $differentialDiagnoses, imageUrl: $imageUrl, simpleDefinition: $simpleDefinition, academicDefinition: $academicDefinition, category: $category, cloudinaryPublicId: $cloudinaryPublicId, hasImage: $hasImage, isSaved: $isSaved)';
   }
 
   @override
@@ -372,6 +455,8 @@ class _$TermModelImpl implements _TermModel {
                 other.symptoms == symptoms) &&
             (identical(other.treatment, treatment) ||
                 other.treatment == treatment) &&
+            (identical(other.differentialDiagnoses, differentialDiagnoses) ||
+                other.differentialDiagnoses == differentialDiagnoses) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.simpleDefinition, simpleDefinition) ||
@@ -379,7 +464,12 @@ class _$TermModelImpl implements _TermModel {
             (identical(other.academicDefinition, academicDefinition) ||
                 other.academicDefinition == academicDefinition) &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            (identical(other.cloudinaryPublicId, cloudinaryPublicId) ||
+                other.cloudinaryPublicId == cloudinaryPublicId) &&
+            (identical(other.hasImage, hasImage) ||
+                other.hasImage == hasImage) &&
+            (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -394,10 +484,14 @@ class _$TermModelImpl implements _TermModel {
     causes,
     symptoms,
     treatment,
+    differentialDiagnoses,
     imageUrl,
     simpleDefinition,
     academicDefinition,
     category,
+    cloudinaryPublicId,
+    hasImage,
+    isSaved,
   );
 
   /// Create a copy of TermModel
@@ -426,10 +520,15 @@ abstract class _TermModel implements TermModel {
     final String? symptoms,
     @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
     final String? treatment,
+    @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+    final String? differentialDiagnoses,
     @JsonKey(name: 'image_url') final String? imageUrl,
     @JsonKey(name: 'simple_definition') final String simpleDefinition,
     @JsonKey(name: 'academic_definition') final String academicDefinition,
     @JsonKey(name: 'category') final String category,
+    @JsonKey(name: 'cloudinary_public_id') final String? cloudinaryPublicId,
+    @JsonKey(name: 'has_image') final bool hasImage,
+    @JsonKey(ignore: true) final bool isSaved,
   }) = _$TermModelImpl;
 
   factory _TermModel.fromJson(Map<String, dynamic> json) =
@@ -459,6 +558,9 @@ abstract class _TermModel implements TermModel {
   @JsonKey(name: 'treatment', fromJson: _parseStringOrList)
   String? get treatment;
   @override
+  @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+  String? get differentialDiagnoses;
+  @override
   @JsonKey(name: 'image_url')
   String? get imageUrl;
   @override
@@ -470,6 +572,15 @@ abstract class _TermModel implements TermModel {
   @override
   @JsonKey(name: 'category')
   String get category;
+  @override
+  @JsonKey(name: 'cloudinary_public_id')
+  String? get cloudinaryPublicId;
+  @override
+  @JsonKey(name: 'has_image')
+  bool get hasImage;
+  @override
+  @JsonKey(ignore: true)
+  bool get isSaved;
 
   /// Create a copy of TermModel
   /// with the given fields replaced by the non-null parameter values.

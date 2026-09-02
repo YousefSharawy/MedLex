@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
 
 
 class ZoomHintText extends StatelessWidget {

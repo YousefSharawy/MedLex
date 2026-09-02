@@ -14,10 +14,15 @@ class TermModel with _$TermModel {
     @JsonKey(name: 'causes', fromJson: _parseStringOrList) String? causes,
     @JsonKey(name: 'symptoms', fromJson: _parseStringOrList) String? symptoms,
     @JsonKey(name: 'treatment', fromJson: _parseStringOrList) String? treatment,
+    @JsonKey(name: 'differential_diagnoses', fromJson: _parseStringOrList)
+    String? differentialDiagnoses,
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'simple_definition') @Default('') String simpleDefinition,
     @JsonKey(name: 'academic_definition') @Default('') String academicDefinition,
     @JsonKey(name: 'category') @Default('General') String category,
+    @JsonKey(name: 'cloudinary_public_id') String? cloudinaryPublicId,
+    @JsonKey(name: 'has_image') @Default(false) bool hasImage,
+    @JsonKey(ignore: true) @Default(false) bool isSaved,
   }) = _TermModel;
 
   factory TermModel.fromJson(Map<String, dynamic> json) => _$TermModelFromJson(json);

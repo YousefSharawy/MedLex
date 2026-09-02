@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/dictionary/view/widgets/category_chip_list.dart';
-import 'package:transly/presentation/dictionary/view/widgets/dictionary_header.dart';
-import 'package:transly/presentation/dictionary/view/widgets/terms_content_view.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/search/view/search_view.dart';
-import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
-import 'package:transly/presentation/search/viewModel/cubit/search_cubit.dart';
+import 'package:medlex/cubit/terms_cubit.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/dictionary_animated_body.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/dictionary_content.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/dictionary_header.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'package:medlex/presentation/search/viewModel/cubit/navigation_cubit.dart';
+import 'package:medlex/presentation/search/viewModel/cubit/search_cubit.dart';
+import 'package:medlex/presentation/base/primary_teal_scaffold.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({super.key});
@@ -85,7 +84,6 @@ class _DictionaryViewState extends State<DictionaryView>
           loaded: (prevCurrent, prevPrevious) {
             return current.maybeWhen(
               loaded: (currCurrent, currPrevious) {
-                // User navigated away from dictionary (index 1) and came back
                 return prevCurrent != 1 && currCurrent == 1;
               },
               orElse: () => false,
@@ -95,11 +93,9 @@ class _DictionaryViewState extends State<DictionaryView>
         );
       },
       listener: (context, state) {
-        // Refresh data when user returns to dictionary tab
         _resetState();
       },
-      child: PrimaryScaffold(
-        
+      child: PrimaryTealScaffold(
         body: SafeArea(
           bottom: false,
           child: Column(
@@ -112,60 +108,20 @@ class _DictionaryViewState extends State<DictionaryView>
                 onSearchClose: _onSearchClose,
               ),
               SizedBox(height: AppHeight.s12),
-              Expanded(child: _buildAnimatedBody()),
+              Expanded(
+                child: DictionaryAnimatedBody(
+                  isSearching: _isSearching,
+                  searchEverOpened: _searchEverOpened,
+                  dictionaryContent: DictionaryContent(
+                    selectedCategory: _selectedCategory,
+                    onCategorySelected: _onCategorySelected,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildAnimatedBody() {
-    const duration = Duration(milliseconds: 300);
-    return Stack(
-      children: [
-        AnimatedOpacity(
-          duration: duration,
-          opacity: _isSearching ? 0.0 : 1.0,
-          child: IgnorePointer(
-            ignoring: _isSearching,
-            child: _buildDictionaryContent(),
-          ),
-        ),
-        // Search overlay
-        if (_searchEverOpened)
-          AnimatedOpacity(
-            duration: duration,
-            opacity: _isSearching ? 1.0 : 0.0,
-            child: IgnorePointer(
-              ignoring: !_isSearching,
-              child: RepaintBoundary(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
-                  child: const SearchView(),
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildDictionaryContent() {
-    return Column(
-      children: [
-        // Category filter chips
-        CategoryChipsList(
-          selectedCategory: _selectedCategory,
-          onCategorySelected: _onCategorySelected,
-        ),
-        SizedBox(height: AppHeight.s12),
-        Expanded(
-          child: TermsContentView(
-            selectedCategory: _selectedCategory,
-          ),
-        ),
-      ],
     );
   }
 }

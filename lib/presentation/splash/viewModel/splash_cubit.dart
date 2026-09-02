@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/app/local_storage.dart';
+import 'package:medlex/app/local_storage.dart';
 
-import '../../resources/constants_manager.dart';
-import '../../resources/routes.dart';
+import '../../../app/resources/constants_manager.dart';
+import '../../../app/resources/routes.dart';
 
 part 'splash_state.dart';
 part 'splash_cubit.freezed.dart';

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/termDetails/view/widgets/mode_toggle.dart';
-import 'package:transly/presentation/termDetails/view/widgets/term_content_sections.dart';
-import 'package:transly/presentation/termDetails/view/widgets/term_details_app_bar.dart';
-import 'package:transly/presentation/termDetails/view/widgets/term_title_row.dart';
-import 'package:transly/presentation/termDetails/view/widgets/zoom_hint_text.dart';
-import 'package:transly/presentation/termDetails/view/widgets/zoom_image_card.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'package:medlex/presentation/termDetails/view/widgets/term_details_app_bar.dart';
+import 'package:medlex/presentation/termDetails/view/widgets/term_details_body.dart';
+import 'package:medlex/presentation/base/primary_teal_scaffold.dart';
 
 class TermDetailsView extends StatefulWidget {
   final TermModel term;
@@ -21,9 +16,8 @@ class TermDetailsView extends StatefulWidget {
 
 class _TermDetailsViewState extends State<TermDetailsView>
     with SingleTickerProviderStateMixin {
- 
-  bool _isSimpleMode = true;
 
+  bool _isSimpleMode = true;
   double _currentScale = 1.0;
 
   final TransformationController _transformController =
@@ -60,11 +54,11 @@ class _TermDetailsViewState extends State<TermDetailsView>
     final position = details.localPosition;
     final targetScale = 2.5.sp;
     final translateMultiplier = 1.5.sp;
-    
+
     final Matrix4 endMatrix =
         _transformController.value != Matrix4.identity()
-              ? Matrix4.identity()
-              : Matrix4.identity()
+            ? Matrix4.identity()
+            : Matrix4.identity()
           ..translate(-position.dx * translateMultiplier, -position.dy * translateMultiplier)
           ..scale(targetScale);
 
@@ -93,70 +87,24 @@ class _TermDetailsViewState extends State<TermDetailsView>
     _animateZoom(Matrix4.identity());
   }
 
-  Widget _buildImageContent() {
-    final imageUrl = widget.term.imageUrl;
-
-    if (imageUrl == null || imageUrl.isEmpty) {
-      return UiUtils.zoomCardNoImagePlaceholder();
-    }
-
-    return InteractiveViewer(
-      transformationController: _transformController,
-      minScale: 0.8.sp,
-      maxScale: 5.0.sp,
-      onInteractionStart: (details) {
-        if (_zoomAnimationController.isAnimating) {
-          _zoomAnimationController.stop();
-        }
-      },
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) => UiUtils.zoomCardNoImagePlaceholder(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return PrimaryScaffold(
+    return PrimaryTealScaffold(
       body: SafeArea(
         child: Column(
           children: [
             TermDetailsAppBar(term: widget.term),
             SizedBox(height: AppHeight.s22),
             Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.s16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onDoubleTapDown: _handleDoubleTap,
-                      child: ZoomImageCard(
-                        currentScale: _currentScale,
-                        onResetZoom: _resetZoom,
-                        child: _buildImageContent(),
-                      ),
-                    ),
-                    SizedBox(height: AppHeight.s4),
-                    ZoomHintText(currentScale: _currentScale),
-                    SizedBox(height: AppHeight.s19),
-                    TermTitleRow(term: widget.term),
-                    SizedBox(height: AppHeight.s15),
-                    ModeToggle(
-                      isSimpleMode: _isSimpleMode,
-                      onToggle:
-                          (value) => setState(() => _isSimpleMode = value),
-                    ),
-                    SizedBox(height: AppHeight.s15),
-                    TermContentSections(
-                      term: widget.term,
-                      isSimpleMode: _isSimpleMode,
-                    ),
-                    SizedBox(height: AppHeight.s80),
-                  ],
-                ),
+              child: TermDetailsBody(
+                term: widget.term,
+                isSimpleMode: _isSimpleMode,
+                currentScale: _currentScale,
+                transformController: _transformController,
+                zoomAnimationController: _zoomAnimationController,
+                onDoubleTapDown: _handleDoubleTap,
+                onResetZoom: _resetZoom,
+                onModeToggle: (value) => setState(() => _isSimpleMode = value),
               ),
             ),
           ],

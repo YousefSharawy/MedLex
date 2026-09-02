@@ -1,12 +1,12 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:transly/app/adds/viewModel/ad_view_model.dart';
-import 'package:transly/app/adds/cubit/ad_cubit.dart';
-import 'package:transly/app/di.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/adds/viewModel/ad_view_model.dart';
+import 'package:medlex/app/adds/cubit/ad_cubit.dart';
+import 'package:medlex/app/di.dart';
+import 'package:medlex/app/widgets/custom_loading_indicator.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class BannerAdWidget extends StatelessWidget {
   const BannerAdWidget({super.key});
@@ -21,7 +21,7 @@ class BannerAdWidget extends StatelessWidget {
             initial: () => const SizedBox.shrink(),
             loading: () => SizedBox(
               height: AppHeight.s50,
-              child: const Center(child: CircularProgressIndicator()),
+              child: const Center(child: CustomLoadingIndicator()),
             ),
             loaded: (bannerAd) => SizedBox(
               width: bannerAd.size.width.toDouble(),

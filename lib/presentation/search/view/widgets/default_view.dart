@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/base/primary_widgets.dart';
-import 'package:transly/presentation/home/view/widgets/recently_view_item.dart';
-import 'package:transly/presentation/home/view/widgets/section_header.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/routes.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
-import 'package:transly/presentation/search/view/widgets/recently_searched_item.dart';
-import 'package:transly/presentation/search/view/widgets/search_helper.dart';
-import 'package:transly/presentation/search/view/widgets/trending_search_item.dart';
+import 'package:medlex/app/widgets/term_item.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/presentation/base/primary_elevated_button.dart';
+import 'package:medlex/presentation/home/view/widgets/section_header.dart';
+import 'package:medlex/app/resources/assets_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'package:medlex/presentation/search/view/widgets/recently_searched_item.dart';
+import 'package:medlex/presentation/search/view/widgets/search_helper.dart';
+import 'package:medlex/presentation/search/view/widgets/trending_search_item.dart';
+import 'package:medlex/presentation/search/view/widgets/place_holder_item.dart';
+import 'package:medlex/presentation/search/view/widgets/empty_hint.dart';
+import 'package:medlex/presentation/search/view/widgets/clear_recently_searched_dialog.dart';
 
 class DefaultView extends StatelessWidget {
   const DefaultView({
@@ -47,7 +46,7 @@ class DefaultView extends StatelessWidget {
               ),
               if (recentlySearched.isNotEmpty)
                 PrimaryElevatedButton(
-                  borderColor: ColorManager.primary,
+                  borderColor: ColorManager.primaryTeal,
                   width: AppWidth.s10,
                   height: AppHeight.s10,
                   buttonRadius: AppRadius.s32,
@@ -57,7 +56,7 @@ class DefaultView extends StatelessWidget {
                   },
                   backGroundColor: ColorManager.white,
                   textStyle: getBoldStyle(
-                    color: ColorManager.primary,
+                    color: ColorManager.primaryTeal,
                     fontSize: FontSize.s22,
                   ),
                 ),
@@ -76,7 +75,7 @@ class DefaultView extends StatelessWidget {
                   return RecentlySearchedItem(
                     label: recentlySearched[index],
                     onTap: () {
-                      handleSearchItemClick(context, recentlySearched[index]);
+                      activateSearchTerm(context, recentlySearched[index]);
                     },
                   );
                 },
@@ -111,7 +110,7 @@ class DefaultView extends StatelessWidget {
                   return TrendingSearchItem(
                     label: text,
                     onTap: () {
-                      handleSearchItemClick(context, text);
+                      activateSearchTerm(context, text);
                     },
                   );
                 },
@@ -147,12 +146,8 @@ class DefaultView extends StatelessWidget {
   }
 
   Widget Function(TermModel) _buildTermItem(BuildContext context) {
-    return (term) => RecentlyViewedItem(
+    return (term) => TermItem(
       term: term,
-      onTap: () {
-        context.read<TermsCubit>().addToRecentlyViewed(term);
-        context.push(Routes.termDetails, extra: term);
-      },
     );
   }
 }

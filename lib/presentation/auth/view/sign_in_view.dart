@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/presentation/auth/viewModel/cubit/auth_cubit.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/presentation/auth/viewModel/cubit/auth_cubit.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 import 'google_sign_in_button.dart';
 import 'error_message.dart';
 import 'terms_text.dart';
@@ -44,7 +44,7 @@ class SignInView extends StatelessWidget {
                 child: Icon(
                   Icons.person_outline_rounded,
                   size: 30.sp,
-                  color: ColorManager.primary,
+                  color: ColorManager.primaryTeal,
                 ),
               ),
               SizedBox(height: AppHeight.s20),

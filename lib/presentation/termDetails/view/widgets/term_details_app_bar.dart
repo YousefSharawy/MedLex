@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'bookmark_button.dart';
 
 class TermDetailsAppBar extends StatelessWidget {
-  TermDetailsAppBar({required this.term, super.key});
-  TermModel term;
+  const TermDetailsAppBar({required this.term, super.key});
+  final TermModel term;
 
   @override
   Widget build(BuildContext context) {
@@ -21,37 +19,9 @@ class TermDetailsAppBar extends StatelessWidget {
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.chevron_left, color: Colors.black87, size: 24.sp),
           ),
-          BookmarButton(term: term),
+          BookmarkButton(term: term),
         ],
       ),
-    );
-    ;
-  }
-}
-
-class BookmarButton extends StatelessWidget {
-  BookmarButton({required this.term, super.key});
-  TermModel term;
-  @override
-  Widget build(BuildContext context) {
-    return BlocSelector<TermsCubit, TermsState, bool>(
-      selector: (state) {
-        if (state is FavoritesUpdated) {
-          return state.favoriteIds.contains(term.id);
-        }
-        return context.read<TermsCubit>().isFavorite(term.id);
-      },
-      builder: (context, isFavorite) {
-        return GestureDetector(
-          onTap: () => context.read<TermsCubit>().toggleFavorite(term),
-          child: Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Image.asset(
-              isFavorite ? IconAssets.bookmarkActive : IconAssets.bookmark,
-            ),
-          ),
-        );
-      },
     );
   }
 }

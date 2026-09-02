@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
 
 class TermsText extends StatelessWidget {
   const TermsText({super.key});
@@ -18,12 +18,12 @@ class TermsText extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Terms',
-            style: getBoldStyle(color: ColorManager.primary),
+            style: getBoldStyle(color: ColorManager.primaryTeal),
           ),
           const TextSpan(text: ' and '),
           TextSpan(
             text: 'Privacy Policy',
-            style: getBoldStyle(color: ColorManager.primary),
+            style: getBoldStyle(color: ColorManager.primaryTeal),
           ),
         ],
       ),

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:transly/app/local_storage.dart';
-import 'package:transly/presentation/base/primary_widgets.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/routes.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
-import '../../resources/assets_manager.dart';
-import '../../resources/font_manager.dart';
+import 'package:medlex/app/local_storage.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/routes.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'package:medlex/presentation/base/primary_elevated_button.dart';
+import '../../../app/resources/assets_manager.dart';
+import '../../../app/resources/font_manager.dart';
 import '../viewModel/splash_cubit.dart';
 
 class SplashView extends StatefulWidget {
@@ -348,7 +348,7 @@ class _SplashViewState extends State<SplashView>
                               textStyle: getBoldStyle(
                                 fontSize: FontSize.s14,
                                 fontFamily: FontConstants.interFamily,
-                                color: ColorManager.primary,
+                                color: ColorManager.primaryTeal,
                               ),
                               onPress: _onContinuePressed,
                             ),

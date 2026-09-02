@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:transly/app/di.dart';
-import 'package:transly/app/tts_service.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/di.dart';
+import 'package:medlex/app/tts_service.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/app/resources/assets_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 /// The term name row (with optional TTS button + category badge)
 /// followed by the pronunciation line.
+import 'category_badge.dart';
+
 class TermTitleRow extends StatelessWidget {
   const TermTitleRow({super.key, required this.term});
 
@@ -45,7 +47,7 @@ class TermTitleRow extends StatelessWidget {
               ),
             SizedBox(width: AppWidth.s8),
             const Spacer(),
-            _CategoryBadge(category: term.category),
+            CategoryBadge(category: term.category),
           ],
         ),
         if (term.pronunciation.isNotEmpty) ...[
@@ -60,34 +62,6 @@ class TermTitleRow extends StatelessWidget {
           ),
         ],
       ],
-    );
-  }
-}
-
-class _CategoryBadge extends StatelessWidget {
-  const _CategoryBadge({super.key, required this.category});
-
-  final String category;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppWidth.s10,
-        vertical: AppHeight.s7,
-      ),
-      decoration: BoxDecoration(
-        color: ColorManager.tealSoft,
-        borderRadius: BorderRadius.circular(AppRadius.s32),
-      ),
-      child: Text(
-        category,
-        style: getRegularStyle(
-          fontSize: FontSize.s12,
-          fontFamily: FontConstants.interFamily,
-          color: ColorManager.primaryText,
-        ),
-      ),
     );
   }
 }

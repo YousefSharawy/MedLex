@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:transly/app/local_storage.dart';
-import 'package:transly/presentation/base/components.dart';
-import 'package:transly/presentation/base/primary_widgets.dart';
-import 'package:transly/presentation/onboarding/points_column.dart';
-import 'package:transly/presentation/resources/assets_manager.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/routes.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/local_storage.dart';
+import 'package:medlex/presentation/base/primary_elevated_button.dart';
+import 'package:medlex/presentation/onboarding/points_column.dart';
+import 'package:medlex/app/resources/assets_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/routes.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
+import 'package:medlex/presentation/base/primary_teal_scaffold.dart';
 
 class OnBoardingView extends StatelessWidget {
   const OnBoardingView({super.key});
@@ -35,7 +35,7 @@ class OnBoardingView extends StatelessWidget {
           colors: [ColorManager.splashGradiant1, ColorManager.splashGradiant2],
         ),
       ),
-      child: PrimaryScaffold(
+      child: PrimaryTealScaffold(
         backgroundColor: ColorManager.trasnparent,
         appBar: AppBar(
           backgroundColor: ColorManager.trasnparent,
@@ -85,7 +85,7 @@ class OnBoardingView extends StatelessWidget {
               textStyle: getBoldStyle(
                 fontSize: FontSize.s14,
                 fontFamily: FontConstants.interFamily,
-                color: ColorManager.primary,
+                color: ColorManager.primaryTeal,
               ),
               onPress: () => _onNextPressed(context),
             ),

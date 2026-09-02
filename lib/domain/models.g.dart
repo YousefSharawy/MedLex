@@ -16,10 +16,13 @@ _$TermModelImpl _$$TermModelImplFromJson(Map<String, dynamic> json) =>
       causes: _parseStringOrList(json['causes']),
       symptoms: _parseStringOrList(json['symptoms']),
       treatment: _parseStringOrList(json['treatment']),
+      differentialDiagnoses: _parseStringOrList(json['differential_diagnoses']),
       imageUrl: json['image_url'] as String?,
       simpleDefinition: json['simple_definition'] as String? ?? '',
       academicDefinition: json['academic_definition'] as String? ?? '',
       category: json['category'] as String? ?? 'General',
+      cloudinaryPublicId: json['cloudinary_public_id'] as String?,
+      hasImage: json['has_image'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$TermModelImplToJson(_$TermModelImpl instance) =>
@@ -32,10 +35,13 @@ Map<String, dynamic> _$$TermModelImplToJson(_$TermModelImpl instance) =>
       'causes': instance.causes,
       'symptoms': instance.symptoms,
       'treatment': instance.treatment,
+      'differential_diagnoses': instance.differentialDiagnoses,
       'image_url': instance.imageUrl,
       'simple_definition': instance.simpleDefinition,
       'academic_definition': instance.academicDefinition,
       'category': instance.category,
+      'cloudinary_public_id': instance.cloudinaryPublicId,
+      'has_image': instance.hasImage,
     };
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_item.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/letter_header.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/term_tile.dart';
+import 'package:medlex/app/ui_utils.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_item.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/letter_header.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/term_tile.dart';
 
 class AzListItem extends StatelessWidget {
   final AzItem item;

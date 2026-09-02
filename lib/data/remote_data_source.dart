@@ -1,8 +1,9 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:transly/domain/models.dart';
+import 'package:medlex/domain/models.dart';
 import 'error_handler.dart';
 
 abstract class RemoteDataSource {
@@ -14,6 +15,8 @@ abstract class RemoteDataSource {
   Future<List<TermModel>> getAllTerms({int page = 0, int pageSize = 20});
   Future<int> getTotalTermsCount();
   Future<List<TermModel>> getDailyTrendingTerms();
+  Future<List<TermModel>> getRandomTerms(int count);
+  Future<List<TermModel>> getTermsByIds(List<int> ids);
 
   // ── Auth ──
   User? get currentUser;
@@ -34,12 +37,13 @@ abstract class RemoteDataSource {
   Future<void> addFavorite(String userId, int termId);
   Future<void> removeFavorite(String userId, int termId);
   Future<void> syncFavorites(String userId, List<int> termIds);
+  Future<void> removeAllFavorites();
+
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final SupabaseClient _supabase;
   static const String _tableName = 'definitions';
-  static const String _usersTable = 'users';
   static const String _favoritesTable = 'user_favorites';
 
   const RemoteDataSourceImpl({required SupabaseClient supabase})
@@ -62,7 +66,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       final count = countResponse.count;
       if (count == 0) {
-        throw ErrorHandler.handle(Exception('No terms found')).failture;
+        throw ErrorHandler.handle(Exception('No terms found')).failure;
       }
 
       final dailyOffset = seed % count;
@@ -74,7 +78,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return TermModel.fromJson(response.first);
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -98,7 +102,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .map<TermModel>((json) => TermModel.fromJson(json))
           .toList();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -114,7 +118,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .map<TermModel>((json) => TermModel.fromJson(json))
           .toList();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -126,7 +130,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return TermModel.fromJson(response);
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -146,7 +150,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .map<TermModel>((json) => TermModel.fromJson(json))
           .toList();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -160,7 +164,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return response.count;
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -189,7 +193,50 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .map<TermModel>((json) => TermModel.fromJson(json))
           .toList();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
+    }
+  }
+
+  @override
+  Future<List<TermModel>> getRandomTerms(int count) async {
+    try {
+      final totalResp = await _supabase
+          .from(_tableName)
+          .select('id')
+          .count(CountOption.exact);
+      final total = totalResp.count;
+      if (total == 0) return [];
+
+      final randomPage = Random().nextInt((total / count).ceil().clamp(1, 100));
+      final start = randomPage * count;
+      final end = start + count - 1;
+
+      final response = await _supabase
+          .from(_tableName)
+          .select()
+          .range(start, end.clamp(0, total - 1));
+
+      return response
+          .map<TermModel>((json) => TermModel.fromJson(json))
+          .toList();
+    } catch (error) {
+      throw ErrorHandler.handle(error).failure;
+    }
+  }
+
+  @override
+  Future<List<TermModel>> getTermsByIds(List<int> ids) async {
+    try {
+      if (ids.isEmpty) return [];
+      final response = await _supabase
+          .from(_tableName)
+          .select()
+          .inFilter('id', ids);
+      return response
+          .map<TermModel>((json) => TermModel.fromJson(json))
+          .toList();
+    } catch (error) {
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -221,84 +268,86 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       }
       return user;
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
+
   @override
-Future<User> signInWithGoogle() async {
-  try {
-    final webClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID'] ?? '';
-    final androidClientId = dotenv.env['GOOGLE_ANDROID_CLIENT_ID'] ?? '';
-    final iosClientId = dotenv.env['GOOGLE_IOS_CLIENT_ID'] ?? '';
-
-    String? clientId;
-    if (Platform.isIOS) {
-      clientId = iosClientId;
-    } else if (Platform.isAndroid) {
-      clientId = androidClientId;
-    }
-
-    final anonUser = currentUser;
-    final anonUserId = (anonUser?.isAnonymous ?? false) ? anonUser!.id : null;
-
-    final signIn = GoogleSignIn.instance;
-    await signIn.initialize(clientId: clientId, serverClientId: webClientId);
-
-    final googleAccount = await signIn.authenticate();
-
-    final googleAuth = googleAccount.authentication;
-    final idToken = googleAuth.idToken;
-
-    if (idToken == null) {
-      throw Exception('Google sign-in failed: no ID token');
-    }
-
-    String? accessToken;
+  Future<User> signInWithGoogle() async {
     try {
-      final authResult = await googleAccount.authorizationClient
-          .authorizationForScopes(['email']);
-      accessToken = authResult?.accessToken;
-    } catch (_) {}
+      final webClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID'] ?? '';
+      final androidClientId = dotenv.env['GOOGLE_ANDROID_CLIENT_ID'] ?? '';
+      final iosClientId = dotenv.env['GOOGLE_IOS_CLIENT_ID'] ?? '';
 
-    final response = await _supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      accessToken: accessToken,
-    );
-    await _supabase.auth.refreshSession(); 
+      String? clientId;
+      if (Platform.isIOS) {
+        clientId = iosClientId;
+      } else if (Platform.isAndroid) {
+        clientId = androidClientId;
+      }
 
+      final anonUser = currentUser;
+      final anonUserId = (anonUser?.isAnonymous ?? false) ? anonUser!.id : null;
 
-    final user = response.user;
-    if (user == null) {
-      throw Exception('Supabase sign-in failed: no user returned');
+      final signIn = GoogleSignIn.instance;
+      await signIn.initialize(clientId: clientId, serverClientId: webClientId);
+
+      final googleAccount = await signIn.authenticate();
+
+      final googleAuth = googleAccount.authentication;
+      final idToken = googleAuth.idToken;
+
+      if (idToken == null) {
+        throw Exception('Google sign-in failed: no ID token');
+      }
+
+      String? accessToken;
+      try {
+        final authResult = await googleAccount.authorizationClient
+            .authorizationForScopes(['email']);
+        accessToken = authResult?.accessToken;
+      } catch (_) {}
+
+      final response = await _supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+      await _supabase.auth.refreshSession();
+
+      final user = response.user;
+      if (user == null) {
+        throw Exception('Supabase sign-in failed: no user returned');
+      }
+
+      try {
+        await ensureUserExists(
+          user.id,
+          email: user.email,
+          displayName: googleAccount.displayName,
+          photoUrl: googleAccount.photoUrl,
+        );
+      } catch (_) {}
+
+      if (anonUserId != null && anonUserId != user.id) {
+        await _migrateAnonymousData(anonUserId, user.id);
+      }
+
+      return user;
+    } catch (error) {
+      throw ErrorHandler.handle(error).failure;
     }
+  }
 
+  Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
     try {
-      await ensureUserExists(
-        user.id,
-        email: user.email,
-        displayName: googleAccount.displayName,
-        photoUrl: googleAccount.photoUrl,
+      await _supabase.rpc(
+        'migrate_anonymous_user',
+        params: {'anon_id': fromUserId, 'google_id': toUserId},
       );
     } catch (_) {}
-
-    if (anonUserId != null && anonUserId != user.id) {
-      await _migrateAnonymousData(anonUserId, user.id);
-    }
-
-    return user;
-  } catch (error) {
-    throw ErrorHandler.handle(error).failture;
   }
-}
-Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
-  try {
-    await _supabase.rpc('migrate_anonymous_user', params: {
-      'anon_id': fromUserId,
-      'google_id': toUserId,
-    });
-  } catch (_) {}
-}
+
   @override
   Future<void> signOut() async {
     try {
@@ -309,14 +358,13 @@ Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
 
       await _supabase.auth.signOut();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
   // =========================================================================
   // USER FAVORITES (REMOTE SYNC)
   // =========================================================================
-
   @override
   Future<void> ensureUserExists(
     String userId, {
@@ -325,14 +373,14 @@ Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
     String? photoUrl,
   }) async {
     try {
-      await _supabase.from(_usersTable).upsert({
-        'id': userId,
-        if (email != null) 'email': email,
-        if (displayName != null) 'display_name': displayName,
-        if (photoUrl != null) 'photo_url': photoUrl,
-      }, onConflict: 'id');
+      await _supabase.rpc('ensure_user_exists', params: {
+        'p_id': userId,
+        'p_email': email?.isNotEmpty == true ? email : null,
+        'p_display_name': displayName?.isNotEmpty == true ? displayName : null,
+        'p_photo_url': photoUrl?.isNotEmpty == true ? photoUrl : null,
+      });
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -347,7 +395,7 @@ Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
 
       return response.map<int>((row) => row['term_id'] as int).toList();
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -359,7 +407,7 @@ Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
         'term_id': termId,
       }, onConflict: 'user_id,term_id');
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
@@ -372,28 +420,34 @@ Future<void> _migrateAnonymousData(String fromUserId, String toUserId) async {
           .eq('user_id', userId)
           .eq('term_id', termId);
     } catch (error) {
-      throw ErrorHandler.handle(error).failture;
+      throw ErrorHandler.handle(error).failure;
     }
   }
 
   @override
-Future<void> syncFavorites(String userId, List<int> termIds) async {
-  try {
-    if (termIds.isEmpty) return;
-    
-    
-    // Use upsert to handle duplicates gracefully
-    final rows = termIds.map((id) => {
-      'user_id': userId,
-      'term_id': id,
-    }).toList();
-    
-    await _supabase
-        .from(_favoritesTable)
-        .upsert(rows, onConflict: 'user_id,term_id');
-    
-  } catch (error) {
-    throw ErrorHandler.handle(error).failture;
+  Future<void> syncFavorites(String userId, List<int> termIds) async {
+    try {
+      if (termIds.isEmpty) return;
+
+      final rows =
+          termIds.map((id) => {'user_id': userId, 'term_id': id}).toList();
+
+      await _supabase
+          .from(_favoritesTable)
+          .upsert(rows, onConflict: 'user_id,term_id');
+    } catch (error) {
+      throw ErrorHandler.handle(error).failure;
+    }
   }
-}
+
+  @override
+  Future<void> removeAllFavorites() async {
+    try {
+      final userId = currentUser?.id;
+      if (userId == null) return;
+      await _supabase.from(_favoritesTable).delete().eq('user_id', userId);
+    } catch (error) {
+      throw ErrorHandler.handle(error).failure;
+    }
+  }
 }

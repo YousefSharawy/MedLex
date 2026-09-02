@@ -3,65 +3,65 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'failture.dart';
+import 'failure.dart';
 
 class ErrorHandler implements Exception {
-  late Failture failture;
+  late Failure failure;
   
   ErrorHandler.handle(dynamic error) {
     if (error is AuthException) {
-      failture = _handleSupabaseAuthError(error);
+      failure = _handleSupabaseAuthError(error);
     } else if (error is PostgrestException) {
-      failture = _handleSupabasePostgrestError(error);
+      failure = _handleSupabasePostgrestError(error);
     } else if (error is StorageException) {
-      failture = _handleSupabaseStorageError(error);
+      failure = _handleSupabaseStorageError(error);
     } else {
-      failture = DataSource.unknown.toFailture();
+      failure = DataSource.unknown.toFailure();
     }
     
     if (!kReleaseMode) {
       log("<-------> \n ${error.toString()} \n <------->");
-      log("<====> ${failture.code} : ${failture.message} <====>");
+      log("<====> ${failure.code} : ${failure.message} <====>");
     }
   }
 
-  Failture _handleSupabaseAuthError(AuthException error) {
+  Failure _handleSupabaseAuthError(AuthException error) {
     switch (error.statusCode) {
       case '400':
         if (error.message.contains('Invalid login credentials') ||
             error.message.contains('Email not confirmed')) {
-          return DataSource.unautorised.toFailture();
+          return DataSource.unautorised.toFailure();
         }
-        return DataSource.badRequest.toFailture();
+        return DataSource.badRequest.toFailure();
       case '422':
-        return DataSource.badRequest.toFailture();
+        return DataSource.badRequest.toFailure();
       case '429':
-        return DataSource.recieveTimeOut.toFailture();
+        return DataSource.recieveTimeOut.toFailure();
       default:
-        return DataSource.unknown.toFailture();
+        return DataSource.unknown.toFailure();
     }
   }
 
-  Failture _handleSupabasePostgrestError(PostgrestException error) {
+  Failure _handleSupabasePostgrestError(PostgrestException error) {
     if (error.message.contains('JWT')) {
-      return DataSource.unautorised.toFailture();
+      return DataSource.unautorised.toFailure();
     }
     
     switch (error.code) {
       case '42501': // insufficient_privilege
-        return DataSource.forbidden.toFailture();
+        return DataSource.forbidden.toFailure();
       case 'PGRST301': // JWT expired
-        return DataSource.unautorised.toFailture();
+        return DataSource.unautorised.toFailure();
       default:
-        return DataSource.unknown.toFailture();
+        return DataSource.unknown.toFailure();
     }
   }
 
-  Failture _handleSupabaseStorageError(StorageException error) {
+  Failure _handleSupabaseStorageError(StorageException error) {
     if (error.message.contains('not allowed')) {
-      return DataSource.forbidden.toFailture();
+      return DataSource.forbidden.toFailure();
     }
-    return DataSource.unknown.toFailture();
+    return DataSource.unknown.toFailure();
   }
 }
 
@@ -83,46 +83,46 @@ enum DataSource {
 }
 
 extension DataSourceExtention on DataSource {
-  Failture toFailture() {
+  Failure toFailure() {
     switch (this) {
       case DataSource.success:
-        return Failture(ResponseCode.success, ResponseMessage.success);
+        return Failure(ResponseCode.success, ResponseMessage.success);
       case DataSource.noContent:
-        return Failture(ResponseCode.noContent, ResponseMessage.noContent);
+        return Failure(ResponseCode.noContent, ResponseMessage.noContent);
       case DataSource.badRequest:
-        return Failture(ResponseCode.badRequest, ResponseMessage.badRequest);
+        return Failure(ResponseCode.badRequest, ResponseMessage.badRequest);
       case DataSource.forbidden:
-        return Failture(ResponseCode.forbidden, ResponseMessage.forbidden);
+        return Failure(ResponseCode.forbidden, ResponseMessage.forbidden);
       case DataSource.unautorised:
-        return Failture(ResponseCode.unautorised, ResponseMessage.unautorised);
+        return Failure(ResponseCode.unautorised, ResponseMessage.unautorised);
       case DataSource.notFound:
-        return Failture(ResponseCode.notFound, ResponseMessage.notFound);
+        return Failure(ResponseCode.notFound, ResponseMessage.notFound);
       case DataSource.internalServerError:
-        return Failture(
+        return Failure(
           ResponseCode.internalServerError,
           ResponseMessage.internalServerError,
         );
       case DataSource.recieveTimeOut:
-        return Failture(
+        return Failure(
           ResponseCode.recieveTimeOut,
           ResponseMessage.recieveTimeOut,
         );
       case DataSource.cacheError:
-        return Failture(ResponseCode.cacheError, ResponseMessage.cacheError);
+        return Failure(ResponseCode.cacheError, ResponseMessage.cacheError);
       case DataSource.noInternetConnection:
-        return Failture(
+        return Failure(
           ResponseCode.noInternetConnection,
           ResponseMessage.noInternetConnection,
         );
       case DataSource.unknown:
-        return Failture(ResponseCode.unknown, ResponseMessage.unknown);
+        return Failure(ResponseCode.unknown, ResponseMessage.unknown);
       case DataSource.connectionTimeout:
-        return Failture(
+        return Failure(
           ResponseCode.connectionTimeout,
           ResponseMessage.connectionTimeout,
         );
       case DataSource.cancel:
-        return Failture(ResponseCode.cancel, ResponseMessage.cancel);
+        return Failure(ResponseCode.cancel, ResponseMessage.cancel);
     }
   }
 }
@@ -164,5 +164,5 @@ class ResponseMessage {
 
 class ApiInternalState {
   static const success = true;
-  static const failture = false;
+  static const failure = false;
 }

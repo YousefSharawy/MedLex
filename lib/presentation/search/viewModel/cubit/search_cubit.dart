@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/app/local_storage.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/domain/repository.dart';
+import 'package:medlex/app/local_storage.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/domain/repository.dart';
 
 part 'search_state.dart';
 part 'search_cubit.freezed.dart';
@@ -15,6 +15,12 @@ class SearchCubit extends Cubit<SearchState> {
   bool _isSearchLoading = false;
   String? _searchError;
   String? _pendingSearchText;
+
+  /// Guards against out-of-order responses: only the most recent request is
+  /// allowed to publish its results. Without it a slow earlier query can land
+  /// after a faster later one and overwrite it, showing results that do not
+  /// match what is in the search field.
+  int _searchRequestToken = 0;
 
   // Recently Searched
   List<String> _recentlySearched = [];
@@ -84,6 +90,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> searchTerms(String query) async {
     final trimmedQuery = query.trim();
+    final myToken = ++_searchRequestToken;
 
     if (trimmedQuery.isEmpty) {
       _searchResults = [];
@@ -98,6 +105,7 @@ class SearchCubit extends Cubit<SearchState> {
 
     final cachedResults = LocalAppStorage.getCachedSearchResults(trimmedQuery);
     if (cachedResults != null) {
+      if (_searchRequestToken != myToken) return;
       _searchResults = cachedResults;
       _isSearchLoading = false;
       _searchError = null;
@@ -111,6 +119,7 @@ class SearchCubit extends Cubit<SearchState> {
 
     final result = await _repository.searchTerms(trimmedQuery);
     if (isClosed) return;
+    if (_searchRequestToken != myToken) return;
 
     final terms = result.fold<List<TermModel>?>(
       (failure) {

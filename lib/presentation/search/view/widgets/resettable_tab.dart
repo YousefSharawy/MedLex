@@ -1,7 +1,7 @@
 // lib/view_model/cubit/resettable_tab_state.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/presentation/search/viewModel/cubit/navigation_cubit.dart';
+import 'package:medlex/presentation/search/viewModel/cubit/navigation_cubit.dart';
 
 mixin ResettableTabState<T extends StatefulWidget> on State<T> {
   int get tabIndex;

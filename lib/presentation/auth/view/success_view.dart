@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class SuccessView extends StatelessWidget {
   final AnimationController controller;
@@ -40,7 +40,7 @@ class SuccessView extends StatelessWidget {
               child: Icon(
                 Icons.check_rounded,
                 size: 36.sp,
-                color: ColorManager.primary,
+                color: ColorManager.primaryTeal,
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class SuccessView extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onStartLearning,
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorManager.primary,
+                backgroundColor: ColorManager.primaryTeal,
                 foregroundColor: ColorManager.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppRadius.s14),

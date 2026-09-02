@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/dictionary/view/widgets/azListView/az_build_result.dart';
+import 'package:medlex/domain/models.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_build_result.dart';
 import 'package:azlistview/azlistview.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/azListView/az_item.dart';
 
 part 'az_list_state.dart';
 part 'az_list_cubit.freezed.dart';
@@ -13,15 +14,39 @@ class AzListCubit extends Cubit<AzListState> {
   String? _lastCategory;
   bool _lastHasMore = false;
 
-  AzListCubit() : super(const AzListState.initial());
+  AzListCubit() : super(const AzListState());
 
+  // ==================== PUBLIC API ====================
+  void prepareAzData({
+    required List<TermModel> terms,
+    required String selectedCategory,
+    required bool hasMore,
+    required bool isAllCategory,
+  }) {
+    final result = buildAzItems(
+      terms: terms,
+      selectedCategory: selectedCategory,
+      hasMore: hasMore,
+      isAllCategory: isAllCategory,
+    );
+    emit(state.copyWith(
+      azItems: result.items,
+      availableLetters: result.availableLetters,
+    ));
+  }
+
+  void setNavigating(bool value) {
+    if (state.isNavigating == value) return;
+    emit(state.copyWith(isNavigating: value));
+  }
+
+  // ==================== CACHE ====================
   AzBuildResult buildAzItems({
     required List<TermModel> terms,
     required String selectedCategory,
     required bool hasMore,
     required bool isAllCategory,
   }) {
-    // Return cached result if nothing changed
     if (_cachedResult != null &&
         _lastCategory == selectedCategory &&
         _cachedTermsLength == terms.length &&
@@ -53,13 +78,10 @@ class AzListCubit extends Cubit<AzListState> {
     _lastCategory = null;
   }
 
-  bool shouldRebuildData(String newCategory) {
-    return _lastCategory != newCategory;
-  }
+  // ==================== CLOSE ====================
 
   @override
   Future<void> close() {
-    // Clear cache to free memory
     invalidateCache();
     return super.close();
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:transly/presentation/search/view/widgets/presistent_search_bar.dart';
-import 'package:transly/presentation/resources/color_manager.dart';
-import 'package:transly/presentation/resources/font_manager.dart';
-import 'package:transly/presentation/resources/style_manager.dart';
-import 'package:transly/presentation/resources/values_manager.dart';
+import 'package:medlex/presentation/search/view/widgets/persistent_search_bar.dart';
+import 'package:medlex/app/resources/color_manager.dart';
+import 'package:medlex/app/resources/font_manager.dart';
+import 'package:medlex/app/resources/style_manager.dart';
+import 'package:medlex/app/resources/values_manager.dart';
 
 class DictionaryHeader extends StatelessWidget {
   final bool isSearching;

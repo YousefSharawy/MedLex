@@ -4,21 +4,6 @@ part of 'terms_cubit.dart';
 class TermsState with _$TermsState {
   const factory TermsState.initial() = _TermsInitial;
 
-  // ==================== FAVORITES ====================
-const factory TermsState.favoritesLoading() = FavoritesLoading;
-  const factory TermsState.favoritesUpdated({
-    @Default([]) List<int> favoriteIds,
-  }) = FavoritesUpdated;
-
-  const factory TermsState.favoritesLoaded(List<TermModel> favorites) =
-      FavoritesLoaded;
-
-  // ==================== RECENTLY VIEWED ====================
-
-  const factory TermsState.recentlyViewedUpdated({
-    @Default([]) List<TermModel> recentlyViewed,
-  }) = RecentlyViewedUpdated;
-
   // ==================== ALL TERMS ====================
 
   const factory TermsState.allTermsLoading() = AllTermsLoading;

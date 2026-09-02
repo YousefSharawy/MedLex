@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/presentation/dictionary/view/widgets/terms_list_with_sidebar.dart';
-import 'package:transly/app/ui_utiles.dart';
-import 'package:transly/app/di.dart';
-import 'package:transly/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
+import 'package:medlex/cubit/terms_cubit.dart';
+import 'package:medlex/presentation/dictionary/view/widgets/terms_list_with_sidebar.dart';
+import 'package:medlex/app/ui_utils.dart';
+import 'package:medlex/app/di.dart';
+import 'package:medlex/presentation/dictionary/viewModel/cubit/az_list_cubit.dart';
 
 class TermsContentView extends StatelessWidget {
   final String selectedCategory;
@@ -56,7 +56,7 @@ class TermsContentView extends StatelessWidget {
 
     if (state is AllTermsLoaded) {
       if (state.terms.isEmpty) {
-        return UiUtils.emptyWidget(message: 'No terms found');
+        return UiUtils.emptyWidget(message: 'No terms found',subMessage:  "Try searching with a different keyword or check spelling");
       }
 
       return BlocProvider(
@@ -90,6 +90,7 @@ class TermsContentView extends StatelessWidget {
       if (state.terms.isEmpty) {
         return UiUtils.emptyWidget(
           message: 'No terms found in $selectedCategory',
+          subMessage:  "Try searching with a different keyword or check spelling",
         );
       }
 

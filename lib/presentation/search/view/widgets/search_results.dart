@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:transly/cubit/terms_cubit.dart';
-import 'package:transly/domain/models.dart';
-import 'package:transly/presentation/home/view/widgets/recently_view_item.dart';
-import 'package:transly/presentation/resources/routes.dart';
+import 'package:medlex/app/widgets/term_item.dart';
+import 'package:medlex/domain/models.dart';
 
 class SearchResults extends StatelessWidget {
   const SearchResults({super.key, required this.terms});
@@ -18,12 +14,9 @@ class SearchResults extends StatelessWidget {
       itemCount: terms.length,
       itemBuilder: (_, index) {
         final term = terms[index];
-        return RecentlyViewedItem(
+        return TermItem(
           term: term,
-          onTap: () {
-            context.read<TermsCubit>().addToRecentlyViewed(term);
-            context.push(Routes.termDetails, extra: term);
-          },
+        
         );
       },
     );

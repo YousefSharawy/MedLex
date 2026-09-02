@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:transly/domain/repository.dart';
+import 'package:medlex/domain/repository.dart';
 
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _repository.initializeAuth();
 
     result.fold(
-      (failture) => _safeEmit(AuthState.error(message: failture.message)),
+      (failure) => _safeEmit(AuthState.error(message: failure.message)),
       (status) {
         if (status.isAuthenticated) {
           _safeEmit(AuthState.authenticated(
@@ -45,12 +45,12 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _repository.signInWithGoogle();
 
     result.fold(
-      (failture) {
-        if (failture.message.contains('cancelled')) {
+      (failure) {
+        if (failure.message.contains('cancelled')) {
           final status = _repository.currentAuthStatus;
           _safeEmit(AuthState.anonymous(userId: status.id));
         } else {
-          _safeEmit(AuthState.error(message: failture.message));
+          _safeEmit(AuthState.error(message: failure.message));
         }
       },
       (status) {
@@ -75,7 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _repository.signOut();
 
     result.fold(
-      (failture) => _safeEmit(AuthState.error(message: failture.message)),
+      (failure) => _safeEmit(AuthState.error(message: failure.message)),
       (_) {
         final status = _repository.currentAuthStatus;
         _safeEmit(AuthState.anonymous(userId: status.id));
