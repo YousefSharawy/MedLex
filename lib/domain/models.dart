@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'models.freezed.dart';
@@ -22,7 +23,7 @@ class TermModel with _$TermModel {
     @JsonKey(name: 'category') @Default('General') String category,
     @JsonKey(name: 'cloudinary_public_id') String? cloudinaryPublicId,
     @JsonKey(name: 'has_image') @Default(false) bool hasImage,
-    @JsonKey(ignore: true) @Default(false) bool isSaved,
+    @JsonKey(includeFromJson: false, includeToJson: false) @Default(false) bool isSaved,
   }) = _TermModel;
 
   factory TermModel.fromJson(Map<String, dynamic> json) => _$TermModelFromJson(json);

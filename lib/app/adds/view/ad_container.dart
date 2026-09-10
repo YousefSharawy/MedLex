@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,8 @@ class BannerAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Ads are Android-only for now.
+    if (!Platform.isAndroid) return const SizedBox.shrink();
     return BlocProvider(
       create: (_) => AdCubit(getIt<AdViewModel>())..loadBanner(),
       child: BlocBuilder<AdCubit, AdState>(

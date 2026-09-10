@@ -15,7 +15,7 @@ class EmptyHint extends StatelessWidget {
         text,
         style: getRegularStyle(
           fontSize: FontSize.s12,
-          color: ColorManager.secondaryText.withOpacity(0.7),
+          color: ColorManager.secondaryText.withValues(alpha: 0.7),
         ),
       ),
     );

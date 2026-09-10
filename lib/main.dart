@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: '.env');
-  await MobileAds.instance.initialize();
+  // Ads are Android-only for now; skip SDK init on iOS entirely.
+  if (Platform.isAndroid) {
+    await MobileAds.instance.initialize();
+  }
 
   await Supabase.initialize(
     url: "${dotenv.env['SUPABASE_URL']}",

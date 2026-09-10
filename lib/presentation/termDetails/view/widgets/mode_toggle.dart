@@ -42,7 +42,7 @@ class ModeToggle extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppRadius.s28),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),

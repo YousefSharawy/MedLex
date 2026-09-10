@@ -13,7 +13,7 @@ class AzIndexBarConfig extends IndexBarOptions {
           indexHintOffset: const Offset(-20, 0),
           selectItemDecoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: ColorManager.primaryTeal.withOpacity(0.3),
+            color: ColorManager.primaryTeal.withValues(alpha: 0.3),
           ),
           textStyle: getRegularStyle(
             fontSize: FontSize.s9,

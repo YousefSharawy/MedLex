@@ -238,7 +238,7 @@ context.read<SearchCubit>().clearSearchResults();
                       width: AppWidth.s36,
                       height: AppHeight.s36,
                       decoration: BoxDecoration(
-                        color: ColorManager.grey.withOpacity(0.1),
+                        color: ColorManager.grey.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

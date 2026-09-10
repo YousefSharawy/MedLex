@@ -174,6 +174,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
     azCubit.invalidateCache();
     _prepareAzData(); // triggers BlocBuilder rebuild with new azItems
     final letter = state.letterJustLoaded!;
+    final termsCubit = context.read<TermsCubit>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
@@ -182,7 +183,7 @@ class _TermsListWithSidebarState extends State<TermsListWithSidebar>
         Future.delayed(AzListConstants.scrollDuration, () {
           if (mounted) {
             azCubit.setNavigating(false);
-            context.read<TermsCubit>().clearLetterJustLoaded();
+            termsCubit.clearLetterJustLoaded();
             _azTermsListKey.currentState?.onScrollToLetterComplete(letter);
           }
         });

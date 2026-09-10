@@ -235,7 +235,7 @@ Widget build(BuildContext context) {
                           decoration: isActive
                               ? BoxDecoration(
                                   color:
-                                      ColorManager.primaryTeal.withOpacity(0.15),
+                                      ColorManager.primaryTeal.withValues(alpha: 0.15),
                                   shape: BoxShape.circle,
                                 )
                               : null,
@@ -246,7 +246,7 @@ Widget build(BuildContext context) {
                               fontFamily: FontConstants.interFamily,
                               color: (isAvailable || widget.hasMore)
                                   ? ColorManager.primaryTeal
-                                  : ColorManager.primaryTeal.withOpacity(0.25),
+                                  : ColorManager.primaryTeal.withValues(alpha: 0.25),
                             ),
                           ),
                         ),
