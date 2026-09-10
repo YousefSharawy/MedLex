@@ -59,8 +59,8 @@ class _TermDetailsViewState extends State<TermDetailsView>
         _transformController.value != Matrix4.identity()
             ? Matrix4.identity()
             : Matrix4.identity()
-          ..translate(-position.dx * translateMultiplier, -position.dy * translateMultiplier)
-          ..scale(targetScale);
+          ..translateByDouble(-position.dx * translateMultiplier, -position.dy * translateMultiplier, 0, 1)
+          ..scaleByDouble(targetScale, targetScale, targetScale, 1);
 
     _animateZoom(endMatrix);
   }

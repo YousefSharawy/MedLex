@@ -39,7 +39,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadius.s32),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               blurRadius: 4,
               offset: const Offset(0, 4),
               spreadRadius: 0,
@@ -75,6 +75,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   if (authCubit.isAnonymous) {
                     final result = await LoginBottomSheet.show(context);
                     if (result != true) return;
+                    if (!context.mounted) return;
                   }
                   _onTap(context, 2);
                 },

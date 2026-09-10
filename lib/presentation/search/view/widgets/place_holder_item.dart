@@ -26,7 +26,7 @@ class PlaceHolderItem extends StatelessWidget {
             width: AppWidth.s59,
             height: AppHeight.s66,
             decoration: BoxDecoration(
-              color: ColorManager.grey.withOpacity(0.2),
+              color: ColorManager.grey.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(AppRadius.s8),
             ),
           ),
@@ -49,7 +49,7 @@ class PlaceHolderItem extends StatelessWidget {
                   style: getRegularStyle(
                     fontSize: FontSize.s12,
                     fontFamily: FontConstants.interFamily,
-                    color: ColorManager.secondaryText.withOpacity(0.7),
+                    color: ColorManager.secondaryText.withValues(alpha: 0.7),
                   ),
                 ),
               ],

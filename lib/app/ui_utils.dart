@@ -124,7 +124,7 @@ class UiUtils {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: ColorManager.grey.withOpacity(0.3),
+        color: ColorManager.grey.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.s8),
       ),
     );
@@ -338,7 +338,7 @@ class UiUtils {
       height: height ?? AppHeight.s144,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorManager.tealSoft.withOpacity(0.3),
+        color: ColorManager.tealSoft.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(AppRadius.s12),
       ),
       child: Column(
@@ -347,7 +347,7 @@ class UiUtils {
           Icon(
             Icons.now_wallpaper_outlined,
             size: 50.sp,
-            color: ColorManager.graySecondaryText.withOpacity(0.5),
+            color: ColorManager.graySecondaryText.withValues(alpha: 0.5),
           ),
           SizedBox(height: AppHeight.s8),
           Text(
@@ -355,7 +355,7 @@ class UiUtils {
             style: getRegularStyle(
               fontSize: FontSize.s12,
               fontFamily: FontConstants.interFamily,
-              color: ColorManager.secondaryText.withOpacity(0.7),
+              color: ColorManager.secondaryText.withValues(alpha: 0.7),
             ),
           ),
         ],
